@@ -1,0 +1,46 @@
+# docker-compose.yml
+# https://alysivji.github.io/php-mysql-docker-containers.html
+
+#    We use port-forwarding to connect to the inside of containers from our local machine.
+#        webserver: http://localhost:8100
+#        db: mysql://devuser:devpass@localhost:9906/test_db
+#    Our local directory, ./php, is mounted inside of the webserver container as /var/www/html/
+#        The files within in our local folder will be served when we access the website inside of the container
+
+
+version: "3.8"
+services:
+  frontend:
+    container_name: store_front
+    build: ./front  
+    image: store_front
+    working_dir: /usr/src/store/front
+    ports:
+      - "3000:2999"
+    volumes:
+      - ./front:/usr/src/store/front
+      - /usr/src/store/front/node_modules
+  backend:
+    container_name: store_server
+    build: ./server
+    image: store_server
+    working_dir: /var/www/html
+    volumes:
+      - ./server:/var/www/html
+    links:
+     - db    
+    ports:
+      - "5000:80"
+    stdin_open: true
+    tty: true
+  db:
+    container_name: store_database
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: u159062377_news
+      MYSQL_USER: u159062377_user
+      MYSQL_PASSWORD: 123123
+    ports:
+      - "9906:3306"    
+        

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="node_modules/mocha/mocha.css">
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="node_modules/mocha/mocha.js"></script>
+    <script src="node_modules/chai/chai.js"></script>
+    <script src="node_modules/chai-http/dist/chai-http.js"></script>
+
+
+    <script>
+       chai.use(chaiHttp);
+      var expect = chai.expect;
+      var should = chai.should();
+    mocha.setup('bdd')
+    </script>
+
+    <!-- load code you want to test here -->
+    <!-- Import the sum function
+    <script src="test/amco/login.js"></script>
+    <script src="test/amco/login.test.js"></script>
+     -->
+
+    <!-- Import the sum function -->
+    <script src="test/local/sum/sum.js"></script>
+    <script src="test/local/sum/sum.test.js"></script>
+    <!-- load your test files here -->
+
+
+
+
+
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>
+
+
+
+<!doctype html>
+<html>
+
+
