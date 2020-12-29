@@ -4,7 +4,7 @@
 front/node_modules/
 front/tests/store/data/*.json
 front/tests/store/token/*.json
-front/tests/store/reports/assets
+front/tests/store/reports/assets/
 front/tests/store/reports/*.html
 front/tests/store/reports/*.json
 # testing
