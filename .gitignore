@@ -2,7 +2,7 @@
 
 # dependencies
 front/node_modules/
-front/tests/store/data/
+front/tests/store/data/*.json
 front/tests/store/token/*.json
 # testing
 /coverage
