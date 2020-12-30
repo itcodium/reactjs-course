@@ -14,12 +14,23 @@ import USER from '../../redux/actions/user'
 function SignUp(props) {
     const { classes, state } = props;
     const dispatch = useDispatch();
-    const [form, setForm] = useState({})
+    const [form, setForm] = useState({
+        nombre: {},
+        apellido: {},
+        telefono: {},
+        email: {},
+        passwordConfirm: {},
+        password: {}
+    })
     ValidateForm.setForm = setForm;
     const getUser = () => {
         return {
-            "user_name": form.user.value,
-            "password": form.password.value
+            "nombre": form.nombre.value,
+            "apellido": form.apellido.value,
+            "telefono": form.phone.value,
+            "password": form.password.value,
+            "passwordConfirm": form.passwordConfirm.value,
+            "email": form.email.value,
         }
     }
     return (
@@ -37,9 +48,11 @@ function SignUp(props) {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="firstName"
+                                id="nombre"
                                 label="First Name"
                                 name="nombre"
+                                error={form.nombre.error}
+                                helperText={form.nombre.message}
                                 onChange={ValidateForm.handleChange}
                                 autoFocus
                             />
@@ -49,9 +62,11 @@ function SignUp(props) {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="lastName"
+                                id="apellido"
                                 label="Last Name"
                                 name="apellido"
+                                error={form.apellido.error}
+                                helperText={form.apellido.message}
                                 onChange={ValidateForm.handleChange}
                                 autoComplete="lname"
                             />
@@ -64,6 +79,9 @@ function SignUp(props) {
                                 id="email"
                                 label="Email Address"
                                 name="email"
+                                error={form.email.error}
+                                helperText={form.email.message}
+                                type="email"
                                 autoComplete="email"
                                 onChange={ValidateForm.handleChange}
                             />
@@ -76,9 +94,12 @@ function SignUp(props) {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                id="phone"
+                                id="telefono"
                                 label="Phone"
-                                name="phone"
+                                name="telefono"
+                                type="tel"
+                                error={form.telefono.error}
+                                helperText={form.telefono.message}
                                 autoComplete="phone"
                                 onChange={ValidateForm.handleChange}
                             />
@@ -88,10 +109,13 @@ function SignUp(props) {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                name="password"
+
                                 label="Password"
                                 type="password"
                                 id="password"
+                                name="password"
+                                error={form.password.error}
+                                helperText={form.password.message}
                                 onChange={ValidateForm.handleChange}
                                 autoComplete="current-password"
                             />
@@ -101,10 +125,13 @@ function SignUp(props) {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                name="confirmPassword"
+
                                 label="Confirm password"
                                 type="password"
-                                id="confirmPassword"
+                                id="passwordConfirm"
+                                name="passwordConfirm"
+                                error={form.passwordConfirm.error}
+                                helperText={form.passwordConfirm.message}
                                 onChange={ValidateForm.handleChange}
                                 autoComplete="confirm-password"
                             />

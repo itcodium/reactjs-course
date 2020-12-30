@@ -1,4 +1,6 @@
 import isEmail from 'validator/lib/isEmail';
+import isMobilePhone from 'validator/lib/isMobilePhone';
+
 
 class ValidateForm {
     static hasError(form) {
@@ -20,6 +22,12 @@ class ValidateForm {
                 field.message = "Email no valido";
                 field.error = true;
             }
+            if (type === "tel" && !isMobilePhone(value)) {
+                field.message = "El numero es invalido no valido";
+                field.error = true;
+            }
+
+
         }
         this.setForm(prevState => ({
             ...prevState,

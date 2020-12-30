@@ -66,11 +66,11 @@ function Login(props) {
                                 margin="normal"
                                 required
                                 fullWidth
-                                error={form.email.error}
                                 id="email"
-                                label="Email Address"
-                                helperText={form.email.message}
                                 name="email"
+                                label="Email Address"
+                                error={form.email.error}
+                                helperText={form.email.message}
                                 type="email"
                                 autoComplete="email"
                                 autoFocus
