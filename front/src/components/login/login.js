@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
@@ -19,7 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import styles from './login.style.js';
 import LOGIN from '../../redux/actions/login'
 import LoginService from '../../services/LoginService'
-
+import ValidateForm from '../../services/validateForm'
 
 
 function Login(props) {
@@ -27,17 +27,12 @@ function Login(props) {
     const { classes, state } = props;
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const dispatch = useDispatch();
-    const [data, setData] = useState({
-        user: "",
-        password: ""
+    const [form, setForm] = useState({
+        user: {},
+        password: {}
     })
-    const handleChange = (e) => {
-        const { id, value } = e.target
-        setData(prevState => ({
-            ...prevState,
-            [id]: value
-        }))
-    }
+    ValidateForm.setForm = setForm;
+
     useEffect(() => {
         if (service.isLoggedIn()) {
             setShouldRedirect(true)
@@ -71,16 +66,21 @@ function Login(props) {
                                 margin="normal"
                                 required
                                 fullWidth
+                                error={form.user.error}
                                 id="user"
                                 label="Email Address"
+                                helperText={form.user.message}
                                 name="user"
+                                type="email"
                                 autoComplete="email"
                                 autoFocus
-                                onChange={handleChange}
+                                onChange={ValidateForm.handleChange}
                             />
                             <TextField
                                 variant="outlined"
                                 margin="normal"
+                                error={form.password.error}
+                                helperText={form.password.message}
                                 required
                                 fullWidth
                                 name="password"
@@ -88,7 +88,7 @@ function Login(props) {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                onChange={handleChange}
+                                onChange={ValidateForm.handleChange}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
@@ -100,11 +100,11 @@ function Login(props) {
                                 type="button"
                                 variant="contained"
                                 color="primary"
-                                disabled={state.loading}
+                                disabled={state.loading || ValidateForm.hasError(form)}
                                 onClick={() => {
                                     const payload = {
-                                        "user_name": data.user,
-                                        "password": data.password
+                                        "user_name": form.user.value,
+                                        "password": form.password.value
                                     }
                                     dispatch(LOGIN.check(payload))
                                 }}
@@ -133,7 +133,6 @@ function Login(props) {
             </div>
         </Container>
     }
-
 }
 
 const mapStateToProps = state => {

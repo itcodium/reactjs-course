@@ -1,5 +1,5 @@
 
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import LOGIN from '../redux/types/login';
 import apiCall from '../redux/api';
 
@@ -10,7 +10,7 @@ function* checkLogin(params) {
         const response = yield call(apiCall, urlLogin, {
             method: 'POST'
         }, params.payload);
-        if (response.status == "ok")
+        if (response.status === "ok")
             yield put({ type: LOGIN.SUCCESS, payload: response });
         else {
             yield put({ type: LOGIN.ERROR, payload: response });

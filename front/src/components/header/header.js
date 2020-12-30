@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { useHistory } from "react-router-dom";
+
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 import styles from './header.styles';
@@ -29,11 +30,13 @@ function Header(props) {
     { path: "", label: "LogOut", onClick: logOut, login: true }
     ];
     const menu = () => {
-        return links.map((link, index) => {
-            if (service.isLoggedIn() === link.login && link.path != location && !link.hide) {
-                return <Link key={index} onClick={link.onClick} href={"#" + link.path}>{link.label}</Link>
-            }
+        const menu = links.filter(link => {
+            return (service.isLoggedIn() === link.login && link.path !== location && !link.hide);
         });
+        return menu.map((link, index) => {
+            return <Link key={index} onClick={link.onClick} href={"#" + link.path}>{link.label}</Link>
+        })
+
     }
     return (<Typography className={classes.menu}>
         {menu()}

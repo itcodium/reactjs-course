@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux'
 import { Route, HashRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
