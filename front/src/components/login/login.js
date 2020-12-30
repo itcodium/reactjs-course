@@ -28,7 +28,7 @@ function Login(props) {
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
-        user: {},
+        email: {},
         password: {}
     })
     ValidateForm.setForm = setForm;
@@ -66,11 +66,11 @@ function Login(props) {
                                 margin="normal"
                                 required
                                 fullWidth
-                                error={form.user.error}
-                                id="user"
+                                error={form.email.error}
+                                id="email"
                                 label="Email Address"
-                                helperText={form.user.message}
-                                name="user"
+                                helperText={form.email.message}
+                                name="email"
                                 type="email"
                                 autoComplete="email"
                                 autoFocus
@@ -103,7 +103,7 @@ function Login(props) {
                                 disabled={state.loading || ValidateForm.hasError(form)}
                                 onClick={() => {
                                     const payload = {
-                                        "user_name": form.user.value,
+                                        "email": form.email.value,
                                         "password": form.password.value
                                     }
                                     dispatch(LOGIN.check(payload))
