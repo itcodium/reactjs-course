@@ -1,36 +1,43 @@
-import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { useHistory } from "react-router-dom";
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 import styles from './header.styles';
 import LOGIN from '../../redux/actions/login'
+import LoginService from '../../services/LoginService'
 
 function Header(props) {
-    const dispatch = useDispatch();
     const { classes } = props;
+    const service = LoginService;
+    const location = useLocation().pathname;
+    let history = useHistory();
+    const dispatch = useDispatch();
 
-    const login = () => {
-        return <Typography className={classes.menu}>
-            <Link href="#/Home">Home</Link>
-            <Link className={classes.menuHover} onClick={() => {
-                dispatch(LOGIN.out())
-            }}>Logout</Link>
-        </Typography >
+    const logOut = (event) => {
+        dispatch(LOGIN.out())
+        history.push('#/Login')
+        event.preventDefault();
     }
-    const nologin = () => {
-        return <Typography className={classes.menu}>
-            <Link href="#/SignUp">SignUp</Link>
-            <Link href="#/Login">Login</Link>
-        </Typography >
+
+    const links = [{ path: "/Home", label: "Home", login: true },
+    { path: "/SignUp", label: "SignUp", login: false, hide: true },
+    { path: "/Login", label: "LogIn", login: false },
+    { path: "", label: "LogOut", onClick: logOut, login: true }
+    ];
+    const menu = () => {
+        return links.map((link, index) => {
+            if (service.isLoggedIn() === link.login && link.path != location && !link.hide) {
+                return <Link key={index} onClick={link.onClick} href={"#" + link.path}>{link.label}</Link>
+            }
+        });
     }
-    return (
-        props.state.payload && props.state.payload.status == "ok" ?
-            login()
-            : nologin()
-    )
+    return (<Typography className={classes.menu}>
+        {menu()}
+    </Typography>)
 }
 
 const mapStateToProps = state => {

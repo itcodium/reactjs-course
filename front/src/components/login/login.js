@@ -23,7 +23,6 @@ import LoginService from '../../services/LoginService'
 
 
 function Login(props) {
-
     const service = LoginService;
     const { classes, state } = props;
     const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -42,9 +41,6 @@ function Login(props) {
     useEffect(() => {
         if (service.isLoggedIn()) {
             setShouldRedirect(true)
-        } else {
-
-            console.log('no login ');
         }
     });
 
@@ -53,9 +49,7 @@ function Login(props) {
         const pathname = (
             locationState && locationState.from && locationState.from.pathname
         );
-        console.log('pathname: ', pathname);
         return pathname;
-
     };
 
     if (shouldRedirect) {
@@ -63,15 +57,12 @@ function Login(props) {
             <Redirect to={redirectPath()} />
         );
     } else {
-
         return <Container component="main" maxWidth="xs">
             <div className={classes.paper}>
                 <Avatar>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography className={classes.title} component="h1" variant="h5">
-                    Sign in
-                    </Typography>
+                <Typography className={classes.title} component="h1" variant="h5">Login</Typography>
                 <Grid item>
                     <form className={classes.form} noValidate>
                         <Grid container>
@@ -103,7 +94,6 @@ function Login(props) {
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             />
-
                         </Grid>
                         <Grid className={classes.actions} item xs={12}>
                             <Button
@@ -116,7 +106,6 @@ function Login(props) {
                                         "user_name": data.user,
                                         "password": data.password
                                     }
-                                    console.log('payload: ', payload);
                                     dispatch(LOGIN.check(payload))
                                 }}
                                 className={classes.submit}
@@ -134,7 +123,7 @@ function Login(props) {
                             </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="#/SignUp" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
@@ -155,20 +144,3 @@ export default compose(
     withStyles(styles),
     connect(mapStateToProps),
 )(Login);
-
-/*
-if (props.state.loading) {
-    return <CircularProgress />
-}
-if (props.state.error) {
-    return <Typography variant="h6" component="h2">
-        Error al obtener el listado.
-  </Typography>
-}
-if (props.state.recipes && props.state.recipes.length) {
-    return  <Typography variant="h6" component="h2">
-    login ok
-</Typography>
-}
-
-*/
