@@ -4,34 +4,44 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 
 class ValidateForm {
     static hasError(form) {
-        return Object.keys(form).find(key => {
-            return form[key].error === true
+        return !!Object.keys(form).find(key => {
+            return form[key].valid != true && form[key].required != false;
         })
     }
-    static handleChange = (e) => {
-        const { id, value, required, type } = e.target;
+    static getField(field) {
+        field.invalid = !field.valid;
+        return field;
+    }
+    static validate = (e) => {
+        const { value, required, type, data } = e.target;
         let field = {
-            value: value
+            value: value,
+            valid: true
         };
         if (required && !value) {
             field.message = "El valor es requerido";
-            field.error = true;
+            field.valid = false;
+            return this.getField(field);
         }
-        if (value) {
+        if (required && value || !required && value) {
             if (type === "email" && !isEmail(value)) {
                 field.message = "Email no valido";
-                field.error = true;
+                field.valid = false;
+                return this.getField(field);
             }
             if (type === "tel" && !isMobilePhone(value)) {
                 field.message = "El numero es invalido no valido";
-                field.error = true;
+                field.valid = false;
+                return this.getField(field);
             }
-
-
         }
+        return this.getField(field);
+    }
+    static handleChange = (e) => {
+        const { id } = e.target;
         this.setForm(prevState => ({
             ...prevState,
-            [id]: field,
+            [id]: this.validate(e),
         }))
     }
 }

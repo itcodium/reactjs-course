@@ -1,6 +1,6 @@
 import LOGIN from '../types/login'
 import LoginService from '../../services/LoginService';
-const localUser = localStorage.getItem('user') || {};
+const localUser = localStorage.getItem('user') || null;
 let jsonUser = null;
 if (localUser) {
     jsonUser = JSON.parse(localUser);

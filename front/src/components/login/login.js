@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
-import { connect } from 'react-redux';
-import { useDispatch } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -69,7 +68,7 @@ function Login(props) {
                                 id="email"
                                 name="email"
                                 label="Email Address"
-                                error={form.email.error}
+                                error={form.email.invalid}
                                 helperText={form.email.message}
                                 type="email"
                                 autoComplete="email"
@@ -79,7 +78,7 @@ function Login(props) {
                             <TextField
                                 variant="outlined"
                                 margin="normal"
-                                error={form.password.error}
+                                error={form.password.invalid}
                                 helperText={form.password.message}
                                 required
                                 fullWidth

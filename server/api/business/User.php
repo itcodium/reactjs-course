@@ -92,8 +92,11 @@ class UserBus
 
     public static function insert(){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
             $parameters =self::$app->request->getJsonRawBody();
+            $parameters->usuario=explode("@", $parameters->email)[0];
+            $parameters->vigencia_desde=date("Y-m-d");
+            $parameters->vigencia_hasta=date('Y-m-d', strtotime('+5 years'));
+            $parameters->id_perfil=1;
             $data=self::$item->insert($parameters);
             self::$response->data($data);
         }catch(exception $e) {
