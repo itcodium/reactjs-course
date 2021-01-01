@@ -5,7 +5,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 class ValidateForm {
     static hasError(form) {
         return !!Object.keys(form).find(key => {
-            return form[key].valid != true && form[key].required != false;
+            return form[key].valid !== true && form[key].required !== false;
         })
     }
     static getField(field) {
@@ -13,7 +13,7 @@ class ValidateForm {
         return field;
     }
     static validate = (e) => {
-        const { value, required, type, data } = e.target;
+        const { value, required, type } = e.target;
         let field = {
             value: value,
             valid: true
@@ -23,7 +23,7 @@ class ValidateForm {
             field.valid = false;
             return this.getField(field);
         }
-        if (required && value || !required && value) {
+        if ((required && value) || (!required && value)) {
             if (type === "email" && !isEmail(value)) {
                 field.message = "Email no valido";
                 field.valid = false;

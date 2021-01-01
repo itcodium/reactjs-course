@@ -96,7 +96,8 @@ class UserBus
             $parameters->usuario=explode("@", $parameters->email)[0];
             $parameters->vigencia_desde=date("Y-m-d");
             $parameters->vigencia_hasta=date('Y-m-d', strtotime('+5 years'));
-            $parameters->id_perfil=1;
+            $parameters->id_perfil=35;
+            $parameters->creado_por="store";
             $data=self::$item->insert($parameters);
             self::$response->data($data);
         }catch(exception $e) {

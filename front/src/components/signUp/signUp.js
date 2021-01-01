@@ -4,14 +4,14 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import { FormControl } from '@material-ui/core';
 import { FormHelperText } from '@material-ui/core';
-import compose from 'recompose/compose';
-
-
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import compose from 'recompose/compose';
 import styles from './signUp.style.js';
 import ValidateForm from '../../services/validateForm'
 import USER from '../../redux/actions/user'
@@ -41,7 +41,7 @@ function SignUp(props) {
     }
 
     const passwordsMatch = () => {
-        if (form.password.value == form.passwordConfirm.value) {
+        if (form.password.value === form.passwordConfirm.value) {
             return true;
         }
         return false;
@@ -119,7 +119,6 @@ function SignUp(props) {
                                 <TextField
                                     variant="outlined"
                                     fullWidth
-                                    type="number"
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -185,13 +184,13 @@ function SignUp(props) {
         );
     } else {
         console.log('state.payload.status: ', state.payload.status);
-        if (state.payload.status == "ok") {
+        if (state.payload.status === "ok") {
             return <Container maxWidth="sm" component="main" className={classes.heroContent}>
                 <Typography className={classes.ok} component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                     Alta exitosa
             </Typography>
                 <Typography variant="h5" align="center" color="textSecondary" component="p">
-                    Revisar su email para activar la cuenta.
+                    Click <Link href={"#/Login"}>Login</Link> para ingresar al sistema.
             </Typography>
             </Container>
         }
