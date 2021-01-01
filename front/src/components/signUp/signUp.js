@@ -54,13 +54,6 @@ function SignUp(props) {
         }
     }
 
-    useEffect(() => {
-        console.log('state: ', state);
-
-
-
-    });
-
     if (!state.payload || state.payload.status !== "ok") {
         return (
             <Container component="main" maxWidth="xs">
