@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import PrivateRoute from './services/PrivateRoute'
 import Home from './components/home/home'
 import Header from './components/header/header'
-import ProductDetail from './components/products/productDetail'
+import ProductDetail from './modules/shopping/user/products/productDetail'
 import Login from './components/login/login'
 import SignUp from './components/signUp/signUp.js';
 import styles from './App.styles';

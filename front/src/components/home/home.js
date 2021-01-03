@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from '../../App.styles';
 import productsData from '../../data/products'
-import ProductList from '../products/productList.js'
+import ProductList from '../../modules/shopping/user/products/productList.js'
 
 function Home(props) {
     const { classes } = props;
