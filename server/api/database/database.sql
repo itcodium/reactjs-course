@@ -37,7 +37,7 @@ CREATE TABLE `hr_app_modulo` (
   PRIMARY KEY (`id_modulo`),
   UNIQUE KEY `modulo_UNIQUE` (`modulo`),
   UNIQUE KEY `codigo_UNIQUE` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='Modulos del sistema';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='Modulos del sistema';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `hr_app_modulo` (
 
 LOCK TABLES `hr_app_modulo` WRITE;
 /*!40000 ALTER TABLE `hr_app_modulo` DISABLE KEYS */;
-INSERT INTO `hr_app_modulo` VALUES (16,'USER','Usuario','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:26',NULL,NULL),(19,'MODULE','Modulo','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:40',NULL,NULL),(21,'PERFIL','Perfil','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:40',NULL,NULL),(22,'PERFIL_MODULE','PerfilModulo','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:40','Test','2016-09-26 00:51:54'),(23,'MENU','Menu','2016-01-01 00:00:00','2050-01-01 00:00:00','test','2016-09-28 04:41:12',NULL,NULL),(31,'CLIENT','Client','2020-01-01 00:00:00','2030-12-31 00:00:00','test.module','2020-07-05 19:48:31',NULL,NULL),(32,'INGLES','Ingles','2020-01-01 00:00:00','2030-01-01 00:00:00','test','2020-01-01 00:00:00',NULL,NULL);
+INSERT INTO `hr_app_modulo` VALUES (16,'USER','Usuario','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:26',NULL,NULL),(19,'MODULE','Modulo','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:40',NULL,NULL),(21,'PERFIL','Perfil','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:40',NULL,NULL),(22,'PERFIL_MODULE','PerfilModulo','2016-06-01 00:00:00','2018-06-01 00:00:00','dbo','2016-07-30 20:34:40','Test','2016-09-26 00:51:54'),(23,'MENU','Menu','2016-01-01 00:00:00','2050-01-01 00:00:00','test','2016-09-28 04:41:12',NULL,NULL),(31,'CLIENT','Client','2020-01-01 00:00:00','2030-12-31 00:00:00','test.module','2020-07-05 19:48:31',NULL,NULL),(32,'INGLES','Ingles','2020-01-01 00:00:00','2030-01-01 00:00:00','test','2020-01-01 00:00:00',NULL,NULL),(33,'STORE','store','2020-01-01 00:00:00','2030-01-01 00:00:00','curso','2021-01-01 00:00:00',NULL,NULL);
 /*!40000 ALTER TABLE `hr_app_modulo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `hr_app_perfil` (
   `fecha_modificacion` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_perfil`),
   UNIQUE KEY `perfil_UNIQUE` (`perfil`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='Perfiles de seguridad';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='Perfiles de seguridad';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `hr_app_perfil` (
 
 LOCK TABLES `hr_app_perfil` WRITE;
 /*!40000 ALTER TABLE `hr_app_perfil` DISABLE KEYS */;
-INSERT INTO `hr_app_perfil` VALUES (1,'Administrador','2016-06-01 00:00:00','2020-06-01 00:00:00','-1','2016-06-01 21:23:41',NULL,NULL),(22,'usuario','2016-01-01 00:00:00','2018-01-01 00:00:00','test','2016-09-28 04:14:11',NULL,NULL),(23,'nada','2016-01-01 00:00:00','2020-01-01 00:00:00','test','2016-09-28 04:29:20',NULL,NULL),(33,'Client','2020-01-01 00:00:00','2030-12-31 00:00:00','test.module','2020-07-05 19:48:31',NULL,NULL),(34,'Ingles','2020-01-01 00:00:00','2030-01-01 00:00:00','test','2020-01-01 00:00:00',NULL,NULL);
+INSERT INTO `hr_app_perfil` VALUES (1,'Administrador','2016-06-01 00:00:00','2020-06-01 00:00:00','-1','2016-06-01 21:23:41',NULL,NULL),(22,'usuario','2016-01-01 00:00:00','2018-01-01 00:00:00','test','2016-09-28 04:14:11',NULL,NULL),(23,'nada','2016-01-01 00:00:00','2020-01-01 00:00:00','test','2016-09-28 04:29:20',NULL,NULL),(33,'Client','2020-01-01 00:00:00','2030-12-31 00:00:00','test.module','2020-07-05 19:48:31',NULL,NULL),(34,'Ingles','2020-01-01 00:00:00','2030-01-01 00:00:00','test','2020-01-01 00:00:00',NULL,NULL),(35,'store-user','2020-01-01 00:00:00','2030-01-01 00:00:00','curso','2021-01-01 00:00:00',NULL,NULL),(36,'store-admin','2020-01-01 00:00:00','2030-01-01 00:00:00','curso','2021-01-01 00:00:00',NULL,NULL);
 /*!40000 ALTER TABLE `hr_app_perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,7 @@ CREATE TABLE `hr_app_perfil_modulo` (
   KEY `FK_Id_modulo_idx` (`id_modulo`),
   CONSTRAINT `FK_Id_modulo` FOREIGN KEY (`id_modulo`) REFERENCES `hr_app_modulo` (`id_modulo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_id_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `hr_app_perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='Relacion perfiles-modulo';
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='Relacion perfiles-modulo';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +112,7 @@ CREATE TABLE `hr_app_perfil_modulo` (
 
 LOCK TABLES `hr_app_perfil_modulo` WRITE;
 /*!40000 ALTER TABLE `hr_app_perfil_modulo` DISABLE KEYS */;
-INSERT INTO `hr_app_perfil_modulo` VALUES (22,1,21,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:27:24'),(23,1,19,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:27:27'),(25,1,16,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:44:30'),(26,1,22,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:27:48'),(36,22,16,1,'test','2016-09-28 04:14:48',NULL,NULL),(37,22,22,0,'test','2016-09-28 04:27:05','test','2016-09-28 04:27:50'),(38,1,23,1,'test','2016-10-09 22:04:14',NULL,NULL);
+INSERT INTO `hr_app_perfil_modulo` VALUES (22,1,21,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:27:24'),(23,1,19,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:27:27'),(25,1,16,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:44:30'),(26,1,22,1,'test','2018-06-01 06:00:00','test','2016-09-26 07:27:48'),(36,22,16,1,'test','2016-09-28 04:14:48',NULL,NULL),(37,22,22,0,'test','2016-09-28 04:27:05','test','2016-09-28 04:27:50'),(38,1,23,1,'test','2016-10-09 22:04:14',NULL,NULL),(39,35,33,1,'curso','2020-01-01 17:58:14',NULL,NULL),(40,36,33,1,'curso','2020-01-01 17:58:14',NULL,NULL);
 /*!40000 ALTER TABLE `hr_app_perfil_modulo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,8 +216,8 @@ CREATE TABLE `hr_app_usuario` (
   `fecha_modificacion` timestamp NULL DEFAULT NULL,
   `lang` varchar(2) DEFAULT 'ES',
   PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `usuario_UNIQUE` (`usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='Tabla de usuarios';
+  UNIQUE KEY `idx_hr_app_usuario_email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='Tabla de usuarios';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +226,7 @@ CREATE TABLE `hr_app_usuario` (
 
 LOCK TABLES `hr_app_usuario` WRITE;
 /*!40000 ALTER TABLE `hr_app_usuario` DISABLE KEYS */;
-INSERT INTO `hr_app_usuario` VALUES (2,'admin','Administrador','Sistema','p.haddad.p@gmail.com','4297f44b13955235245b2497399d7a93',1,'2016-01-01','2030-12-31','dbo','2016-04-27 22:43:09',NULL,NULL,'ES'),(4,'usuario','usuario','usuario','usuario@test.com.ar','4297f44b13955235245b2497399d7a93',22,'2016-01-01','2004-01-01','test','2016-09-28 04:15:34',NULL,NULL,'ES'),(5,'nada','nada','nada','nada@com.ar','4297f44b13955235245b2497399d7a93',23,'2016-01-01','2020-01-01','test','2016-09-28 04:32:48',NULL,NULL,'ES'),(18,'client','Cliente','Cliente','Client@test.com','4297f44b13955235245b2497399d7a93',33,'2020-01-01','2030-12-31','test.module','2020-07-05 19:48:31',NULL,NULL,'ES');
+INSERT INTO `hr_app_usuario` VALUES (2,'admin','Administrador','Sistema','p.haddad.p@gmail.com','4297f44b13955235245b2497399d7a93',1,'2016-01-01','2030-12-31','dbo','2016-04-27 22:43:09',NULL,NULL,'ES'),(4,'usuario','usuario','usuario','usuario@test.com.ar','4297f44b13955235245b2497399d7a93',22,'2016-01-01','2004-01-01','test','2016-09-28 04:15:34',NULL,NULL,'ES'),(5,'nada','nada','nada','nada@com.ar','4297f44b13955235245b2497399d7a93',23,'2016-01-01','2020-01-01','test','2016-09-28 04:32:48',NULL,NULL,'ES'),(18,'client','Cliente','Cliente','Client@test.com','4297f44b13955235245b2497399d7a93',33,'2020-01-01','2030-12-31','test.module','2020-07-05 19:48:31',NULL,NULL,'ES'),(19,'test','test','test','test@gmail.com','4297f44b13955235245b2497399d7a93',1,'2020-12-31','2025-12-31',NULL,'2020-12-31 20:24:39',NULL,NULL,'ES');
 /*!40000 ALTER TABLE `hr_app_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -531,6 +531,35 @@ LOCK TABLES `hr_perfil_busqueda_palabra` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `orders_items`
+--
+
+DROP TABLE IF EXISTS `orders_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders_items` (
+  `id_order_item` int(11) NOT NULL AUTO_INCREMENT,
+  `id_order` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id_order_item`),
+  UNIQUE KEY `order_product_UNIQUE` (`id_order`,`id_product`),
+  KEY `FK_id_product` (`id_product`),
+  CONSTRAINT `FK_id_order` FOREIGN KEY (`id_order`) REFERENCES `st_order` (`id_order`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_id_product` FOREIGN KEY (`id_product`) REFERENCES `st_product` (`id_product`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders_items`
+--
+
+LOCK TABLES `orders_items` WRITE;
+/*!40000 ALTER TABLE `orders_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `robots`
 --
 
@@ -554,6 +583,97 @@ LOCK TABLES `robots` WRITE;
 /*!40000 ALTER TABLE `robots` DISABLE KEYS */;
 INSERT INTO `robots` VALUES (1,'test','test',1991),(2,'C-3PO','droid',1977),(4,'XC-3PO','Del',1977),(5,'XC-3PO','Del',1977);
 /*!40000 ALTER TABLE `robots` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `st_order`
+--
+
+DROP TABLE IF EXISTS `st_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `st_order` (
+  `id_order` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(20) NOT NULL,
+  `updated` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id_order`),
+  UNIQUE KEY `name_email_UNIQUE` (`name`,`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `st_order`
+--
+
+LOCK TABLES `st_order` WRITE;
+/*!40000 ALTER TABLE `st_order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `st_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `st_product`
+--
+
+DROP TABLE IF EXISTS `st_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `st_product` (
+  `id_product` int(11) NOT NULL AUTO_INCREMENT,
+  `sku` varchar(128) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text,
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(20) NOT NULL,
+  `updated` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id_product`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `st_product`
+--
+
+LOCK TABLES `st_product` WRITE;
+/*!40000 ALTER TABLE `st_product` DISABLE KEYS */;
+INSERT INTO `st_product` VALUES (1,'NESE219','Notebook Exo Smart E19 Intel Celeron Ram4gb Ssd64gb Win10 14','¿Llevas tu notebook a todos lados? Con la nueva EXO, tené todas tus fotos y archivos directos en la nube. vas a estar conectado y llevarla en tu mochila a cualquier lado por su exclusivo diseño!',40.00,'2020-01-01 00:00:00','mock',NULL,NULL),(2,'NL145','Notebook Lenovo S145 Intel Celeron N4000 15.6 4gb 1tb Oferta','Diseñada para ofrecer un rendimiento duradero, la IdeaPad S145 ofrece un procesamiento potente y fluido con un diseño elegante y ligero. Perfecta para realizar tus tareas diarias, esta portátil duradera de 15,6” ofrece un magnífico sonido y opciones de almacenamiento seguras y rápidas.',48.57,'2020-01-01 00:00:00','mock',NULL,NULL),(3,'NIC464','Notebook Intel Celeron 4gb Ram 64gb Ssd Windows 10 Home Wifi','Especificaciones técnicas            - Marca: eNova - Procesador: Intel Celeron N3350 - Pantalla: 14 1366x768 HD - RAM: 4GB - SSD: 64GB - Camara frontal: 0.3 Mpx - Touchpad: Multitactil de 5 puntos - Conectividad: Wifi y Bluetooth - Windows 10',35.00,'2020-01-01 00:00:00','mock',NULL,NULL),(4,'NKEC432','Notebook Kiano Elegance Celeron 4gb Ssd32 + Ssd512 W10 Pro','Realizamos Factura A o B. La solicitud de factura A o EXENTO se estipula antes de realizar la compra cambiando los datos que Mercado libre habilita en la sección DATOS PARA SU FACTURA por el CUIT para que queden registrados en la ficha de compra.',53.00,'2020-01-01 00:00:00','mock',NULL,NULL);
+/*!40000 ALTER TABLE `st_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `st_product_images`
+--
+
+DROP TABLE IF EXISTS `st_product_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `st_product_images` (
+  `id_image` int(11) NOT NULL AUTO_INCREMENT,
+  `id_product` int(11) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `description` varchar(512) NOT NULL,
+  `url` varchar(512) NOT NULL,
+  PRIMARY KEY (`id_image`),
+  KEY `FK_id_image_id_product_` (`id_product`),
+  CONSTRAINT `FK_id_image_id_product_` FOREIGN KEY (`id_product`) REFERENCES `st_product` (`id_product`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `st_product_images`
+--
+
+LOCK TABLES `st_product_images` WRITE;
+/*!40000 ALTER TABLE `st_product_images` DISABLE KEYS */;
+INSERT INTO `st_product_images` VALUES (3,1,'.','.','/images/th/1.jpg'),(4,2,'.','.','/images/th/2.jpg'),(5,3,'.','.','/images/th/3.jpg'),(6,4,'.','.','/images/th/4.jpg');
+/*!40000 ALTER TABLE `st_product_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -876,13 +996,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_user`@`127.0.0.1` PROCEDURE `getSessionKeyByUser`(pUserName varchar(20),pPassword varchar(50),pLang varchar(2))
+CREATE DEFINER=`u159062377_user`@`127.0.0.1` PROCEDURE `getSessionKeyByUser`(pEmail varchar(200),pPassword varchar(50),pLang varchar(2))
 BEGIN
 	
     
@@ -908,7 +1028,7 @@ BEGIN
      SELECT id_usuario
 		INTO vId_usuario  
     FROM hr_app_usuario
-	WHERE usuario=pUserName and password=pPassword;
+	WHERE email=pEmail and password=pPassword;
     
     IF vId_usuario  IS NOT NULL THEN 
     
@@ -2014,4 +2134,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-28 22:53:10
+-- Dump completed on 2021-01-04 11:23:24
