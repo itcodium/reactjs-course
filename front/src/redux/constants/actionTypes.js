@@ -8,5 +8,6 @@ const asyncActionType = (type) => ({
 export const LOGIN = asyncActionType('LOGIN');
 export const USER = asyncActionType('USER');
 export const RECIPES = asyncActionType('RECIPES');
+export const PRODUCTS = asyncActionType('PRODUCTS');
 
 

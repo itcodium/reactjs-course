@@ -52,9 +52,9 @@ UNIQUE KEY `name_email_UNIQUE` (`name`, `email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
-
+--
 -- ORDER ITEM
-
+--
 CREATE TABLE `orders_items` (
 `id_order_item` int(11) NOT NULL AUTO_INCREMENT,
 `id_order` int(11) NOT NULL,
@@ -66,4 +66,42 @@ PRIMARY KEY (`id_order_item`),
  CONSTRAINT `FK_id_order` FOREIGN KEY (`id_order`) REFERENCES `st_order` (`id_order`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
- 
+--
+--  productGetAll
+--
+ USE `u159062377_news`;
+DROP procedure IF EXISTS `productGetAll`;
+
+USE `u159062377_news`;
+DROP procedure IF EXISTS `u159062377_news`.`productGetAll`;
+;
+
+DELIMITER $$
+USE `u159062377_news`$$
+CREATE DEFINER=`root`@`%` PROCEDURE `productGetAll`()
+BEGIN
+   select id_product, sku, name, description, price, created, created_by, updated, updated_by
+    from st_product; 
+END$$
+
+DELIMITER ;
+;
+
+
+
+--
+-- productGetById
+--
+ USE `u159062377_news`;
+DROP procedure IF EXISTS `productGetById`;
+
+DELIMITER $$
+USE `u159062377_news`$$
+CREATE PROCEDURE `productGetById` (pk int)
+BEGIN
+    select id_product, sku, name, description, price, created, created_by, updated, updated_by
+    from st_product
+    where id_product=pk;
+END$$
+
+DELIMITER ;

@@ -9,6 +9,7 @@ require_once 'business/User.php';
 require_once 'business/Perfil.php';
 require_once 'business/Module.php';
 require_once 'business/PerfilModule.php';
+require_once 'business/Product.php';
 
 $app = new Micro();
 ClientBus::init($app);
@@ -17,6 +18,7 @@ UserBus::init($app);
 PerfilBus::init($app);
 ModuleBus::init($app);
 PerfilModuleBus::init($app);
+ProductBus::init($app);
 
 $app->get('/client', 'ClientBus::getAll');
 $app->get('/client/{name}','ClientBus::getByName');
@@ -53,6 +55,10 @@ $app->get('/perfilmodule/module','PerfilModuleBus::getByModuloUsuario');
 $app->post('/perfilmodule','PerfilModuleBus::insert');
 $app->put('/perfilmodule/{id:[0-9]+}','PerfilModuleBus::update');
 $app->delete('/perfilmodule/{id:[0-9]+}','PerfilModuleBus::delete');
+
+$app->get('/product', 'ProductBus::getAll');
+$app->get('/product/{id:[0-9]+}','ProductBus::getById');
+
 
 $app->get('/test/500', function () use ($app) {
   $response = new Phalcon\Http\Response();

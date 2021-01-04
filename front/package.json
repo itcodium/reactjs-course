@@ -36,7 +36,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mocha": "export NODE_ENV=dev && mocha tests/store/user.js --reporter mochawesome --reporter-options overwrite=true,reportDir=tests/reports"
+    "mocha": "export NODE_ENV=dev && mocha tests/store/product.js --reporter mochawesome --reporter-options overwrite=true,reportDir=tests/reports"
   },
   "eslintConfig": {
     "extends": [
