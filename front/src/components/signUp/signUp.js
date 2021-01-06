@@ -18,7 +18,6 @@ import USER from '../../redux/actions/user'
 
 function SignUp(props) {
     const { classes, state } = props;
-    console.log('state: ', state);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         nombre: {},
@@ -176,7 +175,6 @@ function SignUp(props) {
             </Container>
         );
     } else {
-        console.log('state.payload.status: ', state.payload.status);
         if (state.payload.status === "ok") {
             return <Container maxWidth="sm" component="main" className={classes.heroContent}>
                 <Typography className={classes.ok} component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>

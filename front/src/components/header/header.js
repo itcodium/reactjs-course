@@ -8,8 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { useHistory } from "react-router-dom";
@@ -26,8 +24,6 @@ function Header(props) {
     const location = useLocation().pathname;
     let history = useHistory();
     const dispatch = useDispatch();
-
-
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -44,36 +40,15 @@ function Header(props) {
     { path: "", label: "LogOut", onClick: logOut, login: true }
     ];
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const menuId = 'primary-search-account-menu';
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
     const handleMenuClose = () => {
         setAnchorEl(null);
-        handleMobileMenuClose();
     };
-    const renderMenu2 = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
-
     const renderMenu = () => {
         const menu = links.filter(link => {
             return (service.isLoggedIn() === link.login && link.path !== location && !link.hide);
         });
-
         return <Menu
             anchorEl={anchorEl}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -101,7 +76,6 @@ function Header(props) {
         if (!service.isLoggedIn()) {
             return;
         }
-
         return <AppBar position="static">
             <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">

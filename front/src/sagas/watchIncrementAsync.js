@@ -5,7 +5,6 @@ import RECIPES from '../redux/types/recipes';
 export const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 export function* incrementAsync() {
-    console.log('incrementAsync: ');
     yield call(delay, 1000)
     yield put({ type: RECIPES.FETCH })
 }

@@ -3,12 +3,14 @@ import login from './login';
 import user from './user';
 import recipes from './recipes';
 import products from './products';
+import productDetail from './productDetail';
 
 const reducerRoot = combineReducers({
     recipes,
     login,
     user,
-    products
+    products,
+    productDetail
 });
 
 export default reducerRoot;

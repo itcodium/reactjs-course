@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import compose from 'recompose/compose';
 import { connect, useSelector, useDispatch } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -25,9 +25,9 @@ function Home(props) {
     return (
         <div className={classes.container}>
             <Typography variant="h4" gutterBottom>Catalogo de productos</Typography>
-            {status == "succeeded" ? <ProductList products={products} ></ProductList> : null}
-            {status == "loading" ? <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div> : null}
-            {status == "wfailed" ? <div className={classes.wrapper}> <CircularProgress /> </div> : null}
+            {status === "succeeded" ? <ProductList products={products} ></ProductList> : null}
+            {status === "loading" ? <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div> : null}
+            {status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{""}</Typography> : null}
         </div>
     );
 }

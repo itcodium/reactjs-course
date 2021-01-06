@@ -3,11 +3,11 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import LOGIN from '../redux/types/login';
 import apiCall from '../redux/api';
 
-const urlLogin = `api/login`;
+const API_URL = `api/login`;
 function* checkLogin(params) {
     try {
         yield put({ type: LOGIN.PENDING });
-        const response = yield call(apiCall, urlLogin, {
+        const response = yield call(apiCall, API_URL, {
             method: 'POST'
         }, params.payload);
         if (response.status === "ok" && response.data)

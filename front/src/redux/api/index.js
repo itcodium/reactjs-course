@@ -22,7 +22,7 @@ export default function apiCall(url, params = {}, body) {
         .then(response => {
             return response.json();
         }).then(response => {
-            if (response.status == "error" && response.code == "0001") {
+            if (response.status === "error" && response.code === "0001") {
                 LoginService.setLogIn(false);
             }
             return response

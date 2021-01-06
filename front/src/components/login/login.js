@@ -43,7 +43,7 @@ function Login(props) {
         const pathname = (
             locationState && locationState.from && locationState.from.pathname
         );
-        return pathname;
+        return pathname || "";
     };
 
     if (shouldRedirect) {

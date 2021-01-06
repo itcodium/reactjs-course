@@ -10,8 +10,6 @@ import ImageIcon from '@material-ui/icons/Image';
 import { connect } from 'react-redux';
 
 const Recipes = (props) => {
-    console.log('props: ', props);
-
     if (props.state.loading) {
         return <CircularProgress />
     }
