@@ -67,7 +67,6 @@ function Header(props) {
                         if (link.onClick) {
                             link.onClick(e);
                         }
-
                     }} href={"#" + link.path}>{link.label}</Link></MenuItem>
                 })
             }
@@ -78,7 +77,7 @@ function Header(props) {
         if (!service.isLoggedIn()) {
             return;
         }
-        return <AppBar position="static" color="transparent">
+        return <AppBar position="static" color="default">
             <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <Typography variant="h6" className={classes.title}>
