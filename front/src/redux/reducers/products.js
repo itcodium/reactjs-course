@@ -1,27 +1,34 @@
 import PRODUCTS from '../types/products'
+const initialState = {
+    products: [],
+    status: 'idle',
+    loading: false,
+    error: null
+}
 
-function reducer(state = {}, action) {
+function reducer(state = initialState, action) {
     switch (action.type) {
         case PRODUCTS.FETCH: {
-            console.log('PRODUCTS action: ', action);
             return Object.assign({}, state, {
                 loading: true,
-                error: false,
+                error: null,
+                status: "loading"
             });
         }
         case PRODUCTS.SUCCESS: {
             const products = Object.assign({}, state, {
-                payload: action.payload,
-                error: false,
+                products: action.payload.data,
+                error: null,
                 loading: false,
+                status: "succeeded"
             });
             return products;
         }
         case PRODUCTS.ERROR: {
             return Object.assign({}, state, {
-                error: true,
+                error: action.payload,
                 loading: false,
-                payload: action.payload
+                status: "failed"
             });
         }
         default: {

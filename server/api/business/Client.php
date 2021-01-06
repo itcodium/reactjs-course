@@ -1,7 +1,9 @@
 <?php
+use Phalcon\Di\Exception;
 require_once dirname(__FILE__).'/../common/ResponseFormat.php';
 require_once dirname(__FILE__).'/../data/Client.php';
 require_once dirname(__FILE__).'/../jwt/Auth.php';
+
 class ClientBus
 {
     private static $response;

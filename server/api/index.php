@@ -2,7 +2,6 @@
 
 use Phalcon\Loader;
 use Phalcon\Mvc\Micro;
-use Phalcon\Http\Response;
 
 require_once 'business/Client.php';
 require_once 'business/User.php';
@@ -12,9 +11,10 @@ require_once 'business/PerfilModule.php';
 require_once 'business/Product.php';
 
 $app = new Micro();
-ClientBus::init($app);
 
 UserBus::init($app);
+ 
+ClientBus::init($app);
 PerfilBus::init($app);
 ModuleBus::init($app);
 PerfilModuleBus::init($app);
@@ -28,7 +28,6 @@ $app->put('/client/{id:[0-9]+}','ClientBus::update');
 $app->delete('/client/{id:[0-9]+}','ClientBus::delete');
 $app->delete('/client/code/{code}','ClientBus::deleteByCode');
  
-
 $app->post('/login','UserBus::login');
 $app->get('/user', 'UserBus::getAll');
 $app->get('/user/{id:[0-9]+}','UserBus::getById');
@@ -58,8 +57,7 @@ $app->delete('/perfilmodule/{id:[0-9]+}','PerfilModuleBus::delete');
 
 $app->get('/product', 'ProductBus::getAll');
 $app->get('/product/{id:[0-9]+}','ProductBus::getById');
-
-
+ 
 $app->get('/test/500', function () use ($app) {
   $response = new Phalcon\Http\Response();
     $response->setStatusCode(500, "Internal Error");
@@ -80,6 +78,8 @@ $app->notFound(
       echo '{ "status":"error","message":"Url not found."}';
     }
   );
+
+
 
 $app->handle();
 ?>

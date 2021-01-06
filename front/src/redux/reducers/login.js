@@ -8,10 +8,7 @@ if (localUser) {
         LoginService.setLogIn(true);
     }
 }
-console.log('localUser: ', jsonUser);
 function reducer(state = jsonUser || {}, action) {
-
-
     switch (action.type) {
         case LOGIN.FETCH: {
             return Object.assign({}, state, {
@@ -22,13 +19,11 @@ function reducer(state = jsonUser || {}, action) {
         case LOGIN.SUCCESS: {
             LoginService.setLogIn(true);
             const user = Object.assign({}, state, {
-                payload: action.payload,
+                payload: action.payload.data,
                 error: false,
                 loading: false,
             });
-            console.log('LOGIN.SUCCESS: ', user);
             localStorage.setItem('user', JSON.stringify(user));
-            debugger
             return user;
         }
         case LOGIN.ERROR: {
@@ -40,7 +35,6 @@ function reducer(state = jsonUser || {}, action) {
         }
         case LOGIN.OUT: {
             LoginService.setLogIn(false);
-            localStorage.setItem('user', null);
             return Object.assign({}, state, {
                 error: false,
                 loading: false,

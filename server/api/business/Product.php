@@ -21,7 +21,7 @@ class ProductBus
     
     public static function getAll(){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            $valid=Auth::Check();
             $data=self::$item->getAll();
             self::$response->data($data);
 		}catch(exception $e) {
@@ -32,7 +32,7 @@ class ProductBus
 
 	public static function getById($id){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            $valid=Auth::Check();
             $data=self::$item->getById($id);
             self::$response->data($data);
         }catch(exception $e) {

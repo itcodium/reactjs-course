@@ -30,10 +30,23 @@ class Auth
         return $token;
     }
 
-    public static function Check($token)
+    public static function getHeaderToken(){
+        $token="";
+        if(apache_request_headers()['Authorization']){
+            $token=apache_request_headers()['Authorization'];
+        }
+        if(apache_request_headers()['authorization']){
+            $token=apache_request_headers()['authorization'];
+        }
+        return $token;
+    }
+    public static function Check($token=null)
     {
         $publicKey= file_get_contents(dirname(__FILE__).'/../keys/jwtRS256.key.pub');
-        if(empty($token))
+       if( is_null($token)){
+            $token=self::getHeaderToken();
+        }
+        if(empty($token) || is_null($token))
         {
            throw new Exception("Invalid token supplied.");
         }

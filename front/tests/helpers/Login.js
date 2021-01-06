@@ -14,13 +14,13 @@ module.exports = {
       .set('Authorization', '')
       .send(username_pass)
       .end(function (err, res) {
+        _this.FileHelper.saveToFile(_this.path + '/token_' + Date.now() + '.json', JSON.stringify(_this.token));
         const response = JSON.parse(res.text);
         _this.chai.expect(response).to.have.property('status');
         _this.chai.expect(response).to.have.property('data');
         _this.chai.expect(response.data).to.have.property('user');
         _this.chai.expect(response.data).to.have.property('token');
         _this.token = "Bearer " + response.data.token;
-        _this.FileHelper.saveToFile(_this.path + '/token_' + Date.now() + '.json', JSON.stringify(_this.token));
         done();
       });
   },

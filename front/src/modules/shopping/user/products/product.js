@@ -23,7 +23,7 @@ const Product = ({ product, classes }) => (
             <div className={classes.cardDetails}>
                 <CardContent>
                     <Typography variant="h6" color="textSecondary">
-                        {product.title}
+                        {product.name}
                     </Typography>
                     <Typography variant="h5" component="a">
                         $ {product.price}

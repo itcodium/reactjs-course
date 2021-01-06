@@ -11,7 +11,6 @@ const styles = theme => ({
             marginRight: 'auto',
         },
     },
-
     layout: {
         width: 'auto',
         marginLeft: theme.spacing(0),
@@ -39,6 +38,15 @@ const styles = theme => ({
         paddingTop: "10px",
         paddingBottom: "10px",
         textAlign: "right"
+    },
+    wrapper: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: theme.spacing(10),
+    },
+    spinnerContainer: {
+        alignItems: 'center',
     },
 });
 

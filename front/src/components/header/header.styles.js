@@ -1,9 +1,17 @@
 const styles = theme => ({
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+    home: {
+        color: "white"
+    },
     menu: {
         '& > * + *': {
             marginLeft: theme.spacing(2),
         },
-        paddingTop: "10px",
         paddingBottom: "10px",
         textAlign: "right"
     },
