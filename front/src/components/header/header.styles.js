@@ -6,7 +6,7 @@ const styles = theme => ({
         flexGrow: 1,
     },
     home: {
-        color: "white"
+        color: "black"
     },
     menu: {
         '& > * + *': {

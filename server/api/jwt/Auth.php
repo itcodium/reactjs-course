@@ -16,7 +16,7 @@ class Auth
     public static function SignIn($data)
     {
         $iat = time();
-        $exp=$iat +(60 * 10);
+        $exp=$iat +(60 * 1); // $exp=$iat +(60 * 10);
         $privateKey= file_get_contents(dirname(__FILE__).'/../keys/jwtRS256.key');
         $token = array(
             "iat" =>  $iat,

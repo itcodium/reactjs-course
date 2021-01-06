@@ -9,6 +9,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuItem from '@material-ui/core/MenuItem';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 import Menu from '@material-ui/core/Menu';
 import { useHistory } from "react-router-dom";
 
@@ -76,7 +78,7 @@ function Header(props) {
         if (!service.isLoggedIn()) {
             return;
         }
-        return <AppBar position="static">
+        return <AppBar position="static" color="transparent">
             <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <Typography variant="h6" className={classes.title}>
@@ -84,6 +86,13 @@ function Header(props) {
                     </Typography>
                 </IconButton>
                 <Typography variant="h6" className={classes.title}></Typography>
+                <MenuItem>
+                    <IconButton aria-label="show 4 new mails" color="inherit">
+                        <Badge badgeContent={4} color="secondary">
+                            <ShoppingCartIcon />
+                        </Badge>
+                    </IconButton>
+                </MenuItem>
                 <MenuItem edge="end" onClick={handleProfileMenuOpen}>
                     <IconButton
                         aria-label="account of current user"

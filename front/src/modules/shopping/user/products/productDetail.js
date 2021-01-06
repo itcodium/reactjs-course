@@ -20,11 +20,11 @@ function ProductDetail(props) {
     const product = useSelector(state => state.productDetail.product)
 
     useEffect(() => {
-        if (status === 'idle' || product.id_product != params.id) {
+        console.log('product.id: ', product.id);
+        if ((status === 'idle' || product.id !== params.id)) {
             dispatch(PRODUCTS.getDetail(params))
         }
-
-    }, [params, status, dispatch])
+    }, [params, dispatch])
 
     return (
         <div>
@@ -33,7 +33,7 @@ function ProductDetail(props) {
                     <Card>
                         <CardContent>
                             <Typography component="h4" variant="h4" className={classes.title}>
-                                {product.title}
+                                {product.name}
                             </Typography>
                             <div className={classes.box}>
                                 <Grid container component="main" className={classes.item}>
@@ -51,9 +51,7 @@ function ProductDetail(props) {
                                 {product.description}
                             </Typography>
                             <div className={classes.center} >
-                                <Button variant="contained" size="large" color="primary">
-                                    Buy
-                </Button>
+                                <Button variant="contained" size="large" color="primary">Buy</Button>
                             </div>
                         </CardContent>
                     </Card>

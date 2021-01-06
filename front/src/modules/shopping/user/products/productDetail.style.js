@@ -16,6 +16,15 @@ const styles = theme => ({
     },
     title: {
         marginBottom: "15px"
-    }
+    },
+    wrapper: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: theme.spacing(10),
+    },
+    spinnerContainer: {
+        alignItems: 'center',
+    },
 });
 export default styles;

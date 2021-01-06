@@ -27,3 +27,7 @@ Se prodra entregar esta unidad:
 * El tamaño máximo del archivo permitido es de 10 MB. No se permite mas de un archivo.
 
 No se consideraran entregas posteriores a la fecha establecida.
+ 
+
+  
+  

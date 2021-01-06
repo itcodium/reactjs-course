@@ -35,7 +35,7 @@ const Product = ({ product, classes }) => (
                     </div>
                     <div className={classes.right}>
                         <Button href={"#/ProductDetail/" + product.id} color="primary" >
-                            detail
+                            Detail
                         </Button>
                     </div>
                 </CardContent>
