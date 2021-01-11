@@ -7,6 +7,9 @@ class ResponseFormat{
   function __construct(){
 		$this->response = new  Response();
 		$this->response->setContentType('application/json', 'utf-8');
+		$this->response->setHeader('Access-Control-Allow-Origin', '*');
+		$this->response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With');      
+		$this->response->sendHeaders();
 	}
 
 	public function get(){
