@@ -3,6 +3,7 @@
 use Phalcon\Loader;
 use Phalcon\Mvc\Micro;
 
+require_once 'common/ResponseFormat.php';
 require_once 'business/Client.php';
 require_once 'business/User.php';
 require_once 'business/Perfil.php';
@@ -11,9 +12,7 @@ require_once 'business/PerfilModule.php';
 require_once 'business/Product.php';
 
 $app = new Micro();
-
 UserBus::init($app);
- 
 ClientBus::init($app);
 PerfilBus::init($app);
 ModuleBus::init($app);
@@ -59,27 +58,24 @@ $app->get('/product', 'ProductBus::getAll');
 $app->get('/product/{id:[0-9]+}','ProductBus::getById');
  
 $app->get('/test/500', function () use ($app) {
-  $response = new Phalcon\Http\Response();
-    $response->setStatusCode(500, "Internal Error");
-    $response->setJsonContent(array('status' => 'ERROR', 'messages' => "internal error"));
-  return $response;
+    $app->response->setStatusCode(500, "Internal Error");
+    $app->response->setJsonContent(array('status' => 'ERROR', 'messages' => "internal error"));
+    return $app->response;
 });
 $app->get('/test/400', function () use ($app) {
-  $response = new Phalcon\Http\Response();
-    $response->setStatusCode(400, "Page not found");
-    $response->setJsonContent(array('status' => 'ERROR', 'messages' => "Page not found"));
-  return $response;
+    $app->response->setStatusCode(400, "Page not found");
+    $app->response->setJsonContent(array('status' => 'ERROR', 'messages' => "Page not found"));
+    return $app->response;
 });
 
 $app->notFound(
     function () use ($app) {
       $app->response->setContentType('application/json', 'utf-8');
       $app->response->setStatusCode(404, "Not Found")->sendHeaders();
-      echo '{ "status":"error","message":"Url not found."}';
+      $app->response->setJsonContent(array('status' => 'ERROR', 'messages' => "Url not found."));
+      return $app->response;
     }
   );
-
-
 
 $app->handle();
 ?>

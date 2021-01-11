@@ -5,13 +5,16 @@ class ResponseFormat{
 
   private $response;
   function __construct(){
-		$this->response = new  Response();
-		$this->response->setContentType('application/json', 'utf-8');
-		$this->response->setHeader('Access-Control-Allow-Origin', '*');
-		$this->response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With');      
-		$this->response->sendHeaders();
+		$this->response = $this->getResponse();
 	}
-
+	public function getResponse(){
+		$response = new  Response();
+		$response->setContentType('application/json', 'utf-8');
+		$response->setHeader('Access-Control-Allow-Origin', '*');
+		$response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With');      
+		$response->sendHeaders();
+		return $response;
+	}
 	public function get(){
 		return  $this->response ;
 	}
