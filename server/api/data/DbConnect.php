@@ -1,8 +1,8 @@
 <?php
     define('DB_HOST', 'store_database');
-    define('DB_NAME', 'u159062377_news');
-    define('DB_USERNAME', 'u159062377_user');
-    define('DB_PASSWORD', '123123');
+    define('DB_NAME', 'u159062377_react');
+    define('DB_USERNAME', 'u159062377_react');
+    define('DB_PASSWORD', 'React123');
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     class DbConnect{
         private $con;

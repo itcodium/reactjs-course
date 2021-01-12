@@ -1,9 +1,14 @@
 <?php
+header("Access-Control-Allow-Headers: Authorization, Content-Type");
+header("Access-Control-Allow-Origin: *");
+header('content-type: application/json; charset=utf-8');
+?>
 
+<?php
 use Phalcon\Loader;
 use Phalcon\Mvc\Micro;
 
-require_once 'common/ResponseFormat.php';
+require_once 'common/CORSMiddleware.php';
 require_once 'business/Client.php';
 require_once 'business/User.php';
 require_once 'business/Perfil.php';
@@ -12,6 +17,7 @@ require_once 'business/PerfilModule.php';
 require_once 'business/Product.php';
 
 $app = new Micro();
+
 UserBus::init($app);
 ClientBus::init($app);
 PerfilBus::init($app);
@@ -28,6 +34,7 @@ $app->delete('/client/{id:[0-9]+}','ClientBus::delete');
 $app->delete('/client/code/{code}','ClientBus::deleteByCode');
  
 $app->post('/login','UserBus::login');
+ 
 $app->get('/user', 'UserBus::getAll');
 $app->get('/user/{id:[0-9]+}','UserBus::getById');
 $app->post('/user','UserBus::insert');
@@ -67,7 +74,7 @@ $app->get('/test/400', function () use ($app) {
     $app->response->setJsonContent(array('status' => 'ERROR', 'messages' => "Page not found"));
     return $app->response;
 });
-
+ 
 $app->notFound(
     function () use ($app) {
       $app->response->setContentType('application/json', 'utf-8');

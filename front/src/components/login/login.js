@@ -135,6 +135,7 @@ function Login(props) {
 }
 
 const mapStateToProps = state => {
+    console.log('state.login: ', state.login);
     return { state: state.login };
 };
 
