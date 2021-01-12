@@ -10,8 +10,6 @@ class ResponseFormat{
 	public function getResponse(){
 		$response = new  Response();
 		$response->setContentType('application/json', 'utf-8');
-		//$response->setHeader('Access-Control-Allow-Origin', '*');
-		//$response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With');      
 		$response->sendHeaders();
 		return $response;
 	}

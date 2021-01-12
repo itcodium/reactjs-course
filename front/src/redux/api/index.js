@@ -20,16 +20,12 @@ export default function apiCall(url, params = {}, body) {
     };
     return fetch(url, fetchParams)
         .then(response => {
-            return response.text();
-
+            return response.json();
         }).then(response => {
-            console.log('response.trim(): ', response.trim());
-            const res = JSON.parse(response.trim())
-            console.log('res: ', res);
-            if (res.status === "error" && res.code === "0001") {
+            if (response.status === "error" && response.code === "0001") {
                 LoginService.setLogIn(false);
             }
-            return res
+            return response;
         })
 }
 

@@ -1,14 +1,7 @@
 <?php
-header("Access-Control-Allow-Headers: Authorization, Content-Type");
-header("Access-Control-Allow-Origin: *");
-header('content-type: application/json; charset=utf-8');
-?>
-
-<?php
 use Phalcon\Loader;
 use Phalcon\Mvc\Micro;
 
-require_once 'common/CORSMiddleware.php';
 require_once 'business/Client.php';
 require_once 'business/User.php';
 require_once 'business/Perfil.php';

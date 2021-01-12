@@ -2,9 +2,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import LOGIN from '../redux/types/login';
 import apiCall from '../redux/api';
-import HOST from './host'
 
-const API_URL = `${HOST}/api/login`;
+const API_URL = `/api/login`;
 function* checkLogin(params) {
     try {
         yield put({ type: LOGIN.PENDING });

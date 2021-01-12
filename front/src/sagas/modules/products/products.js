@@ -4,8 +4,7 @@ import PRODUCTS from '../../../redux/types/products';
 import PRODUCT_DETAIL from '../../../redux/types/productDetail';
 
 import apiCall from '../../../redux/api';
-import HOST from '../../host'
-const API_URL = `${HOST}/api/product`;
+const API_URL = `/api/product`;
 
 function* fetchProduct() {
     try {
