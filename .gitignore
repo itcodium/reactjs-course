@@ -7,6 +7,7 @@ front/tests/store/token/*.json
 front/tests/reports/assets
 front/tests/reports/*.html
 front/tests/reports/*.json
+front/.eslintcache
 # testing
 /coverage
 
@@ -19,8 +20,6 @@ front/tests/reports/*.json
 .env.development.local
 .env.test.local
 .env.production.local
-
-.eslintcache
 
 npm-debug.log*
 yarn-debug.log*
