@@ -5,9 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import withWidth from '@material-ui/core/withWidth';
 import compose from 'recompose/compose';
 import styles from './Social.style.js';
-import SocialLink from '../../components/SocialLink/SocialLink.js';
-
-// npm i @material-ui/icons@latest
+import SocialLink from '../SocialLink/SocialLink.js';
 
 class Social extends React.Component {
     state = {
@@ -18,14 +16,14 @@ class Social extends React.Component {
         this.setState({ value });
     };
 
-    render () {
+    render() {
         const { classes } = this.props;
         return (
             <Grid container justify="center" >
-                <Grid item xs={ 12 } className={ classes.social } container justify="center" alignItems="center">
+                <Grid item xs={12} className={classes.social} container justify="center" alignItems="center">
                     {
                         this.props.social.map((socialItem, indexSub) => (
-                            <SocialLink key={ socialItem.name } type={ socialItem.name } url={ socialItem.url } ></SocialLink>
+                            <SocialLink key={socialItem.name} type={socialItem.name} url={socialItem.url} ></SocialLink>
                         ))
                     }
                 </Grid>

@@ -14,12 +14,9 @@ import SideBarMenu from '../SideBarMenu/SideBarMenu';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
 import MenuToggle from '../MenuToggle/MenuToggle';
-
 import AplicationText from '../app.text';
-
 import styles from './header.style';
 import mainLogo from '../../assets/logo.png';
-
 
 function Header(props) {
     const { classes } = props;
@@ -92,9 +89,7 @@ function Header(props) {
                 </Hidden>
             </Toolbar>
         </div>
-
     );
-
 }
 Header.propTypes = {
     classes: PropTypes.object.isRequired,

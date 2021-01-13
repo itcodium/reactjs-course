@@ -5,6 +5,7 @@ import PrivateRoute from './services/PrivateRoute'
 import Home from './components/home/home'
 //import Header from './components/header/header'
 import Header from './app/Header/Header'
+import Footer from './app/Footer/Footer'
 import ProductDetail from './modules/shopping/user/products/productDetail'
 import Login from './components/login/login'
 import SignUp from './components/signUp/signUp.js';
@@ -39,8 +40,9 @@ function App(props) {
           </Grid>
         </main>
         <footer className={classes.container}>
-          &nbsp;
+          <Footer></Footer>
         </footer>
+
       </div>
     </HashRouter>
   )
