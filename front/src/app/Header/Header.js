@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
-
+import AppBar from '@material-ui/core/AppBar';
 import SideBarMenu from '../SideBarMenu/SideBarMenu';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
@@ -51,7 +51,7 @@ function Header(props) {
     if (!user) {
         return null;
     } else {
-        return <div>
+        return <AppBar position="static" color="default">
             <Hidden mdUp>
                 <Drawer open={open} onClose={toggleDrawer(false)}>
                     <Grid>
@@ -103,7 +103,7 @@ function Header(props) {
                     </IconButton>
                 </Hidden>
             </Toolbar>
-        </div>
+        </AppBar>
     }
 }
 Header.propTypes = {

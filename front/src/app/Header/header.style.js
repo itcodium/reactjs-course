@@ -1,6 +1,7 @@
 const styles = theme => ({
     toolbarTitle: {
         flex: 1,
+        paddingLeft: 15,
     },
     toolbarHeader: {
         margin: 0,
