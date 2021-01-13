@@ -7,29 +7,19 @@ import compose from 'recompose/compose';
 import styles from './Social.style.js';
 import SocialLink from '../SocialLink/SocialLink.js';
 
-class Social extends React.Component {
-    state = {
-        value: 0,
-    };
-
-    handleChange = (event, value) => {
-        this.setState({ value });
-    };
-
-    render() {
-        const { classes } = this.props;
-        return (
-            <Grid container justify="center" >
-                <Grid item xs={12} className={classes.social} container justify="center" alignItems="center">
-                    {
-                        this.props.social.map((socialItem, indexSub) => (
-                            <SocialLink key={socialItem.name} type={socialItem.name} url={socialItem.url} ></SocialLink>
-                        ))
-                    }
-                </Grid>
+function Social(props) {
+    const { classes } = props;
+    return (
+        <Grid container justify="center" >
+            <Grid item xs={12} className={classes.social} container justify="center" alignItems="center">
+                {
+                    props.social.map((socialItem) => (
+                        <SocialLink key={socialItem.name} type={socialItem.name} url={socialItem.url} ></SocialLink>
+                    ))
+                }
             </Grid>
-        );
-    }
+        </Grid>
+    );
 }
 
 Social.propTypes = {

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
+import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Drawer from '@material-ui/core/Drawer';
 
 import SideBarMenu from '../SideBarMenu/SideBarMenu';
@@ -17,10 +18,25 @@ import MenuToggle from '../MenuToggle/MenuToggle';
 import AplicationText from '../app.text';
 import styles from './header.style';
 import mainLogo from '../../assets/logo.png';
+import LOGIN from '../../redux/actions/login'
+import LoginService from '../../services/LoginService'
 
 function Header(props) {
     const { classes } = props;
     const [open, setOpen] = React.useState(false);
+    const service = LoginService;
+    const location = useLocation().pathname;
+    let history = useHistory();
+    const dispatch = useDispatch();
+    // const handleProfileMenuOpen = (event) => {setAnchorEl(event.currentTarget);};
+
+    const logOut = (event) => {
+        dispatch(LOGIN.out())
+        history.push('#/Login')
+        event.preventDefault();
+    }
+
+
     const toggleDrawer = (open) => () => {
         setOpen(open)
     };
@@ -35,8 +51,10 @@ function Header(props) {
                 <img width='140' alt="" flex='1' align="center" src={mainLogo}></img></a>
         </Typography>
     }
-    return (
-        <div>
+    if (!service.isLoggedIn()) {
+        return <div></div>;
+    } else {
+        return <div>
             <Hidden mdUp>
                 <Drawer open={open} onClose={toggleDrawer(false)}>
                     <Grid>
@@ -89,7 +107,7 @@ function Header(props) {
                 </Hidden>
             </Toolbar>
         </div>
-    );
+    }
 }
 Header.propTypes = {
     classes: PropTypes.object.isRequired,

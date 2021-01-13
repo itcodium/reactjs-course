@@ -49,25 +49,43 @@ class MenuToggle extends React.Component {
         if (props.menu.items.length) {
             return <Button className={classes.menuButton} aria-controls={this.state.open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true" onClick={this.handleClick}>
-                {this.getArrowIcon(props.menu.items.length, classes)}
-                {props.menu.text}
+                {!props.menu.icon ? this.getArrowIcon(props.menu.items.length, classes) : null}
+                {this.menuItem2(props.menu, classes)}
             </Button>
         } else {
-            if (props.menu.icon) {
-                return <NavLink className={classes.menuLink} to={props.menu.url}>
-                    <IconButton
-                        className={classes.menuLink}
-                        aria-haspopup="true">
-                        <AccountCircle />
-                    </IconButton>
+            return this.menuItem(props.menu, classes);
+        }
+    }
+    menuItem = (menu, classes) => {
+        if (menu.icon) {
+            return <NavLink className={classes.menuLink} to={menu.url}>
+                <IconButton
+                    className={classes.menuLink}
+                    aria-haspopup="true">
+                    <AccountCircle />
+                </IconButton>
+            </NavLink>
+        } else {
+            return <MenuItem key={menu.text}>
+                <NavLink className={classes.menuLink} to={menu.url}>
+                    {menu.text}
                 </NavLink>
-            } else {
-                return <MenuItem key={props.menu.text}>
-                    <NavLink className={classes.menuLink} to={props.menu.url}>
-                        {props.menu.text}
-                    </NavLink>
-                </MenuItem>
-            }
+            </MenuItem>
+        }
+    }
+    menuItem2 = (menu, classes) => {
+        if (menu.icon) {
+            return <IconButton
+                className={classes.menuLink}
+                aria-haspopup="true">
+                <AccountCircle />
+            </IconButton>
+        } else {
+            return <MenuItem key={menu.text}>
+                <NavLink className={classes.menuLink} to={menu.url}>
+                    {menu.text}
+                </NavLink>
+            </MenuItem>
         }
     }
     render() {

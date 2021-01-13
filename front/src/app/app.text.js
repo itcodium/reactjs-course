@@ -59,13 +59,18 @@ const AplicationText =
             }]
         },
         {
-            text: "Login",
+            text: "User",
             url: "/Login",
             icon: "login",
-            items: []
+            items: [{
+                text: "Logout",
+                url: ""
+            }]
         },
-
     ],
+
+
+
     footer: {
         links: [
             {
