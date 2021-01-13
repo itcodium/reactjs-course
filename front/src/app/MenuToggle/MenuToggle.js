@@ -18,7 +18,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
 function MenuToggle(props) {
-    const { classes, menu } = props;
+    const { classes, menu, logout } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [open, setOpen] = React.useState(false);
 
@@ -78,9 +78,17 @@ function MenuToggle(props) {
                 <AccountCircle />
             </IconButton>
         } else {
+            if (menu.action) {
+                if (menu.action == "logout") {
+                    return <NavLink onClick={logout} className={classes.menuLink} to={menu.url}>
+                        {menu.text}
+                    </NavLink>
+                }
+            }
             return <NavLink className={classes.menuLink} to={menu.url}>
                 {menu.text}
             </NavLink>
+
         }
     }
 
@@ -100,9 +108,7 @@ function MenuToggle(props) {
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                         {menu.items.map((subItem, subIndex) => (
                                             <MenuItem key={subItem.text} onClick={handleClose}>
-                                                <NavLink className={classes.menuLink} to={subItem.url}>
-                                                    {subItem.text}
-                                                </NavLink>
+                                                {menuLink(subItem)}
                                             </MenuItem>
                                         ))}
                                     </MenuList>

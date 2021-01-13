@@ -28,14 +28,12 @@ function Header(props) {
     const location = useLocation().pathname;
     let history = useHistory();
     const dispatch = useDispatch();
-    // const handleProfileMenuOpen = (event) => {setAnchorEl(event.currentTarget);};
 
     const logOut = (event) => {
         dispatch(LOGIN.out())
         history.push('#/Login')
         event.preventDefault();
     }
-
 
     const toggleDrawer = (open) => () => {
         setOpen(open)
@@ -80,7 +78,7 @@ function Header(props) {
                         onKeyDown={toggleDrawer(false)}>
                         {
                             AplicationText.menu.map((item, i) => (
-                                <SideBarMenu menu={item} key={i}></SideBarMenu>
+                                <SideBarMenu logout={logOut} menu={item} key={i}></SideBarMenu>
                             ))
                         }
                     </div>
@@ -95,7 +93,7 @@ function Header(props) {
                     {getLogo("left")}
                     {
                         AplicationText.menu.map((item, i) => (
-                            <MenuToggle key={i} menu={item}></MenuToggle>
+                            <MenuToggle logout={logOut} key={i} menu={item}></MenuToggle>
                         ))
                     }
                     <LanguageSelector></LanguageSelector>

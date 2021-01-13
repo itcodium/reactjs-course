@@ -8,7 +8,18 @@ import { NavLink } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import styles from './SideBarMenu.style';
 function SideBarMenu(props) {
-    const { classes, menu } = props;
+    const { classes, menu, logout } = props;
+
+    const getLink = (menu) => {
+        if (menu.action === "logout") {
+            return <NavLink onClick={logout} className={classes.menuSubLink} to={menu.url}>
+                <Typography className={classes.menuSubLinkText} >{menu.text}</Typography>
+            </NavLink>
+        }
+        return <NavLink className={classes.menuSubLink} to={menu.url}>
+            <Typography className={classes.menuSubLinkText} >{menu.text}</Typography>
+        </NavLink>
+    }
     return (
         <div className={classes.fullList}>
             <List >
@@ -21,9 +32,7 @@ function SideBarMenu(props) {
             <List className={classes.fullList}>{
                 menu.items.map((sub, indexSub) => (
                     <ListItem key={indexSub}>
-                        <NavLink className={classes.menuSubLink} to={sub.url}>
-                            <Typography className={classes.menuSubLinkText} >{sub.text}</Typography>
-                        </NavLink>
+                        {getLink(sub)}
                     </ListItem>
                 ))}
             </List>

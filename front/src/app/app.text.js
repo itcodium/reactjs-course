@@ -4,11 +4,6 @@ const AplicationText =
     lang: ["es", "en"],
     menu: [
         {
-            text: "Home",
-            url: "/",
-            items: []
-        },
-        {
             text: "Tienda",
             url: "",
             items: [{
@@ -19,42 +14,10 @@ const AplicationText =
             {
                 text: "Time Logging",
                 url: "/TimeLogging",
-                items: []
             },
             {
                 text: "Civil",
                 url: "/products/Civil",
-                items: []
-            }]
-        }
-        , {
-            text: "Oceans",
-            url: "/Oceans",
-            items: []
-        },
-        {
-            text: "Contacto",
-            url: "/Contacto",
-            items: []
-        }, {
-            text: "React Course",
-            url: "",
-            items: [{
-                text: "JSX",
-                url: "/ReactJSX",
-                items: []
-            },
-            {
-                text: "Forms",
-                url: "/Forms",
-                items: []
-            }, {
-                text: "Redux",
-                url: "/Redux",
-                items: []
-            }, {
-                text: "Redux Actions",
-                url: "/ReduxComplete",
                 items: []
             }]
         },
@@ -64,32 +27,18 @@ const AplicationText =
             icon: "login",
             items: [{
                 text: "Logout",
-                url: ""
+                url: "",
+                action: "logout",
+                onClick: null
             }]
         },
     ],
-
-
-
     footer: {
         links: [
             {
                 title: 'Company',
                 urls: [{ text: 'Team', href: "/#" }, { text: 'History', href: "/#" }, { text: 'Contact us', href: "/#" }, { text: 'Locations', href: "/#" }],
-            },
-            {
-                title: 'Features',
-                urls: [{ text: 'Cool stuff', href: "/#" }, { text: 'Random feature', href: "/#" }, { text: 'Team feature', href: "/#" }, { text: 'Developer stuff', href: "/#" }]
-            },
-            {
-                title: 'Features 2',
-                urls: [{ text: 'Cool stuff 2', href: "/#" }, { text: 'Random feature 2', href: "/#" }, { text: 'Team feature2', href: "/#" }, { text: 'Developer stuff 2', href: "/#" }]
-            },
-            {
-                title: 'Features 3',
-                urls: [{ text: 'Cool stuff 3', href: "/#" }, { text: 'Random feature3', href: "/#" }, { text: 'Team feature 3', href: "/#" }, { text: 'Developer stuff 3', href: "/#" }]
             }
-
         ]
     },
     copyright: {
