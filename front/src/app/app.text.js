@@ -8,16 +8,7 @@ const AplicationText =
             url: "",
             items: [{
                 text: "Productos",
-                url: "/ProductList",
-                items: []
-            },
-            {
-                text: "Time Logging",
-                url: "/TimeLogging",
-            },
-            {
-                text: "Civil",
-                url: "/products/Civil",
+                url: "/#",
                 items: []
             }]
         },
@@ -28,8 +19,7 @@ const AplicationText =
             items: [{
                 text: "Logout",
                 url: "",
-                action: "logout",
-                onClick: null
+                action: "logout"
             }]
         },
     ],

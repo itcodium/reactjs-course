@@ -85,9 +85,14 @@ function MenuToggle(props) {
                     </NavLink>
                 }
             }
-            return <NavLink className={classes.menuLink} to={menu.url}>
-                {menu.text}
-            </NavLink>
+
+            if (menu.url) {
+                return <NavLink className={classes.menuLink} to={menu.url}>
+                    {menu.text}
+                </NavLink>
+            } else {
+                return menu.text
+            }
 
         }
     }
