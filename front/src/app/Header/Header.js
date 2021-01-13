@@ -1,6 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import compose from 'recompose/compose';
+import { useSelector, useDispatch } from 'react-redux'
+
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -19,13 +21,10 @@ import AplicationText from '../app.text';
 import styles from './header.style';
 import mainLogo from '../../assets/logo.png';
 import LOGIN from '../../redux/actions/login'
-import LoginService from '../../services/LoginService'
 
 function Header(props) {
     const { classes } = props;
     const [open, setOpen] = React.useState(false);
-    const service = LoginService;
-    const location = useLocation().pathname;
     let history = useHistory();
     const dispatch = useDispatch();
 
@@ -34,7 +33,7 @@ function Header(props) {
         history.push('#/Login')
         event.preventDefault();
     }
-
+    const { user } = useSelector(state => state.login.payload)
     const toggleDrawer = (open) => () => {
         setOpen(open)
     };
@@ -49,8 +48,8 @@ function Header(props) {
                 <img width='140' alt="" flex='1' align="center" src={mainLogo}></img></a>
         </Typography>
     }
-    if (!service.isLoggedIn()) {
-        return <div></div>;
+    if (!user) {
+        return null;
     } else {
         return <div>
             <Hidden mdUp>
@@ -110,4 +109,9 @@ function Header(props) {
 Header.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(Header);
+
+
+
+export default compose(
+    withStyles(styles)
+)(Header);

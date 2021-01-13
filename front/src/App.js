@@ -41,7 +41,6 @@ function App(props) {
         <footer className={classes.container}>
           <Footer></Footer>
         </footer>
-
       </div>
     </HashRouter>
   )
