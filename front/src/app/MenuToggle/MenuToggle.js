@@ -17,63 +17,60 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
-class MenuToggle extends React.Component {
-    state = {
-        anchorEl: React.createRef(null),
-        open: false
-    }
-    clickAway = (event) => {
-        if (this.state.anchorEl.contains(event.target)) {
+function MenuToggle(props) {
+    const { classes, menu } = props;
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [open, setOpen] = React.useState(false);
+
+    const clickAway = (event) => {
+        if (anchorEl.contains(event.target)) {
             return;
         }
-        this.setState({ open: false });
+        setOpen(false);
     }
-    handleClick = (event) => {
-        this.setState({ open: !this.state.open, anchorEl: event.currentTarget });
+    const handleClick = (event) => {
+        setOpen(!open);
+        setAnchorEl(event.currentTarget);
     }
-    handleListKeyDown = (event) => {
+    const handleListKeyDown = (event) => {
         if (event.key === 'Tab') {
             event.preventDefault();
             this.handleClose();
         }
     }
-    handleClose = (event) => {
-        this.setState({ open: false, anchorEl: null });
+    const handleClose = () => {
+        setOpen(false);
+        setAnchorEl(null);
     }
-    getArrowIcon = (size, classes) => {
+    const getArrowIcon = (size) => {
         if (size) {
             return <ArrowForwardIosIcon className={classes.arrowIcon} ></ArrowForwardIosIcon>;
         }
     }
-    getMenu = (props, classes) => {
-        if (props.menu.items.length) {
-            return <Button className={classes.menuButton} aria-controls={this.state.open ? 'menu-list-grow' : undefined}
-                aria-haspopup="true" onClick={this.handleClick}>
-                {!props.menu.icon ? this.getArrowIcon(props.menu.items.length, classes) : null}
-                {this.menuItem2(props.menu, classes)}
+    const getMenu = () => {
+        if (menu.items.length) {
+            return <Button className={classes.menuButton} aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true" onClick={handleClick}>
+                {!menu.icon ? getArrowIcon(menu.items.length, classes) : null}
+                {menuLink(menu, classes)}
             </Button>
         } else {
-            return this.menuItem(props.menu, classes);
+            return menuItem(menu, classes);
         }
     }
-    menuItem = (menu, classes) => {
+    const menuItem = (menu) => {
         if (menu.icon) {
             return <NavLink className={classes.menuLink} to={menu.url}>
-                <IconButton
-                    className={classes.menuLink}
-                    aria-haspopup="true">
-                    <AccountCircle />
-                </IconButton>
+                {menuLink(menu)}
             </NavLink>
         } else {
             return <MenuItem key={menu.text}>
-                <NavLink className={classes.menuLink} to={menu.url}>
-                    {menu.text}
-                </NavLink>
+                {menuLink(menu)}
             </MenuItem>
         }
     }
-    menuItem2 = (menu, classes) => {
+
+    const menuLink = (menu) => {
         if (menu.icon) {
             return <IconButton
                 className={classes.menuLink}
@@ -81,48 +78,45 @@ class MenuToggle extends React.Component {
                 <AccountCircle />
             </IconButton>
         } else {
-            return <MenuItem key={menu.text}>
-                <NavLink className={classes.menuLink} to={menu.url}>
-                    {menu.text}
-                </NavLink>
-            </MenuItem>
+            return <NavLink className={classes.menuLink} to={menu.url}>
+                {menu.text}
+            </NavLink>
         }
     }
-    render() {
-        const { classes } = this.props;
-        return (
-            <Toolbar className={classes.toolbarSecondary} >
-                <div>
-                    {this.getMenu(this.props, classes)
-                    }
-                    <Popper open={this.state.open} anchorEl={this.state.anchorEl} role={undefined} transition disablePortal>
-                        {({ TransitionProps, placement }) => (
-                            <Grow
-                                {...TransitionProps}
-                                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                            >
-                                <Paper>
-                                    <ClickAwayListener onClickAway={this.clickAway}>
-                                        <MenuList autoFocusItem={this.state.open} id="menu-list-grow" onKeyDown={this.handleListKeyDown}>
-                                            {this.props.menu.items.map((subItem, subIndex) => (
-                                                <MenuItem key={subItem.text} onClick={this.handleClose}>
-                                                    <NavLink className={classes.menuLink} to={subItem.url}>
-                                                        {subItem.text}
-                                                    </NavLink>
-                                                </MenuItem>
-                                            ))}
-                                        </MenuList>
 
-                                    </ClickAwayListener>
-                                </Paper>
-                            </Grow>
-                        )}
-                    </Popper>
+    return (
+        <Toolbar className={classes.toolbarSecondary} >
+            <div>
+                {getMenu()
+                }
+                <Popper open={open} anchorEl={anchorEl} role={undefined} transition disablePortal>
+                    {({ TransitionProps, placement }) => (
+                        <Grow
+                            {...TransitionProps}
+                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                        >
+                            <Paper>
+                                <ClickAwayListener onClickAway={clickAway}>
+                                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                        {menu.items.map((subItem, subIndex) => (
+                                            <MenuItem key={subItem.text} onClick={handleClose}>
+                                                <NavLink className={classes.menuLink} to={subItem.url}>
+                                                    {subItem.text}
+                                                </NavLink>
+                                            </MenuItem>
+                                        ))}
+                                    </MenuList>
 
-                </div >
-            </Toolbar>
-        );
-    }
+                                </ClickAwayListener>
+                            </Paper>
+                        </Grow>
+                    )}
+                </Popper>
+
+            </div >
+        </Toolbar>
+    );
+
 }
 MenuToggle.propTypes = {
     classes: PropTypes.object.isRequired,
