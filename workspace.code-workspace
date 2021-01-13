@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../react-material-ui"
 		}
 	],
 	"settings": {}

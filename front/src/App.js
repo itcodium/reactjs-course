@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PrivateRoute from './services/PrivateRoute'
 import Home from './components/home/home'
-import Header from './components/header/header'
+//import Header from './components/header/header'
+import Header from './app/Header/Header'
 import ProductDetail from './modules/shopping/user/products/productDetail'
 import Login from './components/login/login'
 import SignUp from './components/signUp/signUp.js';
