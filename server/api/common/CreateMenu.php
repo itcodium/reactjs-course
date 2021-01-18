@@ -33,25 +33,24 @@ class CreateMenu{
     public function create($index,&$pnode=null){
         if($index<$this->length){
             $node= $this->getNode($this->data[$index]);
+            $this->list_index=$index;
             if($this->data[$index]["depth"]==0){
-                //echo("IF (index=".$index.") ".$node["title"]." - ".$node["depth"]." - ".$pnode["depth"]."<br>");
                 $this->node=&$node;
                 $this->create($index+1,$node);
             }else{
                 if( $node["depth"]-1==$pnode["depth"]){
                     if($this->getNextNode($index)["depth"]> $node["depth"]){
                         $this->create($index+1,$node);
+                        array_push($pnode["menu"],$node);
                     }else{
+                        array_push($pnode["menu"],$node);
                         $this->create($index+1,$pnode);
                     }
-                    array_push($pnode["menu"],$node);
                 }
-                if($node["depth"]<$pnode["depth"] ){
+               $next=$this->getNextNode($index); 
+                if($next["depth"]< $node["depth"]){
                     $this->create($index+1,$this->node);
-                    array_push($this->node["menu"],$node);
                 }
-                
-                    
             }
             return $node;    
         }
