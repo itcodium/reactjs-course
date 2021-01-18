@@ -58,9 +58,9 @@ function Footer(props) {
             ))
         )
     }
-    const { user } = useSelector(state => state.login.payload)
+    const { user } = useSelector(state => (state.login.payload ? state.login.payload : {}))
 
-    if (!user) {
+    if (!user || !localStorage.getItem("user")) {
         return null;
     } else {
         return <Grid container className={classes.footer}>

@@ -33,7 +33,9 @@ function Header(props) {
         history.push('#/Login')
         event.preventDefault();
     }
-    const { user } = useSelector(state => state.login.payload)
+
+    const { user } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+
     const toggleDrawer = (open) => () => {
         setOpen(open)
     };
@@ -48,7 +50,7 @@ function Header(props) {
                 <img width='140' alt="" flex='1' align="center" src={mainLogo}></img></a>
         </Typography>
     }
-    if (!user) {
+    if (!user || !localStorage.getItem("user")) {
         return null;
     } else {
         return <AppBar position="static" color="default">

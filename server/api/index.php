@@ -8,6 +8,7 @@ require_once 'business/Perfil.php';
 require_once 'business/Module.php';
 require_once 'business/PerfilModule.php';
 require_once 'business/Product.php';
+require_once 'business/Menu.php';
 
 $app = new Micro();
 
@@ -17,6 +18,7 @@ PerfilBus::init($app);
 ModuleBus::init($app);
 PerfilModuleBus::init($app);
 ProductBus::init($app);
+MenuBus::init($app);
 
 $app->get('/client', 'ClientBus::getAll');
 $app->get('/client/{name}','ClientBus::getByName');
@@ -56,6 +58,7 @@ $app->delete('/perfilmodule/{id:[0-9]+}','PerfilModuleBus::delete');
 
 $app->get('/product', 'ProductBus::getAll');
 $app->get('/product/{id:[0-9]+}','ProductBus::getById');
+$app->get('/menu', 'MenuBus::getNodesDepth');
  
 $app->get('/test/500', function () use ($app) {
     $app->response->setStatusCode(500, "Internal Error");
