@@ -36,9 +36,8 @@ class MenuBus
             //$valid=Auth::Check(apache_request_headers()['Authorization']);
             $data=self::$item->getNodesDepth($lang);
             $cmenu=new CreateMenu();
-            
             $cmenu->setData($data);
-            $test=$cmenu->create(0);
+            $test=$cmenu->getMenu(0);
             self::$response->data($test);
         }catch(exception $e) {
             self::$response->error($e->getMessage());

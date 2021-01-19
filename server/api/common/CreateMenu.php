@@ -30,30 +30,33 @@ class CreateMenu{
             return $this->getNode($this->data[$index+1]);
         }
     }    
-    public function create($index,&$pnode=null){
-        if($index<$this->length){
-            $node= $this->getNode($this->data[$index]);
-            $this->list_index=$index;
-            if($this->data[$index]["depth"]==0){
-                $this->node=&$node;
-                $this->create($index+1,$node);
-            }else{
-                if( $node["depth"]-1==$pnode["depth"]){
-                    if($this->getNextNode($index)["depth"]> $node["depth"]){
-                        $this->create($index+1,$node);
-                        array_push($pnode["menu"],$node);
-                    }else{
-                        array_push($pnode["menu"],$node);
-                        $this->create($index+1,$pnode);
-                    }
-                }
-               $next=$this->getNextNode($index); 
-                if($next["depth"]< $node["depth"]){
-                    $this->create($index+1,$this->node);
-                }
+    public function getNextDepthIndex($depth, $currentIndex){
+        for ($i = $currentIndex+1; $i < $this->length; $i++) {
+            if($depth==$this->data[$i]["depth"]){
+                return $i;
             }
-            return $node;    
         }
+        return $this->length;
+    }
+    public function getMenu($index,$nextIndex=null){
+        $list=[];
+        if($index<$this->length){
+            if (is_null($nextIndex)){
+                $nextIndex=$this->length;
+            }
+            $depth= $this->getNode($this->data[$index])["depth"];
+            for ($i = $index; $i < $this->length &&  $i< $nextIndex; $i++) {
+                if($depth==$this->data[$i]["depth"]){
+                    $node= $this->getNode($this->data[$i],$nextIndex);
+                    $next=$this->getNextDepthIndex($depth,$i);
+                    if($this->data[$i+1]["depth"]-1== $node["depth"]){
+                         $node["menu"]=$this->getMenu($i+1, $next);
+                    }
+                    array_push($list,$node);
+                }   
+            }
+        }
+        return $list;
     }
 }
    

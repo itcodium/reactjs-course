@@ -42,7 +42,4 @@ services:
       MYSQL_USER: u159062377_user
       MYSQL_PASSWORD: 123123
     ports:
-      - "9906:3306"
-    volumes:
-      - "./server/api/database/DB_REACT_20210118.sql:/docker-entrypoint-initdb.d/1.sql"    
-        
+      - "9906:3306"        
