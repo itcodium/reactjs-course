@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
-import { connect, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
-
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -17,14 +16,11 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import styles from './login.style.js';
 import LOGIN from '../../redux/actions/login'
-import LoginService from '../../services/LoginService'
 import ValidateForm from '../../services/validateForm'
 
 
 function Login(props) {
-    const service = LoginService;
     const { classes, state } = props;
-    const [shouldRedirect, setShouldRedirect] = useState(false);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         email: {},
@@ -32,11 +28,7 @@ function Login(props) {
     })
     ValidateForm.setForm = setForm;
 
-    useEffect(() => {
-        if (service.isLoggedIn()) {
-            setShouldRedirect(true)
-        }
-    });
+    const status = useSelector(state => state.login.status)
 
     const redirectPath = () => {
         const locationState = props.location.state;
@@ -46,11 +38,7 @@ function Login(props) {
         return pathname || "";
     };
 
-    if (shouldRedirect) {
-        return (
-            <Redirect to={redirectPath()} />
-        );
-    } else {
+    if (status !== "succeeded") {
         return <Container component="main" maxWidth="xs">
             <div className={classes.paper}>
                 <Avatar>
@@ -99,7 +87,7 @@ function Login(props) {
                                 type="button"
                                 variant="contained"
                                 color="primary"
-                                disabled={state.loading || ValidateForm.hasError(form)}
+                                disabled={status === "loading" || ValidateForm.hasError(form)}
                                 onClick={() => {
                                     const payload = {
                                         "email": form.email.value,
@@ -109,10 +97,10 @@ function Login(props) {
                                 }}
                                 className={classes.submit}
                             >
-                                {state.loading ? <CircularProgress /> : "Sign In"}
+                                {status === "loading" ? <CircularProgress /> : "Sign In"}
                             </Button>
                             {
-                                state.error ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{state.payload.message}</Typography> : null
+                                status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{state.payload.message}</Typography> : null
                             }
                         </Grid>
                         <Grid container>
@@ -131,15 +119,20 @@ function Login(props) {
                 </Grid>
             </div>
         </Container>
+    } else {
+        return (
+            <Redirect to={redirectPath()} />
+        );
     }
+
 }
 
+/*
 const mapStateToProps = state => {
     console.log('state.login: ', state.login);
     return { state: state.login };
-};
+};*/
 
 export default compose(
-    withStyles(styles),
-    connect(mapStateToProps),
+    withStyles(styles)//,connect(mapStateToProps),
 )(Login);

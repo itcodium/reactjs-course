@@ -1,6 +1,7 @@
 
 import { call, put, takeLatest } from 'redux-saga/effects'
 import PRODUCTS from '../../../redux/types/products';
+import LOGIN from '../../../redux/types/login';
 import PRODUCT_DETAIL from '../../../redux/types/productDetail';
 
 import apiCall from '../../../redux/api';
@@ -13,11 +14,12 @@ function* fetchProduct() {
         if (response.status === "ok") {
             yield put({ type: PRODUCTS.SUCCESS, payload: response });
         }
-        else {
-            yield put({ type: PRODUCTS.ERROR, payload: response });
-        }
     } catch (e) {
-        yield put({ type: PRODUCTS.ERROR, payload: { status: "error", message: e.message } });
+        if (e.code === "0001") {
+            yield put({ type: LOGIN.OUT });
+        } else {
+            yield put({ type: PRODUCTS.ERROR, payload: { status: "error", message: e.message } });
+        }
     }
 }
 function* fetchProductById(params) {
@@ -28,13 +30,16 @@ function* fetchProductById(params) {
         if (response.status === "ok") {
             yield put({ type: PRODUCT_DETAIL.SUCCESS, payload: response });
         }
-        else {
-            yield put({ type: PRODUCT_DETAIL.ERROR, payload: response });
-        }
     } catch (e) {
-        yield put({ type: PRODUCT_DETAIL.ERROR, payload: { status: "error", message: e.message } });
+        if (e.code === "0001") {
+            yield put({ type: LOGIN.OUT });
+        } else {
+            yield put({ type: PRODUCT_DETAIL.ERROR, payload: { status: "error", message: e.message } });
+        }
     }
 }
+
+
 
 export function* products() {
     yield takeLatest(PRODUCTS.FETCH, fetchProduct);

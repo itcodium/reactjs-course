@@ -16,6 +16,7 @@ const useStyles = makeStyles({
 });
 
 const MenuCustom = ({ menu, classes }) => {
+    const openIds = menu.map((node) => node.id_menu);
     const renderTree = (nodes) => (
         <TreeItem key={nodes.id_menu} nodeId={nodes.id_menu} label={nodes.title}>
             {Array.isArray(nodes.items) ? nodes.items.map((node) => renderTree(node)) : null}
@@ -24,7 +25,7 @@ const MenuCustom = ({ menu, classes }) => {
     return (
         <TreeView
             defaultCollapseIcon={<ExpandMoreIcon />}
-            defaultExpanded={['root']}
+            defaultExpanded={openIds}
             defaultExpandIcon={<ChevronRightIcon />}
         >
             {Array.isArray(menu) ? menu.map((node) => renderTree(node)) : null}

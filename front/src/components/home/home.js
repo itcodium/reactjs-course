@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import compose from 'recompose/compose';
-import { connect, useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -19,8 +19,6 @@ function Home(props) {
             dispatch(PRODUCTS.get())
         }
     }, [status, dispatch])
-
-
     return (
         <div className={classes.container}>
             <Typography variant="h4" gutterBottom>Catalogo de productos</Typography>
@@ -31,11 +29,6 @@ function Home(props) {
     );
 }
 
-const mapStateToProps = state => {
-    return { products: state.products.payload };
-};
-
 export default compose(
-    withStyles(styles),
-    connect(mapStateToProps),
+    withStyles(styles)
 )(Home);

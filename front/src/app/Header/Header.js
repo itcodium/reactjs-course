@@ -15,7 +15,6 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import SideBarMenu from '../SideBarMenu/SideBarMenu';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
-
 import MenuToggle from '../MenuToggle/MenuToggle';
 import AplicationText from '../app.text';
 import styles from './header.style';
@@ -35,7 +34,6 @@ function Header(props) {
     }
 
     const { user } = useSelector(state => (state.login.payload ? state.login.payload : {}))
-
     const toggleDrawer = (open) => () => {
         setOpen(open)
     };
@@ -86,7 +84,6 @@ function Header(props) {
                 </Drawer>
             </Hidden>
             <Toolbar className={classes.toolbarHeader}>
-
                 <Hidden mdUp>
                     {getLogo("left")}
                 </Hidden>
@@ -111,8 +108,6 @@ function Header(props) {
 Header.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-
-
 
 export default compose(
     withStyles(styles)

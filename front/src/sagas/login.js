@@ -17,6 +17,7 @@ function* checkLogin(params) {
 
         }
     } catch (e) {
+        console.log('Check Login: ', e);
         yield put({ type: LOGIN.ERROR, payload: { status: "error", message: e.message } });
     }
 }

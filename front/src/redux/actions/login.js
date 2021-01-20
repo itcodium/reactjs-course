@@ -9,10 +9,14 @@ const out = () => ({
     type: LOGIN.OUT,
     payload: null
 })
-
+const clear = () => ({
+    type: LOGIN.CLEAR,
+    payload: null
+})
 const Login = {
     check: check,
-    out: out
+    out: out,
+    clear: clear
 };
 export default Login;
 

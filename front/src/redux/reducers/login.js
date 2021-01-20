@@ -1,43 +1,47 @@
 import LOGIN from '../types/login'
-import LoginService from '../../services/LoginService';
+
+const initialState = {
+    status: 'idle',
+    loading: false,
+    error: null
+}
+
 const localUser = localStorage.getItem('user') || null;
 let jsonUser = null;
 if (localUser) {
     jsonUser = JSON.parse(localUser);
-    if (jsonUser && jsonUser.payload) {
-        LoginService.setLogIn(true);
+    initialState.payload = jsonUser;
+    if (jsonUser && initialState.payload) {
+        //LoginService.setLogIn(true);
     }
 }
-function reducer(state = jsonUser || {}, action) {
+function reducer(state = initialState || {}, action) {
     switch (action.type) {
         case LOGIN.FETCH: {
             return Object.assign({}, state, {
-                loading: true,
-                error: false,
+                status: "loading",
             });
         }
         case LOGIN.SUCCESS: {
-            LoginService.setLogIn(true);
             const user = Object.assign({}, state, {
                 payload: action.payload.data,
-                error: false,
-                loading: false,
+                status: "succeeded"
             });
             localStorage.setItem('user', JSON.stringify(user));
             return user;
         }
         case LOGIN.ERROR: {
             return Object.assign({}, state, {
-                error: true,
-                loading: false,
+                status: "failed",
                 payload: action.payload
             });
         }
         case LOGIN.OUT: {
-            LoginService.setLogIn(false);
+            const login = Object.assign({}, state, { ...initialState, payload: null });
+            return login;
+        }
+        case LOGIN.CLEAR: {
             return Object.assign({}, state, {
-                error: false,
-                loading: false,
                 payload: {}
             });
         }

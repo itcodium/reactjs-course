@@ -1,13 +1,13 @@
 class LoginService {
     static loginIn = false;
     static setLogIn(value) {
-        if (!value) {
-            localStorage.setItem('user', null);
-            window.location = "#/login"
-        }
         this.loginIn = value
+        if (!value) {
+            console.log('LoginService OUT: ', value);
+            localStorage.removeItem('user');
+            // window.location = "#/login"
+        }
         return this.loginIn;
-
     }
     static isLoggedIn() {
         return this.loginIn;

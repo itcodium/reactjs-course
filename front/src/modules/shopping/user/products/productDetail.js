@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import styles from './productDetail.style';
-
+import React from 'react';
 
 function ProductDetail(props) {
     const { classes } = props;
@@ -20,11 +20,10 @@ function ProductDetail(props) {
     const product = useSelector(state => state.productDetail.product)
 
     useEffect(() => {
-        console.log('product.id: ', product.id);
-        if ((status === 'idle' || product.id !== params.id)) {
+        if (status === 'idle' || product.id !== params.id) {
             dispatch(PRODUCTS.getDetail(params))
         }
-    }, [params, dispatch])
+    }, [dispatch])
 
     return (
         <div>

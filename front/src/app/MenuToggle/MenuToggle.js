@@ -64,7 +64,7 @@ function MenuToggle(props) {
                 {menuLink(menu)}
             </NavLink>
         } else {
-            return <MenuItem key={menu.text}>
+            return <MenuItem key={menu.title}>
                 {menuLink(menu)}
             </MenuItem>
         }
@@ -81,17 +81,17 @@ function MenuToggle(props) {
             if (menu.action) {
                 if (menu.action == "logout") {
                     return <NavLink onClick={logout} className={classes.menuLink} to={menu.url}>
-                        {menu.text}
+                        {menu.title}
                     </NavLink>
                 }
             }
 
             if (menu.url) {
                 return <NavLink className={classes.menuLink} to={menu.url}>
-                    {menu.text}
+                    {menu.title}
                 </NavLink>
             } else {
-                return menu.text
+                return menu.title
             }
 
         }
@@ -112,7 +112,7 @@ function MenuToggle(props) {
                                 <ClickAwayListener onClickAway={clickAway}>
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                         {menu.items.map((subItem, subIndex) => (
-                                            <MenuItem key={subItem.text} onClick={handleClose}>
+                                            <MenuItem key={subItem.title} onClick={handleClose}>
                                                 {menuLink(subItem)}
                                             </MenuItem>
                                         ))}

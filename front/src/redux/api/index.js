@@ -1,5 +1,3 @@
-import LoginService from '../../services/LoginService';
-
 export default function apiCall(url, params = {}, body) {
     const localUser = localStorage.getItem('user') || null;
     let jsonUser = null;
@@ -22,8 +20,8 @@ export default function apiCall(url, params = {}, body) {
         .then(response => {
             return response.json();
         }).then(response => {
-            if (response.status === "error" && response.code === "0001") {
-                LoginService.setLogIn(false);
+            if (response.status === "error") {
+                throw response;
             }
             return response;
         })

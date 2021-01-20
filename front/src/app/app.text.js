@@ -7,7 +7,7 @@ const AplicationText =
             title: "Tienda",
             url: "",
             items: [{
-                text: "Productos",
+                title: "Productos",
                 url: "/#",
                 items: []
             }]
