@@ -9,7 +9,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import styles from './product.style';
-
 const Product = ({ product, classes }) => (
     <Grid item xs={12} sm={12} md={6} lg={6}>
         <Card className={classes.card}>

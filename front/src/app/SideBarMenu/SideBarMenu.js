@@ -13,11 +13,11 @@ function SideBarMenu(props) {
     const getLink = (menu) => {
         if (menu.action === "logout") {
             return <NavLink onClick={logout} className={classes.menuSubLink} to={menu.url}>
-                <Typography className={classes.menuSubLinkText} >{menu.text}</Typography>
+                <Typography className={classes.menuSubLinkText} >{menu.title}</Typography>
             </NavLink>
         }
         return <NavLink className={classes.menuSubLink} to={menu.url}>
-            <Typography className={classes.menuSubLinkText} >{menu.text}</Typography>
+            <Typography className={classes.menuSubLinkText} >{menu.title}</Typography>
         </NavLink>
     }
     return (
@@ -25,7 +25,7 @@ function SideBarMenu(props) {
             <List >
                 <ListItem>
                     <NavLink className={classes.menuLink} to={menu.url}>
-                        <Typography className={classes.menuSubLinkText} > {menu.text}</Typography>
+                        <Typography className={classes.menuSubLinkText} > {menu.title}</Typography>
                     </NavLink>
                 </ListItem>
             </List>

@@ -4,7 +4,7 @@ const AplicationText =
     lang: ["es", "en"],
     menu: [
         {
-            text: "Tienda",
+            title: "Tienda",
             url: "",
             items: [{
                 text: "Productos",
@@ -13,11 +13,11 @@ const AplicationText =
             }]
         },
         {
-            text: "User",
+            title: "User",
             url: "/Login",
             icon: "login",
             items: [{
-                text: "Logout",
+                title: "Logout",
                 url: "",
                 action: "logout"
             }]

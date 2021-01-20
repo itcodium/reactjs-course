@@ -22,7 +22,7 @@ class CreateMenu{
             "depth"=>$value["depth"], 
             "id_menu"=>$value["id_menu"], 
             "class"=>"menu-icon icon-folder", 
-            "menu"=>[]);
+            "items"=>[]);
         return $result;
     }
     public function getNextNode($index){
@@ -50,7 +50,7 @@ class CreateMenu{
                     $node= $this->getNode($this->data[$i],$nextIndex);
                     $next=$this->getNextDepthIndex($depth,$i);
                     if($this->data[$i+1]["depth"]-1== $node["depth"]){
-                         $node["menu"]=$this->getMenu($i+1, $next);
+                         $node["items"]=$this->getMenu($i+1, $next);
                     }
                     array_push($list,$node);
                 }   

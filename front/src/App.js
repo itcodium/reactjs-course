@@ -19,7 +19,6 @@ function App(props) {
           <Header></Header>
         </header>
         <main className={classes.layout}>
-
           <Grid container>
             <Grid item xs={12} md={12}>
               <PrivateRoute key="1" exact path="/" component={Home} />

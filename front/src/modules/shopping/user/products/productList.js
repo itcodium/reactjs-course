@@ -2,19 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Product from './product';
+import menuData from '../../admin/menu/data';
+import MenuCustom from '../../admin/menu/menu';
 
 const ProductList = ({ products }) => (
-    <Grid container spacing={2}>
-        {
-            products.map((product, index) => (
-                <Product
-                    key={index}
-                    product={product}
-                >
-                </Product>
-            ))
-        }
-    </Grid>
+    <div>
+        <MenuCustom menu={menuData}></MenuCustom>
+        <Grid container spacing={2}>
+            {
+                products.map((product, index) => (
+                    <Product
+                        key={index}
+                        product={product}
+                    >
+                    </Product>
+                ))
+            }
+        </Grid>
+    </div>
 )
 
 ProductList.propTypes = {
