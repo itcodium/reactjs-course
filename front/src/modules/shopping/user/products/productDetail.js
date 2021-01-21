@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import compose from 'recompose/compose';
-import { connect, useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import PRODUCTS from '../../../../redux/actions/products';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -61,11 +61,6 @@ function ProductDetail(props) {
         </div>);
 }
 
-const mapStateToProps = state => {
-    return { state: state ? state.productDetail : null };
-};
-
 export default compose(
-    withStyles(styles),
-    connect(mapStateToProps),
+    withStyles(styles)
 )(ProductDetail);

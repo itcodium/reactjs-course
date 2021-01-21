@@ -3,12 +3,14 @@ import login from './login';
 import user from './user';
 import products from './products';
 import productDetail from './productDetail';
+import menu from './menu';
 
 const appReducer = combineReducers({
     login,
     user,
     products,
-    productDetail
+    productDetail,
+    menu
 });
 
 const reducerRoot = (state, action) => {

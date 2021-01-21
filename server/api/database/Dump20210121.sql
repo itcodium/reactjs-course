@@ -1,6 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `u159062377_react` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `u159062377_react`;
-          
 -- MySQL dump 10.13  Distrib 8.0.22, for Linux (x86_64)
 --
 -- Host: 172.23.0.1    Database: u159062377_react
@@ -385,7 +384,7 @@ CREATE TABLE `hr_menu` (
   `lft` int(11) NOT NULL,
   `rgt` int(11) NOT NULL,
   PRIMARY KEY (`id_menu`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -394,7 +393,7 @@ CREATE TABLE `hr_menu` (
 
 LOCK TABLES `hr_menu` WRITE;
 /*!40000 ALTER TABLE `hr_menu` DISABLE KEYS */;
-INSERT INTO `hr_menu` VALUES (1,NULL,NULL,1,22),(2,NULL,NULL,8,21),(3,NULL,NULL,2,7),(4,NULL,NULL,3,6),(5,NULL,NULL,67,70),(6,NULL,NULL,17,20),(7,NULL,NULL,11,16),(8,NULL,NULL,9,10),(10,NULL,NULL,68,69),(11,NULL,NULL,4,5),(12,NULL,NULL,12,15),(13,NULL,NULL,13,14),(14,NULL,NULL,18,19),(15,NULL,NULL,63,66),(16,NULL,NULL,45,46),(17,NULL,NULL,43,44),(18,NULL,NULL,41,42),(22,NULL,NULL,39,40),(23,NULL,NULL,47,48),(24,NULL,NULL,49,52),(25,NULL,NULL,59,60),(26,NULL,NULL,61,62),(27,NULL,NULL,57,58),(28,NULL,NULL,55,56),(29,NULL,NULL,53,54),(30,NULL,NULL,50,51),(31,NULL,NULL,64,65),(32,NULL,NULL,29,38),(33,NULL,NULL,30,37),(34,NULL,NULL,31,32),(35,NULL,NULL,33,36),(36,NULL,NULL,34,35),(37,NULL,NULL,23,26),(38,NULL,NULL,27,28),(39,NULL,NULL,24,25);
+INSERT INTO `hr_menu` VALUES (1,NULL,NULL,1,4),(2,NULL,NULL,2,3),(3,NULL,NULL,7,10),(4,NULL,NULL,8,9),(5,NULL,NULL,5,6);
 /*!40000 ALTER TABLE `hr_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,8 +434,11 @@ CREATE TABLE `hr_menu_text` (
   `id_menu` int(11) DEFAULT NULL,
   `menu_text` varchar(50) NOT NULL,
   `lang` varchar(2) NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `icon` varchar(64) DEFAULT NULL,
+  `action` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id_menu_text`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -445,7 +447,7 @@ CREATE TABLE `hr_menu_text` (
 
 LOCK TABLES `hr_menu_text` WRITE;
 /*!40000 ALTER TABLE `hr_menu_text` DISABLE KEYS */;
-INSERT INTO `hr_menu_text` VALUES (1,1,'Computers','ES'),(2,2,'Laptops','ES'),(3,3,'Desktops','ES'),(4,4,'Intel','ES'),(5,5,'Consoles','ES'),(6,6,'Apple','ES'),(7,7,'IOS','ES'),(8,8,'IPhone','ES'),(10,10,'PS3','ES'),(11,11,'AMD','ES'),(12,12,'Test','ES'),(13,13,'Test 2','ES'),(14,14,'Apple 2','ES'),(15,15,'Camera','ES'),(16,16,'TEST_TEST','ES'),(29,32,'0001_1_1','ES'),(31,34,'0003','ES'),(32,35,'0004','ES'),(33,36,'0016','ES'),(34,37,'test333','ES'),(35,38,'2222','ES'),(36,39,'3333 bbb','ES');
+INSERT INTO `hr_menu_text` VALUES (1,1,'Tienda ','es','','',''),(2,2,'Productos','ES','/','',''),(3,3,'User','es','','login',''),(4,4,'Logout','ES','','','logout'),(5,5,'Contacto','es','/Contact','','');
 /*!40000 ALTER TABLE `hr_menu_text` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1119,13 +1121,19 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_addNodeChild`(pId_menu int,pLang varchar(2),pName varchar(128))
+CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_addNodeChild`(pId_menu int,
+pLang varchar(2),
+pName varchar(128),
+pUrl varchar(255),
+pIcon varchar(65),
+pAction varchar(65)
+)
 BEGIN
 		DECLARE myLeft INT;
 		SET myLeft =(SELECT lft  FROM hr_menu		WHERE id_menu = pId_menu);
@@ -1136,8 +1144,8 @@ BEGIN
 		INSERT INTO hr_menu(lft, rgt) 
 			VALUES(myLeft + 1, myLeft + 2);
             
-        INSERT INTO hr_menu_text(id_menu,menu_text,lang )
-        VALUES(LAST_INSERT_ID(),pName,pLang);    
+        INSERT INTO hr_menu_text(id_menu,menu_text,lang,url,icon, action  )
+        VALUES(LAST_INSERT_ID(),pName,pLang, pUrl,pIcon,pAction );    
         SELECT  ROW_COUNT() row_count;	
 
 	END ;;
@@ -1150,13 +1158,19 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_addNodeSameLevel`(pId_menu int,pLang varchar(2),pName varchar(128))
+CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_addNodeSameLevel`(pId_menu int,
+pLang varchar(2),
+pName varchar(128),
+pUrl varchar(255),
+pIcon varchar(64),
+pAction varchar(64)
+)
 BEGIN
 		DECLARE vErrorMessage varchar(1024);
         DECLARE myRight INT;
@@ -1168,8 +1182,9 @@ BEGIN
 			IF (SELECT COUNT(*) FROM hr_menu)=0 THEN
 				INSERT INTO hr_menu(lft,rgt)
 					VALUES(1,2);
-				INSERT INTO hr_menu_text(id_menu,menu_text,lang )
-					VALUES(LAST_INSERT_ID(),pName,pLang);
+				INSERT INTO hr_menu_text(id_menu,menu_text,lang,url,icon, action )
+					VALUES(LAST_INSERT_ID(),pName,pLang,pUrl ,pIcon,pAction );
+                    
 			ELSE	
 				
 				SET vErrorMessage =(SELECT getErrorMessage(pLang ,'A0011'));
@@ -1194,8 +1209,8 @@ BEGIN
 			
             SET id=LAST_INSERT_ID();
         
-			INSERT INTO hr_menu_text(id_menu,menu_text,lang )
-			VALUES(id,pName,pLang);
+			INSERT INTO hr_menu_text(id_menu,menu_text,lang ,url ,icon,action )
+			VALUES(id,pName,pLang,pUrl ,pIcon,pAction );
             
             SELECT  id as id_menu, ROW_COUNT() row_count;	
 		END IF;
@@ -1365,11 +1380,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getFullTree`(id int,pLang varchar(2))
 BEGIN
@@ -1377,7 +1392,7 @@ BEGIN
 		FROM hr_menu AS node,hr_menu AS parent,hr_menu_text AS c
 		WHERE node.lft BETWEEN parent.lft AND parent.rgt
 				AND node.id_menu=c.id_menu 
-				AND parent.id_menu =id 
+				AND parent.id_menu =IFNULL( id,parent.id_menu)
 				AND c.lang=pLang
 		ORDER BY node.lft;
 	END ;;
@@ -1430,22 +1445,22 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getNodesDepth`(pLang varchar(2))
 BEGIN
-		SELECT node.lft,node.id_menu ,c.menu_text , (COUNT(parent.id_menu) - 1) AS depth
+		SELECT node.lft,node.id_menu ,c.menu_text as title,  c.url,c.icon,c.action, (COUNT(parent.id_menu) - 1) AS depth
 		FROM hr_menu AS node,
 			 hr_menu AS parent,
              hr_menu_text AS c
 		WHERE node.lft BETWEEN parent.lft AND parent.rgt
 				AND node.id_menu=c.id_menu 
 				AND c.lang=pLang
-		GROUP BY node.id_menu 
+		GROUP BY node.lft,node.id_menu,c.url,c.icon,c.action,c.menu_text
 		ORDER BY node.lft;
 	END ;;
 DELIMITER ;
@@ -2180,4 +2195,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 12:34:23
+-- Dump completed on 2021-01-21 17:34:36

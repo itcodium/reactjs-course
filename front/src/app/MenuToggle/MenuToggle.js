@@ -79,7 +79,7 @@ function MenuToggle(props) {
             </IconButton>
         } else {
             if (menu.action) {
-                if (menu.action == "logout") {
+                if (menu.action === "logout") {
                     return <NavLink onClick={logout} className={classes.menuLink} to={menu.url}>
                         {menu.title}
                     </NavLink>

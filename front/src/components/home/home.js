@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from '../../App.styles';
 import PRODUCTS from '../../redux/actions/products'
+import MENU from '../../redux/actions/menu'
 import ProductList from '../../modules/shopping/user/products/productList.js'
 
 function Home(props) {
@@ -16,7 +17,7 @@ function Home(props) {
     const products = useSelector(state => state.products.products)
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(PRODUCTS.get())
+            dispatch(PRODUCTS.get());
         }
     }, [status, dispatch])
     return (

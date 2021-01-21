@@ -15,8 +15,9 @@ const useStyles = makeStyles({
     },
 });
 
-const MenuCustom = ({ menu, classes }) => {
-    const openIds = menu.map((node) => node.id_menu);
+const TreeMenu = ({ menu, classes }) => {
+    console.log('MenuCustom: ', menu);
+    const openIds = Array.isArray(menu) ? menu.map((node) => node.id_menu) : [];
     const renderTree = (nodes) => (
         <TreeItem key={nodes.id_menu} nodeId={nodes.id_menu} label={nodes.title}>
             {Array.isArray(nodes.items) ? nodes.items.map((node) => renderTree(node)) : null}
@@ -32,8 +33,8 @@ const MenuCustom = ({ menu, classes }) => {
         </TreeView>
     );
 }
-MenuCustom.propTypes = {
+TreeMenu.propTypes = {
     menu: PropTypes.object,
 };
 
-export default withStyles(useStyles)(MenuCustom);
+export default withStyles(useStyles)(TreeMenu);

@@ -10,11 +10,9 @@ const localUser = localStorage.getItem('user') || null;
 let jsonUser = null;
 if (localUser) {
     jsonUser = JSON.parse(localUser);
-    initialState.payload = jsonUser;
-    if (jsonUser && initialState.payload) {
-        //LoginService.setLogIn(true);
-    }
+    initialState.payload = jsonUser.payload;
 }
+
 function reducer(state = initialState || {}, action) {
     switch (action.type) {
         case LOGIN.FETCH: {
@@ -37,7 +35,11 @@ function reducer(state = initialState || {}, action) {
             });
         }
         case LOGIN.OUT: {
-            const login = Object.assign({}, state, { ...initialState, payload: null });
+            const login = Object.assign({}, state, {
+                ...initialState,
+                payload: null
+            });
+            localStorage.removeItem('user');
             return login;
         }
         case LOGIN.CLEAR: {
