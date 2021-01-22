@@ -16,7 +16,6 @@ import AppBar from '@material-ui/core/AppBar';
 import SideBarMenu from '../SideBarMenu/SideBarMenu';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import MenuToggle from '../MenuToggle/MenuToggle';
-import AplicationText from '../app.text';
 import styles from './header.style';
 import mainLogo from '../../assets/logo.png';
 import LOGIN from '../../redux/actions/login'

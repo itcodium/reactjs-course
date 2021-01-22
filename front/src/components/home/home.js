@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from '../../App.styles';
 import PRODUCTS from '../../redux/actions/products'
-import MENU from '../../redux/actions/menu'
 import ProductList from '../../modules/shopping/user/products/productList.js'
 
 function Home(props) {

@@ -13,17 +13,14 @@ const styles = theme => ({
     menuSubLink: {
         cursor: 'hand',
         textDecoration: 'none',
-        margin: 0,
         paddingLeft: 30,
         margin: 0,
         padding: 0,
         color: '#2d496e',
-
     },
     menuSubLinkPinter: {
         textDecoration: 'none',
         cursor: 'pointer',
-        margin: 0,
         paddingLeft: 30,
         margin: 0,
         padding: 0,
