@@ -1,39 +1,18 @@
 const styles = theme => ({
     fullList: {
         width: 250,
-        margin: 0,
-        padding: 0,
-    },
-    menuLink: {
-        textDecoration: 'none',
-        margin: 0,
-        padding: 0,
-        color: '#2d496e'
-    },
-    menuSubLink: {
-        cursor: 'hand',
-        textDecoration: 'none',
-        paddingLeft: 30,
-        margin: 0,
-        padding: 0,
-        color: '#2d496e',
+        color: '#000',
     },
     menuSubLinkPinter: {
         textDecoration: 'none',
         cursor: 'pointer',
-        paddingLeft: 30,
-        margin: 0,
-        padding: 0,
-        color: '#2d496e',
+        paddingLeft: 10,
+        color: '#000',
     },
-    menuSubLinkText: {
+    menuSubLink: {
+        cursor: 'hand',
         textDecoration: 'none',
-        fontSize: '12px',
-        fontWeight: "bold",
-        margin: 0,
-        padding: 0,
-
+        color: '#000',
     },
-
 });
 export default styles;

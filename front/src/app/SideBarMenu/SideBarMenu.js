@@ -14,7 +14,7 @@ function SideBarMenu(props) {
     const getSubList = (menu) => {
         return <List>{
             menu.items.map((sub, indexSub) => (
-                <ListItem className={classes.fullList} key={indexSub}>
+                <ListItem key={indexSub}>
                     {getLink(sub)}
                 </ListItem>
             ))}
@@ -23,13 +23,12 @@ function SideBarMenu(props) {
 
     const getLink = (menu) => {
         let eventClick = null;
-
         if (menu.action === "logout") {
             eventClick = logout;
         }
 
         if (menu.url) {
-            return <NavLink onClick={eventClick} className={classes.menuSubLinkPinter} to={menu.url}>
+            return <NavLink onClick={eventClick} to={menu.url} className={classes.menuSubLink}>
                 <ListItemText primary={menu.title} />
                 {getSubList(menu)}
             </NavLink>
@@ -50,7 +49,6 @@ function SideBarMenu(props) {
                     </ListItem>
                 ))}
             </List>
-
         </div>
 
     );

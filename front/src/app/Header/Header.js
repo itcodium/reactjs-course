@@ -25,9 +25,10 @@ function Header(props) {
     const [open, setOpen] = React.useState(false);
     let history = useHistory();
     const dispatch = useDispatch();
+    //    dispatch(LOGIN.out())
     const logOut = (event) => {
         dispatch(LOGIN.out())
-        history.push('#/Login')
+        history.push('/Login')
         event.preventDefault();
     }
     const { menu } = useSelector(state => state.menu)

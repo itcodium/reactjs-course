@@ -2,13 +2,15 @@ import { Route, HashRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PrivateRoute from './services/PrivateRoute'
-import Home from './components/home/home'
+import Home from './modules/home/home'
 import Header from './app/Header/Header'
 import Footer from './app/Footer/Footer'
-import ProductDetail from './modules/shopping/user/products/productDetail'
-import Login from './components/login/login'
-import SignUp from './components/signUp/signUp.js';
+import Login from './app/login/login'
+import SignUp from './app/signUp/signUp.js';
 import styles from './App.styles';
+
+import ProductDetail from './modules/shopping/user/products/productDetail'
+import Admin from './modules/admin/admin'
 
 function App(props) {
   const { classes } = props;
@@ -32,6 +34,11 @@ function App(props) {
                   key="110"
                   path='/ProductDetail/:id'
                   component={ProductDetail}
+                />
+                <PrivateRoute
+                  key="120"
+                  path='/admin'
+                  component={Admin}
                 />
               </div>
             </Grid>
