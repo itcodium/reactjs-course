@@ -14,7 +14,6 @@ function* checkLogin(params) {
         }
         else {
             yield put({ type: LOGIN.ERROR, payload: response ? response : { status: "error", message: "null response" } });
-
         }
     } catch (e) {
 
