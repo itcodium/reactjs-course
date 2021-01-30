@@ -9,7 +9,15 @@ const persistConfig = {
     key: 'root',
     storage,
 }
-const persistedReducer = persistReducer(persistConfig, reducers);
+const rootReducer = (state, action) => {
+    console.log('action: ', action);
+    if (action.type === 'LOG_OUT') {
+        state = undefined
+    }
+    return reducers(state, action)
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // https://dev.to/bhatvikrant/redux-persist-v6-in-detail-react-10nh
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -20,3 +28,4 @@ const persistor = persistStore(store);
 
 sagaMiddleware.run(saga);
 export { store, persistor }
+

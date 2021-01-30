@@ -14,6 +14,7 @@ function Home(props) {
     const dispatch = useDispatch();
     const status = useSelector(state => state.products.status)
     const products = useSelector(state => state.products.products)
+
     useEffect(() => {
         if (status === 'idle') {
             dispatch(PRODUCTS.get());
