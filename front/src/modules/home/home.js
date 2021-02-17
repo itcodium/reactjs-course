@@ -19,12 +19,6 @@ function Home(props) {
         dispatch(PRODUCTS.get());
     }, [])
 
-    /*useEffect(() => {
-        if (status === 'idle') {
-            dispatch(PRODUCTS.get());
-        }
-    }, [status, dispatch])*/
-
     return (
         <div className={classes.container}>
             <Typography variant="h4" gutterBottom>Catalogo de productos</Typography>
