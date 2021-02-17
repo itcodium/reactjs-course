@@ -16,10 +16,15 @@ function Home(props) {
     const products = useSelector(state => state.products.products)
 
     useEffect(() => {
+        dispatch(PRODUCTS.get());
+    }, [])
+
+    /*useEffect(() => {
         if (status === 'idle') {
             dispatch(PRODUCTS.get());
         }
-    }, [status, dispatch])
+    }, [status, dispatch])*/
+
     return (
         <div className={classes.container}>
             <Typography variant="h4" gutterBottom>Catalogo de productos</Typography>

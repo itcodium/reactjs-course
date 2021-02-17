@@ -18,7 +18,6 @@ import styles from './login.style.js';
 import LOGIN from '../../redux/actions/login'
 import ValidateForm from '../../services/validateForm'
 
-
 function Login(props) {
     const { classes, state } = props;
     const dispatch = useDispatch();
@@ -29,7 +28,6 @@ function Login(props) {
     ValidateForm.setForm = setForm;
 
     const status = useSelector(state => state.login.status)
-
     const redirectPath = () => {
         const locationState = props.location.state;
         const pathname = (
