@@ -20,10 +20,8 @@ function ProductDetail(props) {
     const product = useSelector(state => state.productDetail.product)
 
     useEffect(() => {
-        if (status === 'idle' || product.id !== params.id) {
-            dispatch(PRODUCTS.getDetail(params))
-        }
-    }, [dispatch])
+        dispatch(PRODUCTS.getDetail(params))
+    }, [])
 
     return (
         <div>
