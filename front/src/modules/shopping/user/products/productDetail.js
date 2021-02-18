@@ -16,6 +16,7 @@ function ProductDetail(props) {
     const { classes } = props;
     const { match: { params } } = props;
     const dispatch = useDispatch();
+
     const status = useSelector(state => state.productDetail.status)
     const product = useSelector(state => state.productDetail.product)
 

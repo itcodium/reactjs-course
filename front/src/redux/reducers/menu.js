@@ -1,6 +1,6 @@
 import MENU from '../types/menu'
 import STATUS from '../constants/status'
-console.log('STATUS: ', STATUS);
+
 const initialState = {
     menu: [],
     status: STATUS.IDLE

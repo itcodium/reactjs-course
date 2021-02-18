@@ -1,27 +1,34 @@
-import PRODUCT_DETAIL from '../types/productDetail'
+import MODULE from '../types/modules'
+
 const initialState = {
-    product: null,
+    modules: [],
     status: 'idle',
+    loading: false,
     error: null
 }
 
 function reducer(state = initialState, action) {
     switch (action.type) {
-        case PRODUCT_DETAIL.FETCH: {
+        case MODULE.FETCH: {
             return Object.assign({}, state, {
+                loading: true,
+                error: null,
                 status: "loading"
             });
         }
-        case PRODUCT_DETAIL.SUCCESS: {
-            const product = Object.assign({}, state, {
-                product: action.payload.data,
+        case MODULE.SUCCESS: {
+            const item = Object.assign({}, state, {
+                modules: action.payload.data,
+                error: null,
+                loading: false,
                 status: "succeeded"
             });
-            return product;
+            return item;
         }
-        case PRODUCT_DETAIL.ERROR: {
+        case MODULE.ERROR: {
             return Object.assign({}, state, {
                 error: action.payload,
+                loading: false,
                 status: "failed"
             });
         }

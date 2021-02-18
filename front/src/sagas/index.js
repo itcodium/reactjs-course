@@ -3,12 +3,14 @@ import { login } from './login'
 import { user } from './user'
 import { products } from './modules/products/products'
 import { menu } from './modules/menu/menu'
+import { modules } from './modules/admin/modules'
 
 export default function* rootSaga() {
     yield all([
         login(),
         user(),
         products(),
-        menu()
+        menu(),
+        modules()
     ])
 }
