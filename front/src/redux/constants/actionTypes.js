@@ -11,5 +11,7 @@ export const PRODUCTS = asyncActionType('PRODUCTS');
 export const PRODUCT_DETAIL = asyncActionType('PRODUCT_DETAIL');
 export const MENU = asyncActionType('MENU');
 export const MODULE = asyncActionType('MODULE');
+export const PERFIL = asyncActionType('PERFIL');
+
 
 

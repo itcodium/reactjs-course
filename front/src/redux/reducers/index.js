@@ -5,6 +5,7 @@ import products from './products';
 import productDetail from './productDetail';
 import menu from './menu';
 import modules from './modules';
+import perfil from './perfil';
 
 const appReducer = combineReducers({
     login,
@@ -13,6 +14,7 @@ const appReducer = combineReducers({
     productDetail,
     menu,
     modules,
+    perfil
 });
 
 const reducerRoot = (state, action) => {
