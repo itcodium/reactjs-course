@@ -16,6 +16,7 @@ function reducer(state = {}, action) {
         }
         case USER.SUCCESS: {
             const user = Object.assign({}, state, {
+                users: action.payload.data,
                 payload: action.payload,
                 error: false,
                 loading: false,

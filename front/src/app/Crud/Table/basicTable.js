@@ -30,7 +30,6 @@ export default function BasicTable(props) {
     const { status } = props;
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log('data: ', data);
         if (action) {
             dispatch(action.get())
         }
