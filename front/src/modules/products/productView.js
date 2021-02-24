@@ -7,9 +7,9 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from '../../App.styles';
 import PRODUCTS from '../../redux/actions/products'
-import ProductList from '../shopping/user/products/productList.js'
+import ProductList from '../products/productList.js'
 
-function Home(props) {
+function ProductView(props) {
     const { classes } = props;
     const dispatch = useDispatch();
     const status = useSelector(state => state.products.status)
@@ -20,8 +20,8 @@ function Home(props) {
     }, [])
 
     return (
-        <div className={classes.container}>
-            <Typography variant="h4" gutterBottom>Catalogo de productos</Typography>
+        <div>
+            <Typography variant="h4" gutterBottom>Catalogo de productos(*)</Typography>
             {status === "succeeded" ? <ProductList products={products} ></ProductList> : null}
             {status === "loading" ? <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div> : null}
             {status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{""}</Typography> : null}
@@ -31,4 +31,4 @@ function Home(props) {
 
 export default compose(
     withStyles(styles)
-)(Home);
+)(ProductView);

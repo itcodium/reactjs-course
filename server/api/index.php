@@ -58,7 +58,7 @@ $app->delete('/perfilmodule/{id:[0-9]+}','PerfilModuleBus::delete');
 
 $app->get('/product', 'ProductBus::getAll');
 $app->get('/product/{id:[0-9]+}','ProductBus::getById');
-$app->get('/menu', 'MenuBus::getNodesDepth');
+$app->get('/menu', 'MenuBus::getNodesDepthByUser');
  
 $app->get('/test/500', function () use ($app) {
     $app->response->setStatusCode(500, "Internal Error");

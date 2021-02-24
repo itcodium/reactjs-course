@@ -1,23 +1,34 @@
 import { Route, HashRouter } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PrivateRoute from './services/PrivateRoute'
-import Home from './modules/home/home'
 import Header from './app/Header/Header'
 import Footer from './app/Footer/Footer'
 import Login from './app/login/login'
 import SignUp from './app/signUp/signUp.js';
 import styles from './App.styles';
 
-import ProductDetail from './modules/shopping/user/products/productDetail'
+import ProductView from './modules/products/productView'
+import ProductDetail from './modules/products/productDetail'
 import Menu from './modules/admin/menu'
 import Module from './modules/admin/module'
 import User from './modules/admin/user'
 import Perfil from './modules/admin/perfil'
 import PerfilModule from './modules/admin/perfilModule'
 
+const MENU = {
+  "/menu": Menu,
+  "/products": ProductView
+}
+
 function App(props) {
   const { classes } = props;
+  const menu = useSelector(state => state.menu.menu);
+  let URL = "/products";
+  if (menu.length) {
+    URL = !menu[0].url ? menu[0].items[0].url : menu[0].url;
+  }
   return (
     <HashRouter >
       <div>
@@ -27,14 +38,16 @@ function App(props) {
         <main className={classes.layout}>
           <Grid container>
             <Grid item xs={12} md={12}>
-              <PrivateRoute key="1" exact path="/" component={Home} />
-              <PrivateRoute key="10" path="/Home" component={Home} />
+              <div className={classes.container} >
+                <PrivateRoute key="1" exact path="/" component={MENU[URL]} />
+              </div>
             </Grid>
             <Grid item xs={12} md={12} >
               <div className={classes.container} >
                 <Route key="70" path="/SignUp" component={SignUp} />
                 <Route key="80" path="/Login" component={Login} />
-                <PrivateRoute key="110" path='/ProductDetail/:id' component={ProductDetail} />
+                <PrivateRoute key="10" path='/products' component={ProductView} />
+                <PrivateRoute key="110" path='/productDetail/:id' component={ProductDetail} />
                 <PrivateRoute key="120" path='/perfil' component={Perfil} />
                 <PrivateRoute key="130" path='/module' component={Module} />
                 <PrivateRoute key="140" path='/perfilModule' component={PerfilModule} />

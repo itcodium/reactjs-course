@@ -49,7 +49,7 @@ class CreateMenu{
             }
             $depth= $this->getNode($this->data[$index])["depth"];
             for ($i = $index; $i < $this->length &&  $i< $nextIndex; $i++) {
-                if($depth==$this->data[$i]["depth"]){
+                if($depth==$this->data[$i]["depth"] && $this->data[$i]["enabled"]){
                     $node= $this->getNode($this->data[$i],$nextIndex);
                     $next=$this->getNextDepthIndex($depth,$i);
                     if($this->data[$i+1]["depth"]-1== $node["depth"]){

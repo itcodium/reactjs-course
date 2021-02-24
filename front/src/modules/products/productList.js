@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Product from './product';
+import ProductItem from './productItem';
 
 const ProductList = ({ products }) => (
     <div>
         <Grid container spacing={2}>
             {
                 products.map((product, index) => (
-                    <Product
+                    <ProductItem
                         key={index}
                         product={product}
                     >
-                    </Product>
+                    </ProductItem>
                 ))
             }
         </Grid>

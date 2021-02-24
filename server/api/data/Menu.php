@@ -72,22 +72,53 @@ class Menu
         }finally{
             $this->con->close();
         }
-/*
+    }
+    
+	public function getNodesDepthByUser($lang,$user){
         try {
-            $statement = $this->con->prepare("call menu_getNodesDepth (?)");
-            $statement->bind_param("s",$lang);
+            $statement = $this->con->prepare("call menu_getNodesDepthByUser(?,?)");
+            $statement->bind_param("si",  $lang,$user);
             $statement->execute();
+            $rawdata = array();
+            $i=0;
             $result = $statement->get_result();
-            return $result->fetch_object();
-
+            while($row = $result->fetch_object()){
+                $rawdata[$i] = $row;
+                $i++;
+            }
+            $result->close();
+            return $rawdata;
         } catch (Exception $e){
             throw new Exception($e->getMessage());
         }finally{
             $this->con->close();
-        }*/
-
-        
+        }
     }
+	public function getByUserURL($idUser,$url){
+        try {
+            $statement = $this->con->prepare("call menu_getNodesDepthByUserUrl(?,?)");
+            $statement->bind_param("is",  $idUser, $url);
+            $statement->execute();
+            $rawdata = array();
+            $i=0;
+            $result = $statement->get_result();
+            while($row = $result->fetch_object()){
+                $rawdata[$i] = $row;
+                $i++;
+            }
+            $result->close();
+            if(count($rawdata)==0){
+                throw new Exception("Not allowed"); 
+            }
+            return $rawdata;
+        } catch (Exception $e){
+            throw new Exception($e->getMessage());
+        }finally{
+            $this->con->close();
+        }
+    }
+    
+
 /*    
     public function update($data){
         try {

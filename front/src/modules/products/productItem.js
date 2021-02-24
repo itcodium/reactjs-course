@@ -8,8 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
-import styles from './product.style';
-const Product = ({ product, classes }) => (
+import styles from './productItem.style';
+const ProductItem = ({ product, classes }) => (
     <Grid item xs={12} sm={12} md={6} lg={6}>
         <Card className={classes.card}>
             <Hidden smUp>
@@ -33,7 +33,7 @@ const Product = ({ product, classes }) => (
                         </Hidden>
                     </div>
                     <div className={classes.right}>
-                        <Button href={"#/ProductDetail/" + product.id} color="primary" >
+                        <Button href={"#/productDetail/" + product.id} color="primary" >
                             Detail
                         </Button>
                     </div>
@@ -43,8 +43,8 @@ const Product = ({ product, classes }) => (
     </Grid>
 )
 
-Product.propTypes = {
+ProductItem.propTypes = {
     product: PropTypes.object,
 };
 
-export default withStyles(styles)(Product);
+export default withStyles(styles)(ProductItem);

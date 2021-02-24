@@ -8,7 +8,6 @@ class MenuBus
     private static $response;
     private static $item;
     private static $app;
-
     public static function init($app){
         self::$response= new  ResponseFormat();
         self::$app=$app;
@@ -44,6 +43,32 @@ class MenuBus
         }
         return self::$response->get();
     }
+
+	public static function getNodesDepthByUser(){
+        try{
+            //$valid=Auth::Check(apache_request_headers()['Authorization']);
+            $lang='ES';
+            $user=apache_request_headers()['user_id'];
+            $data=self::$item->getNodesDepthByUser($lang,$user);
+            $cmenu=new CreateMenu();
+            $cmenu->setData($data);
+            $test=$cmenu->getMenu(0);
+            self::$response->data($test);
+        }catch(exception $e) {
+            self::$response->error($e->getMessage());
+        }
+        return self::$response->get();
+    }
+	public static function getByUserURL($user,$path){
+        try{
+            return self::$item->getByUserURL($lang,$path);
+        }catch(exception $e) {
+            self::$response->error($e->getMessage());
+        }
+        return self::$response->get();
+    }
+    
+
 
 /*
     public static function delete($id){
