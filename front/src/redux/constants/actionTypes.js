@@ -1,4 +1,5 @@
 const asyncActionType = (type) => ({
+    INIT: `${type}_INIT`,
     FETCH: `${type}_FETCH`,
     PENDING: `${type}_PENDING`,
     SUCCESS: `${type}_SUCCESS`,

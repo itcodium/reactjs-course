@@ -105,10 +105,7 @@ class UserBus
 
     public static function insert(){
         try{
-            Auth::Check(apache_request_headers()['Authorization']);
-            $user= apache_request_headers()['user_id'];
-            self::$menu->getByUserURL($user,self::$path);
-
+            sleep(3);
             $parameters =self::$app->request->getJsonRawBody();
             $parameters->usuario=explode("@", $parameters->email)[0];
             $parameters->vigencia_desde=date("Y-m-d");

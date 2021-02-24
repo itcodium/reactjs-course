@@ -15,8 +15,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import styles from './login.style.js';
-import LOGIN from '../../redux/actions/login'
-import ValidateForm from '../../services/validateForm'
+import LOGIN from '../../../redux/actions/login'
+import ValidateForm from '../../../services/validateForm'
 
 function Login(props) {
     const { classes, state } = props;
@@ -125,12 +125,6 @@ function Login(props) {
 
 }
 
-/*
-const mapStateToProps = state => {
-    console.log('state.login: ', state.login);
-    return { state: state.login };
-};*/
-
 export default compose(
-    withStyles(styles)//,connect(mapStateToProps),
+    withStyles(styles)
 )(Login);

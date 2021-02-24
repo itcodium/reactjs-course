@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { connect, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,13 +11,16 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import compose from 'recompose/compose';
 import styles from './signUp.style.js';
-import ValidateForm from '../../services/validateForm'
-import USER from '../../redux/actions/user'
+import ValidateForm from '../../../services/validateForm'
+import USER from '../../../redux/actions/user'
 
 function SignUp(props) {
-    const { classes, state } = props;
+    const { classes } = props;
+
+
+    const user = useSelector(state => state.user);
+    const status = useSelector(state => state.user.status);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         nombre: {},
@@ -53,8 +56,9 @@ function SignUp(props) {
         }
     }
 
-    if (!state.payload || state.payload.status !== "ok") {
+    if (!(user.users && user.users.id || status === "idle") || status !== "succeeded") {
         return (
+
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>
@@ -161,38 +165,33 @@ function SignUp(props) {
                         </Grid>
                         <Grid className={classes.actions} item xs={12}>
                             <Button variant="contained" color="primary"
-                                disabled={state.loading || ValidateForm.hasError(form) || !passwordsMatch()}
+                                disabled={status == "loading" || ValidateForm.hasError(form) || !passwordsMatch()}
                                 onClick={() => {
                                     dispatch(USER.save(getUser()))
                                 }}
                             >Aceptar</Button>
                             {
-                                state.error ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{state.payload.message}</Typography> : null
+                                status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
                             }
                         </Grid>
                     </form>
                 </div>
             </Container>
         );
-    } else {
-        if (state.payload.status === "ok") {
-            return <Container maxWidth="sm" component="main" className={classes.heroContent}>
-                <Typography className={classes.ok} component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                    Alta exitosa
-            </Typography>
-                <Typography variant="h5" align="center" color="textSecondary" component="p">
-                    Click <Link href={"#/Login"}>Login</Link> para ingresar al sistema.
-            </Typography>
-            </Container>
-        }
     }
+    if (status === "succeeded") {
+        return <Container maxWidth="sm" component="main">
+            <Typography className={classes.ok} component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                Alta exitosa
+                </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" component="p">
+                Click <Link href={"#/Login"} onClick={() => {
+                    dispatch(USER.init());
+                }}>Login</Link> para ingresar al sistema.
+                </Typography>
+        </Container >
+    }
+
 }
 
-const mapStateToProps = state => {
-    return { state: state.user };
-};
-
-export default compose(
-    withStyles(styles),
-    connect(mapStateToProps),
-)(SignUp);
+export default withStyles(styles)(SignUp);
