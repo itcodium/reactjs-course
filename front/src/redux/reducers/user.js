@@ -1,32 +1,38 @@
 import USER from '../types/user'
 
+const initialState = {
+    users: [],
+    status: 'idle',
+    error: null
+}
+
 function reducer(state = {}, action) {
     switch (action.type) {
         case USER.FETCH: {
             return Object.assign({}, state, {
-                loading: true,
-                error: false,
+                users: [],
+                error: null,
+                status: "loading"
             });
         }
         case USER.SAVE: {
             return Object.assign({}, state, {
-                loading: true,
-                error: false,
+                error: null,
+                status: "loading"
             });
         }
         case USER.SUCCESS: {
-            const user = Object.assign({}, state, {
+            return Object.assign({}, state, {
                 users: action.payload.data,
-                payload: action.payload,
-                error: false,
-                loading: false,
+                error: null,
+                status: "succeeded"
             });
-            return user;
         }
         case USER.ERROR: {
             return Object.assign({}, state, {
-                error: true,
-                loading: false,
+                users: [],
+                error: action.payload,
+                status: "failed",
                 payload: action.payload
             });
         }

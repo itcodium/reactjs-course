@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -24,10 +24,8 @@ const useStyles = makeStyles({
 
 export default function BasicTable(props) {
     const classes = useStyles();
-    const { data } = props;
     let { columns } = props;
-    const { action } = props;
-    const { status } = props;
+    const { data, action, status } = props;
     const dispatch = useDispatch();
     useEffect(() => {
         if (action) {
@@ -39,7 +37,8 @@ export default function BasicTable(props) {
         return col.visible;
     });
 
-    if (!data) {
+    if (!data || !data.length) {
+
         return null;
     }
     return (
@@ -75,10 +74,11 @@ export default function BasicTable(props) {
                                 }
                             </TableBody>
                         </Table>
+                        {status === "loading" ? <div className={classes.wrapper}> <LinearProgress className={classes.spinnerContainer} /> </div> : null}
                     </TableContainer>
                     : null
             }
-            { status === "loading" ? <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div> : null}
+
             { status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{""}</Typography> : null}
         </div>
     );

@@ -16,7 +16,7 @@ function User(props) {
         { field: 'creado_por', title: 'Created By', align: "center", visible: false },
         { title: 'Edit', visible: true, type: 'edit' },
     ];
-    const status = useSelector(state => state.productDetail.status)
+    const status = useSelector(state => state.user.status)
     const users = useSelector(state => state.user.users)
     return (
         <div>

@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import PrivateRoute from './services/PrivateRoute'
 import Header from './app/Header/Header'
 import Footer from './app/Footer/Footer'
-import Login from './app/login/login'
+import Login from './modules/login/login'
 import SignUp from './app/signUp/signUp.js';
 import styles from './App.styles';
 
