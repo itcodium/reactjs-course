@@ -1,5 +1,5 @@
 import { Route, HashRouter } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PrivateRoute from './services/PrivateRoute'

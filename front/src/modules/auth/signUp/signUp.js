@@ -165,7 +165,7 @@ function SignUp(props) {
                         </Grid>
                         <Grid className={classes.actions} item xs={12}>
                             <Button variant="contained" color="primary"
-                                disabled={status == "loading" || ValidateForm.hasError(form) || !passwordsMatch()}
+                                disabled={status === "loading" || ValidateForm.hasError(form) || !passwordsMatch()}
                                 onClick={() => {
                                     dispatch(USER.save(getUser()))
                                 }}

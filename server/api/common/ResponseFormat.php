@@ -19,15 +19,23 @@ class ResponseFormat{
 
 	public  function error($message){
 		$this->response->setStatusCode('500', 'Internal Server Error');
-		if($message=="Expired token"){
-			$this->response->setJsonContent(
-				['status'=>'error','code'=>'0001', 'message'=>  $message ]
-			);
-		}else{
-			$this->response->setJsonContent(
-				['status'=>'error','message'=>  $message ]
-			);
+		switch ($message) {
+			case "Expired token":
+				$this->response->setJsonContent(
+					['status'=>'error','code'=>'0001', 'message'=>  $message ]
+				);
+				break;
+			case "Not allowed":
+				$this->response->setJsonContent(
+					['status'=>'error','code'=>'0002', 'message'=>  $message ]
+				);
+				break;
+			default:
+				$this->response->setJsonContent(
+					['status'=>'error','message'=>  $message ]
+				);	
 		}
+			
 	}
 
 	public function data($data){
