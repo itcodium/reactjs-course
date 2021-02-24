@@ -1,18 +1,22 @@
 <?php
 require_once dirname(__FILE__).'/../common/ResponseFormat.php';
 require_once dirname(__FILE__).'/../data/User.php';
+require_once dirname(__FILE__).'/../data/Menu.php';
 require_once dirname(__FILE__).'/../jwt/Auth.php';
 
 class UserBus
 {
     private static $response;
     private static $item;
+    private static $menu;
     private static $app;
+    private static $path="/user";
 
     public static function init($app){
         self::$response= new  ResponseFormat();
         self::$app=$app;
         self::$item=new User();
+        self::$menu=new Menu();
     }
 
     function __construct(){
@@ -34,7 +38,9 @@ class UserBus
 
     public static function getAll(){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            Auth::Check(apache_request_headers()['Authorization']);
+            $user= apache_request_headers()['user_id'];
+            self::$menu->getByUserURL($user,self::$path);
             $data=self::$item->getAll();
             self::$response->data($data);
 		}catch(exception $e) {
@@ -45,7 +51,9 @@ class UserBus
 
 	public static function getById($id){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            Auth::Check(apache_request_headers()['Authorization']);
+            $user= apache_request_headers()['user_id'];
+            self::$menu->getByUserURL($user,self::$path);
             $data=self::$item->getById($id);
             self::$response->data($data);
         }catch(exception $e) {
@@ -56,7 +64,9 @@ class UserBus
 
 	public static function getByName($name){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            Auth::Check(apache_request_headers()['Authorization']);
+            $user= apache_request_headers()['user_id'];
+            self::$menu->getByUserURL($user,self::$path);
             $data=self::$item->GetByName($name);
             self::$response->data($data);
         }catch(exception $e) {
@@ -67,7 +77,9 @@ class UserBus
 
     public static function delete($id){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            Auth::Check(apache_request_headers()['Authorization']);
+            $user= apache_request_headers()['user_id'];
+            self::$menu->getByUserURL($user,self::$path);
             $data=self::$item->delete($id);
             self::$response->data($data);
         }catch(exception $e) {
@@ -78,8 +90,9 @@ class UserBus
 
      public static function update($id){
         try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
-
+            Auth::Check(apache_request_headers()['Authorization']);
+            $user= apache_request_headers()['user_id'];
+            self::$menu->getByUserURL($user,self::$path);
             $parameters =self::$app->request->getJsonRawBody();
             $parameters->id=$id;
             $res=self::$item->update($parameters);
@@ -92,6 +105,10 @@ class UserBus
 
     public static function insert(){
         try{
+            Auth::Check(apache_request_headers()['Authorization']);
+            $user= apache_request_headers()['user_id'];
+            self::$menu->getByUserURL($user,self::$path);
+
             $parameters =self::$app->request->getJsonRawBody();
             $parameters->usuario=explode("@", $parameters->email)[0];
             $parameters->vigencia_desde=date("Y-m-d");
