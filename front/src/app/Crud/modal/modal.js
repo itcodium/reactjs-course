@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function Modal(props) {
-    const { open, model, handleClose, handleClick } = props;
+    const { open, model, content, handleClose, handleClick } = props;
 
     return (
         <div>
@@ -19,10 +19,7 @@ export default function Modal(props) {
             >
                 <DialogTitle id="alert-dialog-title">{model ? model.usuario : "none"}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous location data to
-                        Google, even when no apps are running.
-          </DialogContentText>
+                    {content}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">

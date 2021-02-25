@@ -16,15 +16,21 @@ import Edition from './edition';
 import Modal from '../modal/modal';
 
 
+
 function BasicTable(props) {
     let { columns } = props;
-    const { data, action, status, classes } = props;
-    const { onEdit, onDelete } = props;
+    const { data, action, status, classes, contentDelete, contentEdit } = props;
     const [open, setOpen] = React.useState(false);
+    const [modalContent, setModalContent] = React.useState(false);
     const [item, setItem] = React.useState(null);
 
-    const handleClickOpen = (param) => {
-        console.log('data: ', param);
+    const handleClickOpen = (param, action) => {
+        if (action == 'DELETE') {
+            setModalContent(contentDelete);
+        }
+        if (action == 'PUT') {
+            setModalContent(contentEdit);
+        }
         setItem(param);
         setOpen(true);
     };
@@ -32,14 +38,9 @@ function BasicTable(props) {
         setOpen(false);
     };
     const handleClick = (res) => {
-        console.log('handleClick: ', res);
         if (res) {
-            console.log('handleClose: ');
-            //setOpen(false);
             handleClose();
-
         }
-
     }
     const dispatch = useDispatch();
     useEffect(() => {
@@ -60,7 +61,9 @@ function BasicTable(props) {
         <div>
             {
                 (status === "succeeded" || action) || (!action && data) ?
-                    <TableContainer component={Paper}>
+
+                    < TableContainer component={Paper}>
+                        status : {status}
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -92,12 +95,14 @@ function BasicTable(props) {
                     </TableContainer>
                     : null
             }
-
             { status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{""}</Typography> : null}
-
-
-            <Modal open={open} model={item} handleClose={handleClose} handleClick={handleClick}></Modal>
-        </div>
+            <Modal
+                content={modalContent}
+                open={open} model={item}
+                handleClose={handleClose}
+                handleClick={handleClick}>
+            </Modal>
+        </div >
     );
 }
 

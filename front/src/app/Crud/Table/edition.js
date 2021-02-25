@@ -13,14 +13,14 @@ function Edition(props) {
         return <TableCell align={row.align ? row.align : "left"} component="th" scope="row">
             {row.buttons.delete ?
                 <IconButton onClick={() => {
-                    handleOpen(data)
+                    handleOpen(data, 'DELETE')
                 }} size="small" aria-label="delete">
                     <DeleteIcon fontSize="small" />
                 </IconButton> : null
             }
             {row.buttons.edit ?
                 <IconButton onClick={() => {
-                    handleOpen(data)
+                    handleOpen(data, 'PUT')
                 }} size="small" aria-label="edit">
                     <EditIcon fontSize="small" />
                 </IconButton> : null

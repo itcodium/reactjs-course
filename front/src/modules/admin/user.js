@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux'
 import BasicTable from '../../app/Crud/Table/basicTable';
 import USER from '../../redux/actions/user';
 import Typography from '@material-ui/core/Typography';
+import Footer from '../../app/Footer/Footer';
+import LanguageSelector from '../../app/LanguageSelector/LanguageSelector';
 
 function User(props) {
     const columns = [
@@ -17,16 +19,17 @@ function User(props) {
     ];
     const status = useSelector(state => state.user.status)
     const users = useSelector(state => state.user.users)
-    const onEdit = (data) => {
-        alert("Edit")
-    }
-    const onDelete = (data) => {
-        alert("delete")
-    }
+
     return (
         <div>
             <Typography variant="h4" gutterBottom>User</Typography>
-            <BasicTable onDelete={onDelete} onEdit={onEdit} action={USER} status={status} data={users} columns={columns}></BasicTable>
+            <BasicTable
+                contentDelete={<Footer></Footer>}
+                contentEdit={<LanguageSelector></LanguageSelector>}
+                action={USER}
+                status={status}
+                data={users}
+                columns={columns}></BasicTable>
         </div>
     );
 }
