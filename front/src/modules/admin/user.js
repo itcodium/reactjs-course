@@ -13,14 +13,20 @@ function User(props) {
         { field: 'vigencia_desde', title: 'From', align: "center", visible: true },
         { field: 'vigencia_hasta', title: 'To', align: "center", visible: true },
         { field: 'creado_por', title: 'Created By', align: "center", visible: false },
-        { title: 'Edit', visible: true, type: 'edit' },
+        { title: 'Edit', visible: true, type: 'edit', buttons: { delete: true, edit: true } },
     ];
     const status = useSelector(state => state.user.status)
     const users = useSelector(state => state.user.users)
+    const onEdit = (data) => {
+        alert("Edit")
+    }
+    const onDelete = (data) => {
+        alert("delete")
+    }
     return (
         <div>
             <Typography variant="h4" gutterBottom>User</Typography>
-            <BasicTable action={USER} status={status} data={users} columns={columns}></BasicTable>
+            <BasicTable onDelete={onDelete} onEdit={onEdit} action={USER} status={status} data={users} columns={columns}></BasicTable>
         </div>
     );
 }
