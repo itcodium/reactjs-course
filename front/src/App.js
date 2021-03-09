@@ -13,7 +13,7 @@ import ProductView from './modules/products/productView'
 import ProductDetail from './modules/products/productDetail'
 import Menu from './modules/admin/menu'
 import Module from './modules/admin/module'
-import User from './modules/admin/user'
+import User from './modules/admin/user/user'
 import Perfil from './modules/admin/perfil'
 import PerfilModule from './modules/admin/perfilModule'
 

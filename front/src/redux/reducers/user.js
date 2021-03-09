@@ -28,8 +28,13 @@ function reducer(state = initialState, action) {
                 status: "loading"
             });
         }
+        case USER.DELETE: {
+            return Object.assign({}, state, {
+                error: null,
+                status: "crud"
+            });
+        }
         case USER.SUCCESS: {
-            console.log('action: ', action);
             return Object.assign({}, state, {
                 users: action.payload.data,
                 error: null,
@@ -38,7 +43,7 @@ function reducer(state = initialState, action) {
         }
         case USER.ERROR: {
             return Object.assign({}, state, {
-                users: [],
+                user: [],
                 error: action.payload,
                 status: "failed",
                 payload: action.payload

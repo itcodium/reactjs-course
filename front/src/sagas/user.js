@@ -11,14 +11,21 @@ function* save(params) {
         params.payload
     );
 }
+function* remove(params) {
+    yield SagaCall(
+        USER,
+        API_URL + "/" + params.payload.id_usuario,
+        'DELETE',
+        params.payload,
+        USER.FETCH
+    );
+}
 function* get() {
     yield SagaCall(USER, API_URL);
 }
-
-
-
 export function* user() {
     yield takeLatest(USER.SAVE, save);
     yield takeLatest(USER.FETCH, get);
+    yield takeLatest(USER.DELETE, remove);
 }
 

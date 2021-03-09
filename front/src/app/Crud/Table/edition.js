@@ -7,8 +7,6 @@ import Modal from '../modal/modal';
 
 function Edition(props) {
     const { row, data, onEdit, onDelete, handleOpen, handleClose } = props;
-
-
     if (row.type == "edit") {
         return <TableCell align={row.align ? row.align : "left"} component="th" scope="row">
             {row.buttons.delete ?

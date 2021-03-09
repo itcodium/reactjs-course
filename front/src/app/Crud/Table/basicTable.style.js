@@ -7,11 +7,14 @@ const styles = theme => ({
 
     },
     edition: {
-        width: `80px`,
+        width: `85px`,
         fontWeight: "bold"
     },
     icon: {
         paddinRight: `5px`,
+    },
+    error: {
+        color: `red`,
     }
 });
 export default styles;

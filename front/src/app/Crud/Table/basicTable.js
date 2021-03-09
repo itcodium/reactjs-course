@@ -8,41 +8,50 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './basicTable.style';
 import Edition from './edition';
-import Modal from '../modal/modal';
-
+import ModalBasic from '../modal/modal';
 
 
 function BasicTable(props) {
     let { columns } = props;
-    const { data, action, status, classes, contentDelete, contentEdit } = props;
+    const { data, error, action, status, classes, helper, contentEdit } = props;
     const [open, setOpen] = React.useState(false);
     const [modalContent, setModalContent] = React.useState(false);
-    const [item, setItem] = React.useState(null);
+    const [model, setModel] = React.useState(null);
+    const [click, setClick] = React.useState("");
+    const [modalTitle, setModalTitle] = React.useState(null);
 
-    const handleClickOpen = (param, action) => {
+    const handleClickOpen = (data, action) => {
+
+        helper.setModel(data);
+
         if (action == 'DELETE') {
-            setModalContent(contentDelete);
+            setModalContent(helper.delete());
+            setModalTitle(helper.deleteTitle())
         }
+
         if (action == 'PUT') {
-            setModalContent(contentEdit);
+            setModalContent(helper.update());
+            setModalTitle(helper.title())
         }
-        setItem(param);
+        setClick(action);
+        setModel(data);
         setOpen(true);
+
     };
+
     const handleClose = () => {
         setOpen(false);
+        dispatch(action.init());
     };
-    const handleClick = (res) => {
-        if (res) {
-            handleClose();
-        }
-    }
     const dispatch = useDispatch();
+    const handleDelete = (res) => {
+        dispatch(action.remove(model));
+    };
+
     useEffect(() => {
         if (action) {
             dispatch(action.get())
@@ -54,56 +63,62 @@ function BasicTable(props) {
     });
 
     if (!data || !data.length) {
-
         return null;
     }
     return (
         <div>
-            {
-                (status === "succeeded" || action) || (!action && data) ?
+            <h2>status : {open ? "true" : "false"} - {status}</h2>
 
-                    < TableContainer component={Paper}>
-                        status : {status}
-                        <Table className={classes.table} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    {
-                                        columns.map((row) => {
-                                            return <TableCell className={row.type == "edit" ? classes.edition : classes.tableCellHeader} align={row.align ? row.align : "left"} component="th" scope="row">
-                                                {row.title}
-                                            </TableCell>
-                                        })
-                                    }
+            {(status === "succeeded" || action) || (!action && data) ?
+                < TableContainer component={Paper}>
+
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((row) => {
+                                    return <TableCell className={row.type == "edit" ? classes.edition : classes.tableCellHeader} align={row.align ? row.align : "left"} component="th" scope="row">
+                                        {row.title}
+                                    </TableCell>
+                                })}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data.map((data) => {
+                                return <TableRow key={data.name}>
+                                    {columns.map((row) => {
+                                        return <Edition handleOpen={handleClickOpen}
+                                            row={row}
+                                            data={data}></Edition>
+                                    })}
                                 </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    data.map((data) => {
-                                        return <TableRow key={data.name}>
-                                            {
-                                                columns.map((row) => {
-                                                    return <Edition handleOpen={handleClickOpen}
-                                                        row={row} data={data}></Edition>
-                                                })
-                                            }
-                                        </TableRow>
-                                    })
-                                }
-                            </TableBody>
-                        </Table>
-                        {status === "loading" ? <div className={classes.wrapper}> <LinearProgress className={classes.spinnerContainer} /> </div> : null}
-                    </TableContainer>
-                    : null
+                            })}
+                        </TableBody>
+                    </Table>
+                    {status === "loading" ? <div className={classes.wrapper}> <LinearProgress className={classes.spinnerContainer} /> </div> : null}
+                </TableContainer>
+                : null
             }
-            { status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{""}</Typography> : null}
-            <Modal
+
+            <ModalBasic
+                title={modalTitle}
                 content={modalContent}
-                open={open} model={item}
+                open={open}
+                model={model}
+                status={status}
+                error={error}
+                classes={classes}
                 handleClose={handleClose}
-                handleClick={handleClick}>
-            </Modal>
+                handleClick={click == 'DELETE' ? handleDelete : null}>
+            </ModalBasic>
         </div >
     );
 }
 
 export default withStyles(styles)(BasicTable);
+
+
+/*
+
+
+
+*/

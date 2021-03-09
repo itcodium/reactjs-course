@@ -4,6 +4,9 @@ const asyncActionType = (type) => ({
     PENDING: `${type}_PENDING`,
     SUCCESS: `${type}_SUCCESS`,
     ERROR: `${type}_ERROR`,
+    DELETE: `${type}_DELETE`,
+    PUT: `${type}_PUT`,
+    POST: `${type}_POST`,
 });
 
 export const LOGIN = asyncActionType('LOGIN');

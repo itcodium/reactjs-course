@@ -1,6 +1,5 @@
 import USER from '../types/user';
 
-
 const init = () => ({
     type: USER.INIT,
     payload: null
@@ -15,10 +14,19 @@ const save = (payload) => ({
     payload: payload
 })
 
+const remove = (payload) => {
+    console.log('payload: ', payload);
+    return {
+        type: USER.DELETE,
+        payload: payload
+    }
+}
+
 const User = {
     init: init,
     save: save,
-    get: get
+    get: get,
+    remove: remove
 };
 export default User;
 

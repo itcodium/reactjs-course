@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
-import BasicTable from '../../app/Crud/Table/basicTable';
-import USER from '../../redux/actions/user';
+import BasicTable from '../../../app/Crud/Table/basicTable';
+import USER from '../../../redux/actions/user';
 import Typography from '@material-ui/core/Typography';
-import Footer from '../../app/Footer/Footer';
-import LanguageSelector from '../../app/LanguageSelector/LanguageSelector';
 
+import LanguageSelector from '../../../app/LanguageSelector/LanguageSelector';
+import UserHelper from './helper';
 function User(props) {
     const columns = [
         { field: 'id_usuario', title: 'Id', align: "left", visible: true },
@@ -19,15 +19,18 @@ function User(props) {
     ];
     const status = useSelector(state => state.user.status)
     const users = useSelector(state => state.user.users)
+    const error = useSelector(state => state.user.error);
 
+    const helper = new UserHelper();
     return (
         <div>
             <Typography variant="h4" gutterBottom>User</Typography>
             <BasicTable
-                contentDelete={<Footer></Footer>}
                 contentEdit={<LanguageSelector></LanguageSelector>}
+                helper={helper}
                 action={USER}
                 status={status}
+                error={error}
                 data={users}
                 columns={columns}></BasicTable>
         </div>
