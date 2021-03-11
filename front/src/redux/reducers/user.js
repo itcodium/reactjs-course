@@ -25,9 +25,22 @@ function reducer(state = initialState, action) {
         case USER.SAVE: {
             return Object.assign({}, state, {
                 error: null,
-                status: "loading"
+                status: "crud"
             });
         }
+        case USER.PUT: {
+            return Object.assign({}, state, {
+                error: null,
+                status: "crud"
+            });
+        }
+        case USER.SAVE_MODAL: {
+            return Object.assign({}, state, {
+                error: null,
+                status: "crud"
+            });
+        }
+
         case USER.DELETE: {
             return Object.assign({}, state, {
                 error: null,
@@ -36,7 +49,7 @@ function reducer(state = initialState, action) {
         }
         case USER.SUCCESS: {
             return Object.assign({}, state, {
-                users: action.payload.data,
+                list: action.payload.data,
                 error: null,
                 status: "succeeded"
             });

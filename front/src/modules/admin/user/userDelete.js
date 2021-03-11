@@ -1,36 +1,44 @@
-import { useSelector, useDispatch } from 'react-redux'
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { useSelector, useDispatch } from 'react-redux'
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import styles from './user.style.js';
 
+import USER from '../../../redux/actions/user'
 function UserDelete(props) {
-    const { model, status, error, classes, close } = props;
+    const { model, handleClose, classes } = props;
+    const user = useSelector(state => state.user);
+    const status = useSelector(state => state.user.status);
+    const dispatch = useDispatch();
     return (
-        <Grid item xs={12}>
+        <Container component="main" maxWidth="xs">
             <Typography component="p" variant="subtitle1">
                 Desea Eliminar el usuario  {model.id_usuario}
             </Typography>
+            <Grid>
+                <div className={classes.wrapper}>
+                    {status === "crud" ? <CircularProgress /> : null}
+                </div>
+                {
+                    status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
+                }
+            </Grid>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancelar</Button>
+                <Button
+                    onClick={() => {
+                        dispatch(USER.remove(model))
+                    }} color="primary" >
+                    Aceptar</Button>
 
-        </Grid>
+            </DialogActions>
+        </Container>
     );
 }
 
-export default UserDelete;
-
-
-/*
- <form noValidate>
-                <Grid item xs={12}>
-                    <Button variant="contained" color="primary"
-                        disabled={status === "loading"} // || ValidateForm.hasError(form) || !passwordsMatch()
-                        onClick={() => {
-                            dispatch(USER.delete(model.id))
-                        }}
-                    >Aceptar</Button>
-                    {
-                        status === "failed" ? <Typography variant="overline" display="block" gutterBottom>{"user.error.message"}</Typography> : null
-                        // className={classes.error}
-                    }
-                </Grid>
-            </form>
-*/
+export default withStyles(styles)(UserDelete);

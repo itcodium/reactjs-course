@@ -18,7 +18,7 @@ function User(props) {
         { title: 'Edit', visible: true, type: 'edit', buttons: { delete: true, edit: true } },
     ];
     const status = useSelector(state => state.user.status)
-    const users = useSelector(state => state.user.users)
+    const data = useSelector(state => state.user.list)
     const error = useSelector(state => state.user.error);
 
     const helper = new UserHelper();
@@ -26,12 +26,10 @@ function User(props) {
         <div>
             <Typography variant="h4" gutterBottom>User</Typography>
             <BasicTable
-                contentEdit={<LanguageSelector></LanguageSelector>}
                 helper={helper}
                 action={USER}
                 status={status}
-                error={error}
-                data={users}
+                data={data}
                 columns={columns}></BasicTable>
         </div>
     );

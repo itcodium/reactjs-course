@@ -14,19 +14,29 @@ const save = (payload) => ({
     payload: payload
 })
 
+const saveModal = (payload) => ({
+    type: USER.SAVE_MODAL,
+    payload: payload
+})
 const remove = (payload) => {
-    console.log('payload: ', payload);
     return {
         type: USER.DELETE,
         payload: payload
     }
 }
-
+const update = (payload) => {
+    return {
+        type: USER.PUT,
+        payload: payload
+    }
+}
 const User = {
     init: init,
     save: save,
+    saveModal: saveModal,
     get: get,
-    remove: remove
+    remove: remove,
+    update: update
 };
 export default User;
 

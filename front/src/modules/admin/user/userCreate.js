@@ -1,63 +1,189 @@
-import { useSelector } from 'react-redux'
-
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-
+import { FormControl } from '@material-ui/core';
+import { FormHelperText } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-/*
-import BasicTable from '../../../app/Crud/Table/basicTable';
-import USER from '../../../redux/actions/user';
-import Typography from '@material-ui/core/Typography';
-import Footer from '../../../app/Footer/Footer';
-import LanguageSelector from '../../../app/LanguageSelector/LanguageSelector';
-*/
-
-
+import { withStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import DialogActions from '@material-ui/core/DialogActions';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import styles from './user.style.js';
+import ValidateForm from '../../../services/validateForm'
+import USER from '../../../redux/actions/user'
 
 function UserCreate(props) {
-    const { model } = props;
-    const columns = [
-        { field: 'id_usuario', title: 'Id', align: "left", visible: true },
-        { field: 'usuario', title: 'User', align: "left", visible: true },
-        { field: 'nombre', title: 'Name', align: "left", visible: true },
-        { field: 'apellido', title: 'Last Name', align: "left", visible: true },
-        { field: 'email', title: 'Email', align: "left", visible: true },
-        { field: 'vigencia_desde', title: 'From', align: "center", visible: true },
-        { field: 'vigencia_hasta', title: 'To', align: "center", visible: true },
-        { field: 'creado_por', title: 'Created By', align: "center", visible: false },
-        { title: 'Edit', visible: true, type: 'edit', buttons: { delete: true, edit: true } },
-    ];
-    const status = useSelector(state => state.user.status)
-    const users = useSelector(state => state.user.users)
+    const { classes, handleClose, model } = props;
 
+
+    const user = useSelector(state => state.user);
+    const status = useSelector(state => state.user.status);
+    const dispatch = useDispatch();
+    const [form, setForm] = useState({
+        nombre: { value: model.nombre, valid: !!model.nombre },
+        apellido: { value: model.apellido, valid: !!model.apellido },
+        telefono: { value: model.telefono, valid: !!model.telefono, required: false },
+        email: { value: model.email, valid: !!model.email },
+        password: {},
+        passwordConfirm: {},
+    })
+    ValidateForm.setForm = setForm;
+    const getForm = () => {
+        return {
+            "id_usuario": model.id_usuario,
+            "nombre": form.nombre.value,
+            "apellido": form.apellido.value,
+            "telefono": form.telefono.value,
+            "password": form.password.value,
+            "passwordConfirm": form.passwordConfirm.value,
+            "email": form.email.value,
+        }
+    }
+
+
+    const passwordsMatch = () => {
+        if (form.password.value === form.passwordConfirm.value) {
+            return true;
+        }
+        return false;
+    }
+    const passwordsMatchMessage = () => {
+        if (!passwordsMatch() && form.password.valid && form.passwordConfirm.valid) {
+            return <FormControl error={true}>
+                <FormHelperText >Password doesn't match.</FormHelperText>
+            </FormControl>
+        }
+    }
     return (
-        <Grid item xs={12}>
-            <Typography component="p" variant="subtitle1">
-                {model.usuario}
-            </Typography>
-        </Grid>
+        <Container component="main" maxWidth="xs">
+            <form className={classes.form} noValidate>
+
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="fname"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="nombre"
+                            label="First Name"
+                            name="nombre"
+                            value={form.nombre.value}
+                            error={form.nombre.invalid}
+                            helperText={form.nombre.message}
+                            onChange={ValidateForm.handleChange}
+                            autoFocus
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="apellido"
+                            label="Last Name"
+                            name="apellido"
+                            value={form.apellido.value}
+                            error={form.apellido.invalid}
+                            helperText={form.apellido.message}
+                            onChange={ValidateForm.handleChange}
+                            autoComplete="lname"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            value={form.email.value}
+                            error={form.email.invalid}
+                            helperText={form.email.message}
+                            type="email"
+                            autoComplete="email"
+                            onChange={ValidateForm.handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            id="telefono"
+                            label="Phone"
+                            name="telefono"
+                            value={form.telefono.value}
+                            type="tel"
+                            error={form.telefono.invalid}
+                            helperText={form.telefono.message}
+                            autoComplete="phone"
+                            onChange={ValidateForm.handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            id="password"
+                            name="password"
+                            error={form.password.invalid}
+                            helperText={form.password.message}
+                            onChange={ValidateForm.handleChange}
+                            autoComplete="current-password"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            label="Confirm password"
+                            type="password"
+                            id="passwordConfirm"
+                            name="passwordConfirm"
+                            error={form.passwordConfirm.invalid}
+                            helperText={form.passwordConfirm.message}
+                            onChange={ValidateForm.handleChange}
+                            autoComplete="confirm-password"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        {passwordsMatchMessage()}
+                    </Grid>
+                </Grid>
+                <div className={classes.wrapper}>
+                    {
+                        status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
+                    }
+                    {status === "crud" ? <CircularProgress /> : null}
+                </div>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancelar</Button>
+                    <Button
+                        disabled={status === "crud" || ValidateForm.hasError(form) || !passwordsMatch()}
+                        onClick={() => {
+                            if (model) {
+                                dispatch(USER.update(getForm()))
+                            } else {
+                                dispatch(USER.saveModal(getForm()))
+                            }
+                        }} color="primary" >
+                        Aceptar</Button>
+
+                </DialogActions>
+            </form>
+        </Container>
     );
 }
 
-export default UserCreate;
-
-/*
-               <CssBaseline />
-               <div className={classes.paper}>
-                   <Typography component="h1" variant="h5">
-                       Sign up
-                   </Typography>
-                   <form className={classes.form} noValidate>
-                       <Grid className={classes.actions} item xs={12}>
-                           <Button variant="contained" color="primary"
-                               disabled={status === "loading" || ValidateForm.hasError(form) || !passwordsMatch()}
-                               onClick={() => {
-                                   dispatch(USER.save(getUser()))
-                               }}
-                           >Aceptar</Button>
-                           {
-                               status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
-                           }
-                       </Grid>
-                   </form>
-               </div>
-               */
+export default withStyles(styles)(UserCreate);

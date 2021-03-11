@@ -1,7 +1,6 @@
 import UserDelete from './userDelete'
 import UserCreate from './userCreate';
 import { useDispatch } from 'react-redux'
-import USER from '../../../redux/actions/user';
 export default function UserHelper() {
 
     let model = null;
@@ -18,21 +17,17 @@ export default function UserHelper() {
     this.deleteTitle = () => {
         return "Modal delete";
     }
-    this.onDelete = (res) => {
-        alert("Delete ok!")
-        // dispatch(USER.remove(model));
-    }
     this.title = () => {
-        return model.id_usuario ? "Update User" : "Create User";
+        return model ? "Update User" : "Create User";
     }
-    this.delete = () => {
-        return <UserDelete model={model}></UserDelete>
+    this.delete = (close) => {
+        return <UserDelete model={model} handleClose={close}></UserDelete>
     }
-    this.update = () => {
-        return <UserCreate model={model}></UserCreate>
+    this.update = (close) => {
+        return <UserCreate model={model} handleClose={close}></UserCreate>
     }
-    this.create = () => {
-        return <UserCreate model={model}></UserCreate>
+    this.create = (close) => {
+        return <UserCreate handleClose={close}></UserCreate>;
     }
 }
 

@@ -9,7 +9,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
 import styles from './basicTable.style';
 import Edition from './edition';
 import ModalBasic from '../modal/modal';
@@ -17,40 +22,39 @@ import ModalBasic from '../modal/modal';
 
 function BasicTable(props) {
     let { columns } = props;
-    const { data, error, action, status, classes, helper, contentEdit } = props;
+    const { data, action, status, classes, helper } = props;
     const [open, setOpen] = React.useState(false);
     const [modalContent, setModalContent] = React.useState(false);
-    const [model, setModel] = React.useState(null);
     const [click, setClick] = React.useState("");
     const [modalTitle, setModalTitle] = React.useState(null);
 
-    const handleClickOpen = (data, action) => {
-
+    const handleClickOpen = (method, data) => {
+        dispatch(action.init());
         helper.setModel(data);
+        helper.setAction(action);
 
-        if (action == 'DELETE') {
-            setModalContent(helper.delete());
-            setModalTitle(helper.deleteTitle())
-        }
-
-        if (action == 'PUT') {
-            setModalContent(helper.update());
+        if (method == 'POST') {
+            setModalContent(helper.create(handleClose));
             setModalTitle(helper.title())
         }
-        setClick(action);
-        setModel(data);
+        if (method == 'DELETE') {
+            setModalContent(helper.delete(handleClose));
+            setModalTitle(helper.deleteTitle())
+        }
+        if (method == 'PUT') {
+            setModalContent(helper.update(handleClose));
+            setModalTitle(helper.title())
+        }
+        setClick(method);
         setOpen(true);
-
     };
 
     const handleClose = () => {
-        setOpen(false);
         dispatch(action.init());
+        setOpen(false);
     };
+
     const dispatch = useDispatch();
-    const handleDelete = (res) => {
-        dispatch(action.remove(model));
-    };
 
     useEffect(() => {
         if (action) {
@@ -67,11 +71,26 @@ function BasicTable(props) {
     }
     return (
         <div>
-            <h2>status : {open ? "true" : "false"} - {status}</h2>
+            <Paper className={classes.paper}>
+                <Grid container wrap="nowrap" spacing={2}>
+                    <Grid item xs zeroMinWidth>
+                        <Typography noWrap>
+                            status : {open ? "true" : "false"} - {status} - {click}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton onClick={() => {
+                            handleClickOpen('POST');
+                        }} aria-label="Add">
+                            <AddIcon ></AddIcon>
+                        </IconButton>
+                    </Grid>
 
+                </Grid>
+            </Paper>
             {(status === "succeeded" || action) || (!action && data) ?
                 < TableContainer component={Paper}>
-
+                    {status === "loading" ? <div className={classes.wrapper}> <LinearProgress className={classes.spinnerContainer} /> </div> : null}
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -94,31 +113,21 @@ function BasicTable(props) {
                             })}
                         </TableBody>
                     </Table>
-                    {status === "loading" ? <div className={classes.wrapper}> <LinearProgress className={classes.spinnerContainer} /> </div> : null}
                 </TableContainer>
                 : null
             }
-
-            <ModalBasic
-                title={modalTitle}
-                content={modalContent}
-                open={open}
-                model={model}
-                status={status}
-                error={error}
-                classes={classes}
-                handleClose={handleClose}
-                handleClick={click == 'DELETE' ? handleDelete : null}>
-            </ModalBasic>
+            {open ?
+                <ModalBasic
+                    open={open}
+                    status={status}
+                    title={modalTitle}
+                    content={modalContent}
+                    handleClose={click === 'POST' ? handleClose : handleClose}>
+                </ModalBasic>
+                : null
+            }
         </div >
     );
 }
 
 export default withStyles(styles)(BasicTable);
-
-
-/*
-
-
-
-*/

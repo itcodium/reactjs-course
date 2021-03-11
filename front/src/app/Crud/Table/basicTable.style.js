@@ -15,6 +15,16 @@ const styles = theme => ({
     },
     error: {
         color: `red`,
-    }
+    },
+    root: {
+        flexGrow: 1,
+        overflow: 'hidden',
+        padding: theme.spacing(0, 3),
+    },
+    paper: {
+        maxWidth: "100%",
+
+        padding: theme.spacing(1),
+    },
 });
 export default styles;
