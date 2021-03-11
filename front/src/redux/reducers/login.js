@@ -3,7 +3,8 @@ import LOGIN from '../types/login'
 const initialState = {
     status: 'idle',
     loading: false,
-    error: null
+    error: null,
+    payload: {}
 }
 
 const localUser = localStorage.getItem('user') || null;
@@ -30,6 +31,7 @@ function reducer(state = initialState || {}, action) {
         }
         case LOGIN.ERROR: {
             return Object.assign({}, state, {
+                error: action.payload,
                 status: "failed",
                 payload: action.payload
             });

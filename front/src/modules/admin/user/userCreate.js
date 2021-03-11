@@ -22,17 +22,17 @@ function UserCreate(props) {
     const status = useSelector(state => state.user.status);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
-        nombre: { value: model.nombre, valid: !!model.nombre },
-        apellido: { value: model.apellido, valid: !!model.apellido },
-        telefono: { value: model.telefono, valid: !!model.telefono, required: false },
-        email: { value: model.email, valid: !!model.email },
+        nombre: { value: model ? model.nombre : "", valid: !!model && model.nombre },
+        apellido: { value: model ? model.apellido : "", valid: !!model && model.apellido },
+        telefono: { value: model ? model.telefono : "", valid: !!model && model.telefono, required: false },
+        email: { value: model ? model.email : "", valid: !!model && model.email },
         password: {},
         passwordConfirm: {},
     })
     ValidateForm.setForm = setForm;
     const getForm = () => {
         return {
-            "id_usuario": model.id_usuario,
+            "id_usuario": model && model.id_usuario ? model.id_usuario : null,
             "nombre": form.nombre.value,
             "apellido": form.apellido.value,
             "telefono": form.telefono.value,

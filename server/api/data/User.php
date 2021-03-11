@@ -44,7 +44,7 @@ class User
             $result = $statement->get_result();
             return $result->fetch_object();
         } catch (Exception $e){
-            throw new Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $this->con->sqlstate);  
         }finally{
             $this->con->close();
         }
@@ -69,14 +69,10 @@ class User
 
     public function update($data){
         try {
-            $statement = $this->con->prepare("call usuarioUpdate (?,?,?,?,?,?,?,?,?,?)");
+            $statement = $this->con->prepare("call usuarioUpdate (?,?,?,?,?,?)");
             $statement->bind_param("isssssisss",$data->id,
-                                                $data->usuario,
                                                 $data->nombre,
                                                 $data->apellido,
-                                                $data->email,
-                                                md5($data->password),
-                                                $data->id_perfil,
                                                 $data->vigencia_desde,
                                                 $data->vigencia_hasta,
                                                 $data->modificado_por);

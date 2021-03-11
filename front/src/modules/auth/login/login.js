@@ -28,6 +28,7 @@ function Login(props) {
     ValidateForm.setForm = setForm;
 
     const status = useSelector(state => state.login.status)
+    const stateLogin = useSelector(state => state.login)
     const redirectPath = () => {
         const locationState = props.location.state;
         const pathname = (
@@ -98,7 +99,7 @@ function Login(props) {
                                 {status === "loading" ? <CircularProgress /> : "Sign In"}
                             </Button>
                             {
-                                status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{state.payload.message}</Typography> : null
+                                status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{stateLogin.payload.message}</Typography> : null
                             }
                         </Grid>
                         <Grid container>

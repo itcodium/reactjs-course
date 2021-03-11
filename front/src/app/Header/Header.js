@@ -19,13 +19,13 @@ import MenuToggle from '../MenuToggle/MenuToggle';
 import styles from './header.style';
 import mainLogo from '../../assets/logo.png';
 import LOGIN from '../../redux/actions/login'
+import MENU_DEFAULT from './MenuDefault'
 
 function Header(props) {
     const { classes } = props;
     const [open, setOpen] = React.useState(false);
     let history = useHistory();
     const dispatch = useDispatch();
-    //    dispatch(LOGIN.out())
     const logOut = (event) => {
         dispatch(LOGIN.out())
         history.push('/Login')
@@ -47,6 +47,9 @@ function Header(props) {
                 <img width='140' alt="" flex='1' align="center" src={mainLogo}></img></a>
         </Typography>
     }
+
+
+
     if (!user) {
         return null;
     }
@@ -88,6 +91,10 @@ function Header(props) {
                     menu.map((item, i) => (
                         <MenuToggle logout={logOut} key={i} menu={item}></MenuToggle>
                     ))
+                }
+
+                {
+                    !menu.length ? <MenuToggle logout={logOut} key={1} menu={MENU_DEFAULT}></MenuToggle> : null
                 }
                 <LanguageSelector></LanguageSelector>
             </Hidden>

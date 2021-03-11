@@ -17,22 +17,22 @@ class ResponseFormat{
 		return  $this->response ;
 	}
 
-	public  function error($message){
+	public  function error($message,$code){
 		$this->response->setStatusCode('500', 'Internal Server Error');
 		switch ($message) {
 			case "Expired token":
 				$this->response->setJsonContent(
-					['status'=>'error','code'=>'0001', 'message'=>  $message ]
+					['status'=>'error','code'=>'10001', 'message'=>  $message ]
 				);
 				break;
 			case "Not allowed":
 				$this->response->setJsonContent(
-					['status'=>'error','code'=>'0002', 'message'=>  $message ]
+					['status'=>'error','code'=>'10002', 'message'=>  $message ]
 				);
 				break;
 			default:
 				$this->response->setJsonContent(
-					['status'=>'error','message'=>  $message ]
+					['status'=>'error','code'=> $code ,'message'=>  $message ]
 				);	
 		}
 			

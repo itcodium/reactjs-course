@@ -31,7 +31,7 @@ class UserBus
             $user->token=$token;
             self::$response->data($user);
         }catch(exception $e) {
-           self::$response->error($e->getMessage());
+            self::$response->error($e->getMessage(), $e->getCode());
         }
         return self::$response->get();
     }

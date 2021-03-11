@@ -15,10 +15,10 @@ function* SagaCall(TYPE, URL, method = 'GET', params, AFTER_TYPE) {
             }
         }
     } catch (e) {
-        if (e.code === "0002") {
+        if (e.code == 10002) {
             alert(e.message);
         }
-        if (e.code === "0001" || e.message === "Wrong number of segments") {
+        if (e.code === 10001 || e.message === "Wrong number of segments") {
             yield put({ type: LOGIN.OUT });
         } else {
             yield put({ type: TYPE.ERROR, payload: { status: "error", message: e.message } });
