@@ -37,7 +37,7 @@ class User
     }
 
     public function login($data){
-        try {
+      try {
             $statement = $this->con->prepare("call getSessionKeyByUser (?,?,?)");
             $statement->bind_param("sss",$data->email, md5($data->password), $data->lang);
             $statement->execute();

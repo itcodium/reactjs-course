@@ -21,6 +21,7 @@ import ValidateForm from '../../../services/validateForm'
 function Login(props) {
     const { classes, state } = props;
     const dispatch = useDispatch();
+    // dispatch(LOGIN.out())
     const [form, setForm] = useState({
         email: {},
         password: {}

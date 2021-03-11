@@ -17,7 +17,7 @@ class ResponseFormat{
 		return  $this->response ;
 	}
 
-	public  function error($message,$code){
+	public  function error($message,$code=null){
 		$this->response->setStatusCode('500', 'Internal Server Error');
 		switch ($message) {
 			case "Expired token":
