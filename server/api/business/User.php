@@ -90,11 +90,13 @@ class UserBus
 
      public static function update($id){
         try{
+            sleep(3);
             Auth::Check(apache_request_headers()['Authorization']);
             $user= apache_request_headers()['user_id'];
             self::$menu->getByUserURL($user,self::$path);
             $parameters =self::$app->request->getJsonRawBody();
             $parameters->id=$id;
+            $parameters->modificado_por=$user;
             $res=self::$item->update($parameters);
             self::$response->data($res);
         }catch(exception $e) {
@@ -105,7 +107,6 @@ class UserBus
 
     public static function insert(){
         try{
-            sleep(3);
             $parameters =self::$app->request->getJsonRawBody();
             $parameters->usuario=explode("@", $parameters->email)[0];
             $parameters->vigencia_desde=date("Y-m-d");

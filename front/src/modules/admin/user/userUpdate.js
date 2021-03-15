@@ -14,52 +14,36 @@ import styles from './user.style.js';
 import ValidateForm from '../../../services/validateForm'
 import USER from '../../../redux/actions/user'
 
-function UserCreate(props) {
+function UserUpdate(props) {
     const { classes, handleClose, model } = props;
 
     const user = useSelector(state => state.user);
     const status = useSelector(state => state.user.status);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
-        nombre: { value: model ? model.nombre : "", valid: !!model && model.nombre },
-        apellido: { value: model ? model.apellido : "", valid: !!model && model.apellido },
-        telefono: { value: model ? model.telefono : "", valid: !!model && model.telefono, required: false },
-        email: { value: model ? model.email : "", valid: !!model && model.email },
-        password: {},
-        passwordConfirm: {},
+        nombre: { value: model.nombre, valid: true },
+        apellido: { value: model.apellido, valid: true },
+        telefono: { value: model.telefono, valid: true, required: false },
+        email: { value: model.email, valid: true },
+        vigencia_desde: { value: model.vigencia_desde, valid: true },
+        vigencia_hasta: { value: model.vigencia_hasta, valid: true },
     })
 
     ValidateForm.setForm = setForm;
     const getForm = () => {
         return {
-            "id_usuario": model && model.id_usuario ? model.id_usuario : null,
+            "id_usuario": model.id_usuario,
             "nombre": form.nombre.value,
             "apellido": form.apellido.value,
             "telefono": form.telefono.value,
-            "password": form.password.value,
-            "passwordConfirm": form.passwordConfirm.value,
+            "vigencia_desde": form.vigencia_desde.value,
+            "vigencia_hasta": form.vigencia_hasta.value,
             "email": form.email.value,
-        }
-    }
-
-
-    const passwordsMatch = () => {
-        if (form.password.value === form.passwordConfirm.value) {
-            return true;
-        }
-        return false;
-    }
-    const passwordsMatchMessage = () => {
-        if (!passwordsMatch() && form.password.valid && form.passwordConfirm.valid) {
-            return <FormControl error={true}>
-                <FormHelperText >Password doesn't match.</FormHelperText>
-            </FormControl>
         }
     }
     return (
         <Container component="main" maxWidth="xs">
             <form className={classes.form} noValidate>
-
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -108,56 +92,36 @@ function UserCreate(props) {
                             onChange={ValidateForm.handleChange}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+
+                    <Grid item xs={6}>
                         <TextField
                             variant="outlined"
-                            fullWidth
+                            id="vigencia_desde"
+                            format="yyyy/MM/dd"
+                            label="Vigencia desde"
+                            type="date"
+                            defaultValue={form.vigencia_desde.value}
+                            className={classes.textField}
+                            onChange={ValidateForm.handleChange}
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            id="telefono"
-                            label="Phone"
-                            name="telefono"
-                            value={form.telefono.value}
-                            type="tel"
-                            error={form.telefono.invalid}
-                            helperText={form.telefono.message}
-                            autoComplete="phone"
-                            onChange={ValidateForm.handleChange}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+
+                    <Grid item xs={6}>
                         <TextField
                             variant="outlined"
-                            required
-                            fullWidth
-                            label="Password"
-                            type="password"
-                            id="password"
-                            name="password"
-                            error={form.password.invalid}
-                            helperText={form.password.message}
+                            id="vigencia_hasta"
+                            format="yyyy/MM/dd"
+                            label="Vigencia hasta"
+                            type="date"
+                            defaultValue={form.vigencia_hasta.value}
                             onChange={ValidateForm.handleChange}
-                            autoComplete="current-password"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                         />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            label="Confirm password"
-                            type="password"
-                            id="passwordConfirm"
-                            name="passwordConfirm"
-                            error={form.passwordConfirm.invalid}
-                            helperText={form.passwordConfirm.message}
-                            onChange={ValidateForm.handleChange}
-                            autoComplete="confirm-password"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        {passwordsMatchMessage()}
                     </Grid>
                 </Grid>
                 <div className={classes.wrapper}>
@@ -170,20 +134,15 @@ function UserCreate(props) {
                     <Button onClick={handleClose} color="primary">
                         Cancelar</Button>
                     <Button
-                        disabled={status === "crud" || ValidateForm.hasError(form) || !passwordsMatch()}
+                        disabled={status === "crud" || ValidateForm.hasError(form)}
                         onClick={() => {
-                            if (model) {
-                                dispatch(USER.update(getForm()))
-                            } else {
-                                dispatch(USER.saveModal(getForm()))
-                            }
+                            dispatch(USER.update(getForm()))
                         }} color="primary" >
                         Aceptar</Button>
-
                 </DialogActions>
             </form>
         </Container>
     );
 }
 
-export default withStyles(styles)(UserCreate);
+export default withStyles(styles)(UserUpdate);

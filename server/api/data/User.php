@@ -70,7 +70,7 @@ class User
     public function update($data){
         try {
             $statement = $this->con->prepare("call usuarioUpdate (?,?,?,?,?,?)");
-            $statement->bind_param("isssssisss",$data->id,
+            $statement->bind_param("isssss",$data->id_usuario,
                                                 $data->nombre,
                                                 $data->apellido,
                                                 $data->vigencia_desde,

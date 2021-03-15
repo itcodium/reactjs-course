@@ -1,5 +1,6 @@
 import UserDelete from './userDelete'
 import UserCreate from './userCreate';
+import UserUpdate from './userUpdate';
 import { useDispatch } from 'react-redux'
 export default function UserHelper() {
 
@@ -24,7 +25,7 @@ export default function UserHelper() {
         return <UserDelete model={model} handleClose={close}></UserDelete>
     }
     this.update = (close) => {
-        return <UserCreate model={model} handleClose={close}></UserCreate>
+        return <UserUpdate model={model} handleClose={close}></UserUpdate>
     }
     this.create = (close) => {
         return <UserCreate handleClose={close}></UserCreate>;
