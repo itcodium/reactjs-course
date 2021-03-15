@@ -1,20 +1,11 @@
 import UserDelete from './userDelete'
 import UserCreate from './userCreate';
 import UserUpdate from './userUpdate';
-import { useDispatch } from 'react-redux'
 export default function UserHelper() {
-
     let model = null;
-    let action = null;
-    const dispatch = useDispatch();
-
     this.setModel = (data) => {
         model = data;
     }
-    this.setAction = (action) => {
-        action = action;
-    }
-
     this.deleteTitle = () => {
         return "Modal delete";
     }

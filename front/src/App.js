@@ -11,7 +11,7 @@ import styles from './App.styles';
 
 import ProductView from './modules/products/productView'
 import ProductDetail from './modules/products/productDetail'
-import Menu from './modules/admin/menu'
+import Menu from './modules/admin/menu/menu'
 import Module from './modules/admin/module'
 import User from './modules/admin/user/user'
 import Perfil from './modules/admin/perfil'

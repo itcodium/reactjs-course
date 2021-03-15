@@ -11,6 +11,7 @@ import styles from './SideBarMenu.style';
 
 function SideBarMenu(props) {
     const { classes, menu, logout } = props;
+
     const getSubList = (menu) => {
         return <List>{
             menu.items.map((sub, indexSub) => (
