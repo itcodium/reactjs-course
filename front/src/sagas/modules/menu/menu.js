@@ -8,6 +8,11 @@ function* fetchMenu() {
     yield SagaCall(MENU, API_URL);
 }
 
+/*function* addSameLevel() {
+    yield SagaCall(MENU, API_URL);
+}
+*/
 export function* menu() {
     yield takeLatest(MENU.FETCH, fetchMenu);
+    //yield takeLatest(MENU.ADD_SAME_LEVEL, addSameLevel);
 }

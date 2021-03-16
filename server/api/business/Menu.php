@@ -18,33 +18,7 @@ class MenuBus
         self::init();
     }
 
-/*    public static function getAll(){
-        try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
-            $data=self::$item->getAll();
-            self::$response->data($data);
-		}catch(exception $e) {
-            self::$response->error($e->getMessage());
-		}
-        return self::$response->get();
-    }
-*/
-	public static function getNodesDepth(){
-        try{
-            $lang='ES';
-            //$valid=Auth::Check(apache_request_headers()['Authorization']);
-            $data=self::$item->getNodesDepth($lang);
-            $cmenu=new CreateMenu();
-            $cmenu->setData($data);
-            $test=$cmenu->getMenu(0);
-            self::$response->data($test);
-        }catch(exception $e) {
-            self::$response->error($e->getMessage());
-        }
-        return self::$response->get();
-    }
-
-	public static function getNodesDepthByUser(){
+    public static function getNodesDepthByUser(){
         try{
             //$valid=Auth::Check(apache_request_headers()['Authorization']);
             $lang='ES';
@@ -59,6 +33,17 @@ class MenuBus
         }
         return self::$response->get();
     }
+/*    
+    public static function getAll(){
+        try{
+            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            $data=self::$item->getAll();
+            self::$response->data($data);
+		}catch(exception $e) {
+            self::$response->error($e->getMessage());
+		}
+        return self::$response->get();
+    }
 	public static function getByUserURL($user,$path){
         try{
             return self::$item->getByUserURL($lang,$path);
@@ -67,10 +52,20 @@ class MenuBus
         }
         return self::$response->get();
     }
-    
-
-
-/*
+    public static function getNodesDepth(){
+        try{
+            $lang='ES';
+            //$valid=Auth::Check(apache_request_headers()['Authorization']);
+            $data=self::$item->getNodesDepth($lang);
+            $cmenu=new CreateMenu();
+            $cmenu->setData($data);
+            $test=$cmenu->getMenu(0);
+            self::$response->data($test);
+        }catch(exception $e) {
+            self::$response->error($e->getMessage());
+        }
+        return self::$response->get();
+    }
     public static function delete($id){
         try{
             $valid=Auth::Check(apache_request_headers()['Authorization']);
@@ -81,8 +76,7 @@ class MenuBus
         }
         return self::$response->get();
     }
-
-     public static function update($id){
+    public static function update($id){
         try{
             $valid=Auth::Check(apache_request_headers()['Authorization']);
             $parameters =self::$app->request->getJsonRawBody();
@@ -94,7 +88,6 @@ class MenuBus
         }
         return self::$response->get();
     }
-
     public static function insert(){
         try{
             $valid=Auth::Check(apache_request_headers()['Authorization']);
@@ -106,6 +99,7 @@ class MenuBus
         }
         return self::$response->get();
     }
+
     */
 }
 ?>

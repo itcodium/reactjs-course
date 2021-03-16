@@ -6,6 +6,7 @@ import PrivateRoute from './services/PrivateRoute'
 import Header from './app/Header/Header'
 import Footer from './app/Footer/Footer'
 import Login from './modules/auth/login/login'
+import Logout from './modules/auth/login/logout'
 import SignUp from './modules/auth/signUp/signUp.js';
 import styles from './App.styles';
 
@@ -46,6 +47,7 @@ function App(props) {
               <div className={classes.container} >
                 <Route key="70" path="/SignUp" component={SignUp} />
                 <Route key="80" path="/Login" component={Login} />
+                <Route key="90" path="/Logout" component={Logout} />
                 <PrivateRoute key="10" path='/products' component={ProductView} />
                 <PrivateRoute key="110" path='/productDetail/:id' component={ProductDetail} />
                 <PrivateRoute key="120" path='/perfil' component={Perfil} />

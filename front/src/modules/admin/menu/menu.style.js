@@ -16,11 +16,32 @@ const styles = theme => ({
     },
     item: {
         listStyle: "none",
+        '& a': {
+            '&:hover': {
+                '& span': {
+                    opacity: 1,
+                },
+            },
+        },
+    },
+    edition: {
+        opacity: 0,
     },
     text: {
-        marginRight: theme.spacing(1)
+        marginRight: theme.spacing(1),
+
     }
 
 
 });
+
+/* 
+     '&:hover': {
+            color: "green",
+            "& span": {
+                color: "red"
+            }
+        },
+        
+*/
 export default styles;
