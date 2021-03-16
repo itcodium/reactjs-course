@@ -23,41 +23,60 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import EditIcon from '@material-ui/icons/Edit';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 function Menu(props) {
     const { classes } = props;
     const { menu } = useSelector(state => state.menu)
 
     const preventDefault = (event) => event.preventDefault();
     const getSubList = (menu) => {
-        return <ul>{
+        return <ul className={classes.nested}>{
             menu.items.map((sub, indexSub) => (
-                <li className={classes.item} key={indexSub}>
-                    {getLink(sub)}
-                </li>
+                getLink(sub)
             ))}
         </ul>
     }
 
     const getLink = (menu, index) => {
-        {/* */ }
         if (menu.url) {
             return <li className={classes.item} key={index}>
-                <a href={"#" + menu.url} className={classes.red}>{menu.title}</a>
+                <Typography component="a"
+                    variant="a"
+                    color="inherit"
+                    className={classes.text}
+                >
+                    {menu.title}
+                </Typography>
+
                 <IconButton edge="end" aria-label="delete">
                     <DeleteIcon />
                 </IconButton>
-
-                {getSubList(menu)}
+                <IconButton edge="end" aria-label="edit">
+                    <EditIcon />
+                </IconButton>
+                {menu.items.length ? getSubList(menu) : null}
             </li>
         } else {
             return <li className={classes.item} key={index}>
-                <span className={classes.green}>
+
+                <Typography component="a"
+                    variant="a"
+                    color="inherit"
+                    className={classes.text}
+                >
                     {menu.title}
-                    <IconButton edge="end" aria-label="delete">
-                        <DeleteIcon />
-                    </IconButton>
-                </span>
+                </Typography>
+                <IconButton edge="end" aria-label="delete">
+                    <DeleteIcon />
+                </IconButton>
+                <IconButton edge="end" aria-label="edit">
+                    <EditIcon />
+                </IconButton>
                 {menu.items.length ? getSubList(menu) : null}
             </li>
         }
@@ -66,9 +85,9 @@ function Menu(props) {
     /*
             <Collapse in={true} timeout="auto" unmountOnExit>
 
- 
-        </Collapse>
-    <IconButton edge="end" aria-label="delete">
+
+                </Collapse>
+                <IconButton edge="end" aria-label="delete">
                     <DeleteIcon />
                 </IconButton>
      */
@@ -76,19 +95,17 @@ function Menu(props) {
     return (
         <div>
 
-            <Paper className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs zeroMinWidth>
-                        <Typography variant="h4" gutterBottom>Menu</Typography>
-                    </Grid>
-                    <Grid item>
-                        <IconButton onClick={() => { alert("22 + 22") }} aria-label="Add">
-                            <AddIcon ></AddIcon>
+            <Card className={classes.root}>
+                <CardHeader
+                    action={
+                        <IconButton onClick={() => { alert("22 + 22") }} aria-label="settings">
+                            <AddIcon />
                         </IconButton>
-                    </Grid>
+                    }
+                    title="Menu"
+                />
+            </Card>
 
-                </Grid>
-            </Paper>
             <br></br>
             <Paper className={classes.paper}>
                 <ul >{menu.map((sub, index) =>

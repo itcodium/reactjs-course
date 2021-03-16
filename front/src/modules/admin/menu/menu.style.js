@@ -1,5 +1,7 @@
 const styles = theme => ({
-    icon: {
+    paper: {
+        padding: theme.spacing(1),
+    }, icon: {
         paddinRight: `5px`,
     },
     red: {
@@ -13,8 +15,12 @@ const styles = theme => ({
         margin: 0
     },
     item: {
-        listStyle: "none"
+        listStyle: "none",
+    },
+    text: {
+        marginRight: theme.spacing(1)
     }
+
 
 });
 export default styles;
