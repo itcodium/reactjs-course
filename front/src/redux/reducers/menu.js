@@ -1,27 +1,53 @@
 import MENU from '../types/menu'
 import STATUS from '../constants/status'
-
 const initialState = {
     menu: [],
-    status: STATUS.IDLE
+    status: STATUS.IDLE,
+    error: null
 }
 
-function reducer(state = initialState, action) {
+function menu(state = initialState, action) {
     switch (action.type) {
+        case MENU.INIT: {
+            return Object.assign({}, state, {
+                error: null,
+                status: STATUS.IDLE
+            });
+        }
         case MENU.FETCH: {
             return Object.assign({}, state, {
-                status: STATUS.LOADING
+                status: STATUS.PENDING
+            });
+        }
+        case MENU.ADD_SAME_LEVEL: {
+            return Object.assign({}, state, {
+                error: null,
+                status: STATUS.CRUD
+            });
+        }
+        case MENU.ADD_SAME_LEVEL_SUCCESS: {
+            return Object.assign({}, state, {
+                response: action.payload.data,
+                error: null,
+                status: STATUS.SUCCESS
+            });
+        }
+        case MENU.ADD_CHILD: {
+            return Object.assign({}, state, {
+                error: null,
+                status: STATUS.CRUD
             });
         }
         case MENU.SUCCESS: {
             return Object.assign({}, state, {
                 menu: action.payload.data,
+                error: null,
                 status: STATUS.SUCCESS
             });
         }
         case MENU.ERROR: {
             return Object.assign({}, state, {
-                payload: action.payload,
+                error: action.payload,
                 status: STATUS.ERROR
             });
         }
@@ -31,4 +57,5 @@ function reducer(state = initialState, action) {
     }
 }
 
-export default reducer;
+export { menu }
+

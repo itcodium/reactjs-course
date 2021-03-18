@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import compose from 'recompose/compose';
 import { useSelector, useDispatch } from 'react-redux'
-import PRODUCTS from '../../redux/actions/products';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import styles from './productDetail.style';
-import React from 'react';
+import PRODUCTS from '../../redux/actions/products';
 
 function ProductDetail(props) {
     const { classes } = props;

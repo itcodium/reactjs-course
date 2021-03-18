@@ -25,9 +25,10 @@ const MENU = {
 
 function App(props) {
   const { classes } = props;
-  const menu = useSelector(state => state.menu.menu);
+  const { menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+
   let URL = "/products";
-  if (menu.length) {
+  if (menu && menu.length) {
     URL = !menu[0].url ? menu[0].items[0].url : menu[0].url;
   }
   return (

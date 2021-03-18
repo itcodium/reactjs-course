@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography';
-import BasicTable from '../../app/Crud/Table/basicTable';
+import BasicTable from '../../app/Table/basicTable';
 
 function StaticTable(props) {
     const columns = [

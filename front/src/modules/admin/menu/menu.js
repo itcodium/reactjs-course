@@ -1,24 +1,73 @@
-import React from 'react';
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
-import styles from './menu.style';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import MENU from '../../../redux/actions/menu';
+import STATUS from '../../../redux/constants/status';
+import styles from './menu.style';
+import BasicModal from '../../../app/BasicModal/basicModal';
+import MenuCreate from './menuCreate';
+import MenuDelete from './menuDelete';
+
 function Menu(props) {
     const { classes } = props;
-    const { menu } = useSelector(state => state.menu)
+    const dispatch = useDispatch();
+
+    const status = useSelector(state => state.menu.status)
+    const menu = useSelector(state => state.menu.menu)
+    const [open, setOpen] = React.useState(false);
+    const [content, setContent] = React.useState(null);
+    useEffect(() => {
+        dispatch(MENU.getFull())
+    }, [])
+
+    const handleClickOpen = (method, data) => {
+        dispatch(MENU.init());
+        if (method == 'POST') {
+            setContent(<MenuCreate handleClose={handleClose}></MenuCreate>)
+        }
+        if (method == 'DELETE') {
+            setContent(<MenuDelete model={data} handleClose={handleClose}></MenuDelete>)
+        }
+        // if (method == 'PUT') {}
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
     const getSubList = (menu) => {
         return <ul className={classes.nested}>{
             menu.items.map((sub, indexSub) => (
                 getLink(sub)
             ))}
         </ul>
+    }
+    const getEdition = (menu) => {
+        return <span className={classes.edition}>
+            <IconButton edge="end" aria-label="delete" onClick={() => {
+                handleClickOpen("DELETE", menu);
+            }}>
+                <DeleteIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="edit">
+                <EditIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="Add">
+                <AddIcon />
+            </IconButton>
+        </span>
     }
 
     const getLink = (menu, index) => {
@@ -28,32 +77,17 @@ function Menu(props) {
                     variant="a"
                     color="inherit">
                     {menu.title}
-                    <span className={classes.edition}>
-                        <IconButton edge="end" aria-label="delete">
-                            <DeleteIcon />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="edit">
-                            <EditIcon />
-                        </IconButton>
-                    </span>
+                    {getEdition(menu)}
                 </Typography>
                 {menu.items.length ? getSubList(menu) : null}
             </li>
         } else {
             return <li className={classes.item} key={index}>
-
                 <Typography component="a"
                     variant="a"
                     color="inherit">
                     {menu.title}
-                    <span className={classes.edition}>
-                        <IconButton edge="end" aria-label="delete">
-                            <DeleteIcon />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="edit">
-                            <EditIcon />
-                        </IconButton>
-                    </span>
+                    {getEdition(menu)}
                 </Typography>
                 {menu.items.length ? getSubList(menu) : null}
             </li>
@@ -65,21 +99,46 @@ function Menu(props) {
             <Card className={classes.root}>
                 <CardHeader
                     action={
-                        <IconButton onClick={() => { alert("22 + 22") }} aria-label="settings">
+                        <IconButton
+                            onClick={() => {
+                                handleClickOpen("POST");
+                            }} aria-label="settings">
                             <AddIcon />
                         </IconButton>
                     }
                     title="Menu"
                 />
             </Card>
+            <Paper>
+                <h1>status: {status} - open: {open ? "true" : "false"}</h1>
+                {
+                    (status === STATUS.SUCCESS && Array.isArray(menu)) || Array.isArray(menu) ?
 
-            <br></br>
-            <Paper className={classes.paper}>
-                <ul >{menu.map((sub, index) =>
-                    <li className={classes.item} key={index}>
-                        {getLink(sub, index)}</li>
-                )}</ul>
+                        <ul >{menu.map((sub, index) =>
+                            <li className={classes.item} key={index}>
+                                {getLink(sub, index)}</li>
+                        )}</ul>
+
+                        : null
+                }
+                {
+                    status === STATUS.PENDING ?
+                        <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div>
+                        : null
+
+                }
             </Paper>
+            {open ?
+                <BasicModal
+                    open={open}
+                    status={status}
+                    title={"Add Nodes"}
+                    content={content}
+                    handleClose={handleClose}>
+                </BasicModal>
+
+                : null
+            }
         </div>
     );
 }

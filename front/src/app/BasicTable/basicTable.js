@@ -8,8 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,7 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import styles from './basicTable.style';
 import Edition from './edition';
-import ModalBasic from '../modal/modal';
+import BasicModal from '../BasicModal/basicModal';
 
 
 function BasicTable(props) {
@@ -25,13 +23,11 @@ function BasicTable(props) {
     const { data, action, status, classes, helper } = props;
     const [open, setOpen] = React.useState(false);
     const [modalContent, setModalContent] = React.useState(false);
-    const [click, setClick] = React.useState("");
     const [modalTitle, setModalTitle] = React.useState(null);
 
     const handleClickOpen = (method, data) => {
         dispatch(action.init());
         helper.setModel(data);
-        helper.setAction(action);
 
         if (method == 'POST') {
             setModalContent(helper.create(handleClose));
@@ -45,7 +41,6 @@ function BasicTable(props) {
             setModalContent(helper.update(handleClose));
             setModalTitle(helper.title())
         }
-        setClick(method);
         setOpen(true);
     };
 
@@ -75,7 +70,7 @@ function BasicTable(props) {
                 <Grid container wrap="nowrap" spacing={2}>
                     <Grid item xs zeroMinWidth>
                         <Typography noWrap>
-                            status : {open ? "true" : "false"} - {status} - {click}
+                            status : {open ? "true" : "false"} - {status}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -117,13 +112,13 @@ function BasicTable(props) {
                 : null
             }
             {open ?
-                <ModalBasic
+                <BasicModal
                     open={open}
                     status={status}
                     title={modalTitle}
                     content={modalContent}
-                    handleClose={click === 'POST' ? handleClose : handleClose}>
-                </ModalBasic>
+                    handleClose={handleClose}>
+                </BasicModal>
                 : null
             }
         </div >

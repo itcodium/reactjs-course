@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__FILE__).'/../common/ResponseFormat.php';
+require_once dirname(__FILE__).'/../common/CreateMenu.php';
 require_once dirname(__FILE__).'/../data/User.php';
 require_once dirname(__FILE__).'/../data/Menu.php';
 require_once dirname(__FILE__).'/../jwt/Auth.php';
@@ -9,6 +10,7 @@ class UserBus
     private static $response;
     private static $item;
     private static $menu;
+    private static $menubus;
     private static $app;
     private static $path="/user";
 
@@ -29,7 +31,13 @@ class UserBus
             $token=Auth::SignIn($data);
             $user->user= $data;
             $user->token=$token;
+            
+            $menu=self::$menu->getNodesDepthByUser('ES',$data->id_usuario);
+            $cmenu=new CreateMenu();
+            $cmenu->setData($menu);
+            $user->menu=$cmenu->getMenu(0);
             self::$response->data($user);
+
         }catch(exception $e) {
             self::$response->error($e->getMessage(), $e->getCode());
         }

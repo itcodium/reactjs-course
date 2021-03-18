@@ -58,7 +58,12 @@ $app->delete('/perfilmodule/{id:[0-9]+}','PerfilModuleBus::delete');
  */
 $app->get('/product', 'ProductBus::getAll');
 $app->get('/product/{id:[0-9]+}','ProductBus::getById');
-$app->get('/menu', 'MenuBus::getNodesDepthByUser');
+$app->get('/menu/full', 'MenuBus::getFullMenu');
+$app->post('/menu/samelevel', 'MenuBus::addNodeSameLevel');
+$app->delete('/menu/{id:[0-9]+}','MenuBus::delete');
+// $app->get('/menu', 'MenuBus::getNodesDepthByUser'); no se usa mas el endpoint
+
+
 
 $app->get('/test/500', function () use ($app) {
     $app->response->setStatusCode(500, "Internal Error");

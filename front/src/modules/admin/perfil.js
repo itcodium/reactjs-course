@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import BasicTable from '../../app/Crud/Table/basicTable';
+import BasicTable from '../../app/BasicTable/basicTable';
 import PERFIL from '../../redux/actions/perfil';
 import Typography from '@material-ui/core/Typography';
 

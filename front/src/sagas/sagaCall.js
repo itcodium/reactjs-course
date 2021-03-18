@@ -3,18 +3,19 @@ import LOGIN from '../redux/types/login';
 import apiCall from '../redux/api';
 
 
-function* SagaCall(TYPE, URL, method = 'GET', params, AFTER_TYPE) {
+function* SagaCall(TYPE, URL, method = 'GET', params, AFTER_TYPE, onSuccess) {
 
     try {
         yield put({ type: TYPE.PENDING });
         const response = yield call(apiCall, URL, { method: method ? method : 'GET' }, params);
         if (response.status === "ok") {
-            yield put({ type: TYPE.SUCCESS, payload: response });
+            yield put({ type: onSuccess ? onSuccess : TYPE.SUCCESS, payload: response });
             if (AFTER_TYPE) {
                 yield put({ type: AFTER_TYPE });
             }
         }
     } catch (e) {
+        console.log('e: ', e);
         if (e.code == 10002) {
             alert(e.message);
         }

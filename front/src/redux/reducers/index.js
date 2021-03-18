@@ -3,7 +3,7 @@ import login from './login';
 import user from './user';
 import products from './products';
 import productDetail from './productDetail';
-import menu from './menu';
+import { menu } from './menu';
 import modules from './modules';
 import perfil from './perfil';
 

@@ -1,14 +1,9 @@
 const styles = theme => ({
-    paper: {
-        padding: theme.spacing(1),
-    }, icon: {
+    icon: {
         paddinRight: `5px`,
     },
-    red: {
-        color: "red"
-    },
-    green: {
-        color: "green"
+    root: {
+        marginBottom: theme.spacing(1),
     },
     nested: {
         paddingLeft: theme.spacing(4),
@@ -20,6 +15,9 @@ const styles = theme => ({
             '&:hover': {
                 '& span': {
                     opacity: 1,
+                    '& button': {
+                        marginLeft: theme.spacing(2)
+                    }
                 },
             },
         },
@@ -29,19 +27,18 @@ const styles = theme => ({
     },
     text: {
         marginRight: theme.spacing(1),
-
-    }
+    },
+    wrapper: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: theme.spacing(10),
+    },
+    spinnerContainer: {
+        alignItems: 'center',
+    },
 
 
 });
 
-/* 
-     '&:hover': {
-            color: "green",
-            "& span": {
-                color: "red"
-            }
-        },
-        
-*/
 export default styles;

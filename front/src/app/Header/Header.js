@@ -31,8 +31,9 @@ function Header(props) {
         history.push('/Login')
         event.preventDefault();
     }
-    const { menu } = useSelector(state => state.menu)
-    const { user } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+
+    const { user, menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+
     const toggleDrawer = (open) => () => {
         setOpen(open)
     };
