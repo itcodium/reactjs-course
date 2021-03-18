@@ -14,27 +14,33 @@ import MENU from '../../../redux/actions/menu'
 import STATUS from '../../../redux/constants/status'
 
 function MenuCreate(props) {
-    const { classes, handleClose, model } = props;
+    const { classes, handleClose, model, id, type } = props;
 
     const menu = useSelector(state => state.menu);
     const status = useSelector(state => state.menu.status);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
-        title: { value: model ? model.title : "", valid: !!model && model.title },
-        url: { value: model ? model.url : "", valid: !!model && model.url },
+        title: { value: model ? model.title : "", valid: !!(model && model.title) },
+        url: { value: model ? model.url : "", valid: !!(model && model.url) },
         icon: { value: model ? model.icon : "", valid: true },
         action: { value: model ? model.action : "", valid: true },
     })
 
     ValidateForm.setForm = setForm;
     const getForm = () => {
-        return {
-            "id_menu": model && model.id_menu ? model.id_menu : null,
+        let node = {
             "title": form.title.value,
             "url": form.url.value,
             "icon": form.icon.value,
             "action": form.action.value,
         }
+        if (id && type == "CHILD") {
+            node.id_menu = id;
+        } else {
+            node.id_menu = model && model.id_menu ? model.id_menu : null;
+        }
+
+        return node;
     }
 
     return (
@@ -112,7 +118,15 @@ function MenuCreate(props) {
                     <Button
                         disabled={status === STATUS.CRUD || ValidateForm.hasError(form)}
                         onClick={() => {
-                            dispatch(MENU.addSameLevel(getForm()))
+                            if (type == "CHILD") {
+                                dispatch(MENU.addChild(getForm()))
+                            }
+                            if (type == "SAME_LEVEL") {
+                                dispatch(MENU.addSameLevel(getForm()))
+                            }
+                            if (type == "PUT") {
+                                dispatch(MENU.update(getForm()))
+                            }
                         }} color="primary" >
                         Aceptar</Button>
 

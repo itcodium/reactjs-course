@@ -8,6 +8,7 @@ class MenuBus
     private static $response;
     private static $item;
     private static $app;
+    private static $path="/menu";
     public static function init($app){
         self::$response= new  ResponseFormat();
         self::$app=$app;
@@ -21,8 +22,9 @@ class MenuBus
     public static function getNodesDepthByUser(){
         try{
             //$valid=Auth::Check(apache_request_headers()['Authorization']);
+            self::$menu->getByUserURL($user,self::$path);
             $user=apache_request_headers()['user_id'];
-            $data=self::$item->getNodesDepthByUser('ES',$user);
+            // $data=self::getNodesDepthByUser('ES',$user);
             $cmenu=new CreateMenu();
             $cmenu->setData($data);
             $menu=$cmenu->getMenu(0);
@@ -58,6 +60,7 @@ class MenuBus
 
     public static function addNodeSameLevel(){
         try{
+            $valid=Auth::Check(apache_request_headers()['Authorization']);
             $parameters =self::$app->request->getJsonRawBody();
             $parameters->lang='ES';
             $parameters->id_menu= $parameters->id_menu ? $parameters->id_menu : 0;
@@ -68,6 +71,20 @@ class MenuBus
         }
         return self::$response->get();
     }
+    public static function addNodeChild(){
+        try{
+            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            $parameters =self::$app->request->getJsonRawBody();
+            $parameters->lang='ES';
+            $parameters->id_menu= $parameters->id_menu ? $parameters->id_menu : 0;
+            $data=self::$item->addNodeChild($parameters);
+            self::$response->data([$data]);
+        }catch(exception $e) {
+            self::$response->error($e->getMessage());
+        }
+        return self::$response->get();
+    }
+    
     // Se usa para validar los permisos de los usuarios
     public static function getByUserURL($user,$path){
         try{
@@ -88,26 +105,12 @@ class MenuBus
         }
         return self::$response->get();
     }
-    
-/*    
-    public static function getAll(){
-        try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
-            $data=self::$item->getAll();
-            self::$response->data($data);
-		}catch(exception $e) {
-            self::$response->error($e->getMessage());
-		}
-        return self::$response->get();
-    }
-
-
-  
     public static function update($id){
         try{
             $valid=Auth::Check(apache_request_headers()['Authorization']);
             $parameters =self::$app->request->getJsonRawBody();
-            $parameters->id=$id;
+            $parameters->id_menu=$id;
+            $parameters->lang='ES';
             $res=self::$item->update($parameters);
             self::$response->data($res);
         }catch(exception $e) {
@@ -115,18 +118,5 @@ class MenuBus
         }
         return self::$response->get();
     }
-    public static function insert(){
-        try{
-            $valid=Auth::Check(apache_request_headers()['Authorization']);
-            $parameters =self::$app->request->getJsonRawBody();
-            $data=self::$item->insert($parameters);
-            self::$response->data($data);
-        }catch(exception $e) {
-            self::$response->error($e->getMessage());
-        }
-        return self::$response->get();
-    }
-
-    */
 }
 ?>

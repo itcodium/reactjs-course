@@ -104,10 +104,34 @@ class Menu
         }
     }
 
-    
+    public function addNodeChild($node){
+        try {
+            $statement = $this->con->prepare("call menu_addNodeChild(?,?,?,?,?,?)");
+            $statement->bind_param("isssss",$node->id_menu,
+                                            $node->lang,
+                                            $node->title,
+                                            $node->url,
+                                            $node->icon,
+                                            $node->action);
+            $statement->execute();
+            $rawdata = array();
+            $i=0;
+            $result = $statement->get_result();
+            while($row = $result->fetch_object()){
+                $rawdata[$i] = $row;
+                $i++;
+            }
+            $result->close();
+            return $rawdata;
+        } catch (Exception $e){
+            throw new Exception($e->getMessage());
+        }finally{
+            $this->con->close();
+        }
+    }
 	public function delete($id){
         try {
-            $statement = $this->con->prepare("call menu_deleteNode(?)");
+            $statement = $this->con->prepare("call menu_deleteNodeMoveChild(?)");
             $statement->bind_param("i", $id);
             $statement->execute();
             $result = $statement->get_result();
@@ -118,16 +142,15 @@ class Menu
             $this->con->close();
         }
     }
-
-
-/*
-    public function insert($data){
+    public function update($node){
         try {
-            $statement = $this->con->prepare("call perfilInsert (?,?,?,?)");
-            $statement->bind_param("ssss",  $data->perfil,
-                                            $data->vigencia_desde,
-                                            $data->vigencia_hasta,
-                                            $data->creado_por);
+            $statement = $this->con->prepare("call menu_updateNode(?,?,?,?,?,?)");
+            $statement->bind_param("isssss",$node->id_menu,
+                                            $node->lang,
+                                            $node->title,
+                                            $node->url,
+                                            $node->icon,
+                                            $node->action);                                           
             $statement->execute();
             $result = $statement->get_result();
             return $result->fetch_object();
@@ -137,55 +160,5 @@ class Menu
             $this->con->close();
         }
     }
-
-  	public function getAll(){
-        try {
-            $result=$this->con->query("CALL menu_getNodesDepth()");
-            if (!$result) {
-                throw new Exception($this->con->error);
-            }
-            $rawdata = array();
-            $i=0;
-            while($row = $result->fetch_object()){
-                $rawdata[$i] = $row;
-                $i++;
-            }
-            $result->close();
-            return $rawdata;
-        } catch (mysqli_sql_exception $e){
-            throw new Exception($e->getMessage());
-        }finally{
-            $this->con->close();
-        }
-    }
-*/
-
-    
-	
-	
-    
-
-/*    
-    public function update($data){
-        try {
-            $statement = $this->con->prepare("call perfilUpdate (?,?,?,?,?)");
-            $statement->bind_param("issss",$data->id_perfil,
-                                           $data->perfil,
-                                           $data->vigencia_desde,
-                                           $data->vigencia_hasta,
-                                           $data->modificado_por);
-            $statement->execute();
-            $result = $statement->get_result();
-            return $result->fetch_object();
-        } catch (Exception $e){
-            throw new Exception($e->getMessage());
-        }finally{
-            $this->con->close();
-        }
-    }
-
-
-*/
 }
-
 ?>

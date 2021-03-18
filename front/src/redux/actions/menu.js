@@ -26,13 +26,21 @@ const remove = (payload) => {
         payload: payload
     }
 }
+
+const update = (payload) => {
+    return {
+        type: MENU.PUT,
+        payload: payload
+    }
+}
 const Menu = {
     init: init,
     get: get,
     getFull: getFull,
     addSameLevel: addSameLevel,
     addChild: addChild,
-    remove: remove
+    remove: remove,
+    update: update
 };
 export default Menu;
 

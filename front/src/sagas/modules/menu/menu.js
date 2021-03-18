@@ -9,14 +9,23 @@ function* fetchMenuFull() {
 }
 
 function* addSameLevel(params) {
-    console.log('params: ', params);
     yield SagaCall(
         MENU,
         API_URL + "/samelevel",
         'POST',
         params.payload,
         MENU.FETCH,
-        MENU.ADD_SAME_LEVEL_SUCCESS
+        MENU.ADD_CRUD_SUCCESS
+    );
+}
+function* addChild(params) {
+    yield SagaCall(
+        MENU,
+        API_URL + "/child",
+        'POST',
+        params.payload,
+        MENU.FETCH,
+        MENU.ADD_CRUD_SUCCESS
     );
 }
 function* remove(params) {
@@ -26,17 +35,26 @@ function* remove(params) {
         'DELETE',
         params.payload,
         MENU.FETCH,
-        MENU.ADD_SAME_LEVEL_SUCCESS
+        MENU.ADD_CRUD_SUCCESS
     );
 }
-/*function* addChild() {
-    yield SagaCall(MENU, API_URL);
-}*/
+function* update(params) {
+    console.log('params: ', params);
+    yield SagaCall(
+        MENU,
+        API_URL + "/" + params.payload.id_menu,
+        'PUT',
+        params.payload,
+        MENU.FETCH,
+        MENU.ADD_CRUD_SUCCESS
+    );
+}
+
 export function* menu() {
     yield takeLatest(MENU.FETCH, fetchMenuFull);
     yield takeLatest(MENU.ADD_SAME_LEVEL, addSameLevel);
+    yield takeLatest(MENU.ADD_CHILD, addChild);
     yield takeLatest(MENU.DELETE, remove);
-    /*
-    yield take(MENU.ADD_CHILD, addChild);
-    */
+    yield takeLatest(MENU.PUT, update);
+
 }

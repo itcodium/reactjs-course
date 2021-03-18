@@ -32,13 +32,19 @@ function Menu(props) {
 
     const handleClickOpen = (method, data) => {
         dispatch(MENU.init());
-        if (method == 'POST') {
-            setContent(<MenuCreate handleClose={handleClose}></MenuCreate>)
+        if (method == 'ADD_SAME_LEVEL') {
+            setContent(<MenuCreate type={"SAME_LEVEL"} handleClose={handleClose}></MenuCreate>)
+        }
+        if (method == 'ADD_CHILD') {
+            setContent(<MenuCreate type={"CHILD"} id={data.id_menu} handleClose={handleClose}></MenuCreate>)
+        }
+        if (method == 'PUT') {
+            setContent(<MenuCreate type={"PUT"} model={data} handleClose={handleClose}></MenuCreate>)
         }
         if (method == 'DELETE') {
             setContent(<MenuDelete model={data} handleClose={handleClose}></MenuDelete>)
         }
-        // if (method == 'PUT') {}
+
         setOpen(true);
     };
 
@@ -61,10 +67,14 @@ function Menu(props) {
             }}>
                 <DeleteIcon />
             </IconButton>
-            <IconButton edge="end" aria-label="edit">
+            <IconButton edge="end" aria-label="edit" onClick={() => {
+                handleClickOpen("PUT", menu);
+            }}>
                 <EditIcon />
             </IconButton>
-            <IconButton edge="end" aria-label="Add">
+            <IconButton edge="end" aria-label="Add" onClick={() => {
+                handleClickOpen("ADD_CHILD", menu);
+            }}>
                 <AddIcon />
             </IconButton>
         </span>
@@ -101,7 +111,7 @@ function Menu(props) {
                     action={
                         <IconButton
                             onClick={() => {
-                                handleClickOpen("POST");
+                                handleClickOpen("ADD_SAME_LEVEL");
                             }} aria-label="settings">
                             <AddIcon />
                         </IconButton>
@@ -110,7 +120,6 @@ function Menu(props) {
                 />
             </Card>
             <Paper>
-                <h1>status: {status} - open: {open ? "true" : "false"}</h1>
                 {
                     (status === STATUS.SUCCESS && Array.isArray(menu)) || Array.isArray(menu) ?
 

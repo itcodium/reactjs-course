@@ -25,17 +25,17 @@ function menu(state = initialState, action) {
                 status: STATUS.CRUD
             });
         }
-        case MENU.ADD_SAME_LEVEL_SUCCESS: {
-            return Object.assign({}, state, {
-                response: action.payload.data,
-                error: null,
-                status: STATUS.SUCCESS
-            });
-        }
         case MENU.ADD_CHILD: {
             return Object.assign({}, state, {
                 error: null,
                 status: STATUS.CRUD
+            });
+        }
+        case MENU.ADD_CRUD_SUCCESS: {
+            return Object.assign({}, state, {
+                response: action.payload.data,
+                error: null,
+                status: STATUS.SUCCESS
             });
         }
         case MENU.SUCCESS: {
