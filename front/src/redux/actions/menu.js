@@ -9,6 +9,12 @@ const get = (payload) => ({
     type: MENU.FETCH,
     payload: payload
 })
+
+const getByUser = (payload) => ({
+    type: MENU.FETCH_BY_USER,
+    payload: payload
+})
+
 const getFull = () => ({
     type: MENU.FETCH
 })
@@ -36,6 +42,7 @@ const update = (payload) => {
 const Menu = {
     init: init,
     get: get,
+    getByUser: getByUser,
     getFull: getFull,
     addSameLevel: addSameLevel,
     addChild: addChild,

@@ -4,10 +4,9 @@ import apiCall from '../redux/api';
 
 
 function* SagaCall(TYPE, URL, method = 'GET', params, AFTER_TYPE, onSuccess) {
-
     try {
         yield put({ type: TYPE.PENDING });
-        const response = yield call(apiCall, URL, { method: method ? method : 'GET' }, params);
+        const response = yield call(apiCall, URL, { method: method ? method : 'GET' }, params ? params : null);
         if (response.status === "ok") {
             yield put({ type: onSuccess ? onSuccess : TYPE.SUCCESS, payload: response });
             if (AFTER_TYPE) {

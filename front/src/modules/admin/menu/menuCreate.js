@@ -39,7 +39,6 @@ function MenuCreate(props) {
         } else {
             node.id_menu = model && model.id_menu ? model.id_menu : null;
         }
-
         return node;
     }
 

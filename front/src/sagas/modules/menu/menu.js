@@ -4,9 +4,7 @@ import MENU from '../../../redux/types/menu';
 
 const API_URL = `/api/menu`;
 
-function* fetchMenuFull() {
-    yield SagaCall(MENU, API_URL + "/full", "GET");
-}
+
 
 function* addSameLevel(params) {
     yield SagaCall(
@@ -39,7 +37,6 @@ function* remove(params) {
     );
 }
 function* update(params) {
-    console.log('params: ', params);
     yield SagaCall(
         MENU,
         API_URL + "/" + params.payload.id_menu,
@@ -50,8 +47,23 @@ function* update(params) {
     );
 }
 
+function* fetchMenuFull() {
+    yield SagaCall(MENU, API_URL + "/full", "GET");
+}
+function* fetchByUser(params) {
+    yield SagaCall(
+        MENU,
+        API_URL + "/" + params.payload.id_usuario,
+        null,
+        null,
+        null,
+        MENU.FETCH_BY_USER_SUCCESS
+    );
+}
+
 export function* menu() {
     yield takeLatest(MENU.FETCH, fetchMenuFull);
+    yield takeLatest(MENU.FETCH_BY_USER, fetchByUser);
     yield takeLatest(MENU.ADD_SAME_LEVEL, addSameLevel);
     yield takeLatest(MENU.ADD_CHILD, addChild);
     yield takeLatest(MENU.DELETE, remove);

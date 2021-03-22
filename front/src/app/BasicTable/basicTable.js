@@ -8,8 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,7 +20,7 @@ import BasicModal from '../BasicModal/basicModal';
 
 function BasicTable(props) {
     let { columns } = props;
-    const { data, action, status, classes, helper } = props;
+    const { data, action, status, classes, helper, title } = props;
     const [open, setOpen] = React.useState(false);
     const [modalContent, setModalContent] = React.useState(false);
     const [modalTitle, setModalTitle] = React.useState(null);
@@ -66,23 +66,18 @@ function BasicTable(props) {
     }
     return (
         <div>
-            <Paper className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs zeroMinWidth>
-                        <Typography noWrap>
-                            status : {open ? "true" : "false"} - {status}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
+            <Card className={classes.title}>
+                <CardHeader
+                    action={helper.create() ?
                         <IconButton onClick={() => {
                             handleClickOpen('POST');
                         }} aria-label="Add">
                             <AddIcon ></AddIcon>
-                        </IconButton>
-                    </Grid>
-
-                </Grid>
-            </Paper>
+                        </IconButton> : null
+                    }
+                    title={title}
+                />
+            </Card>
             {(status === "succeeded" || action) || (!action && data) ?
                 < TableContainer component={Paper}>
                     {status === "loading" ? <div className={classes.wrapper}> <LinearProgress className={classes.spinnerContainer} /> </div> : null}
@@ -102,6 +97,8 @@ function BasicTable(props) {
                                     {columns.map((row) => {
                                         return <Edition handleOpen={handleClickOpen}
                                             row={row}
+                                            edit={helper.update()}
+                                            itemDelete={helper.delete()}
                                             data={data}></Edition>
                                     })}
                                 </TableRow>

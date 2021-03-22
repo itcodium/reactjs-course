@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux'
 import BasicTable from '../../../app/BasicTable/basicTable';
 import USER from '../../../redux/actions/user';
-import Typography from '@material-ui/core/Typography';
 
-import LanguageSelector from '../../../app/LanguageSelector/LanguageSelector';
-import UserHelper from './helper';
+import UserPrivilegesHelper from './helperUserPriviliges';
 function User(props) {
     const columns = [
         { field: 'id_usuario', title: 'Id', align: "left", visible: true },
@@ -19,20 +17,18 @@ function User(props) {
     ];
     const status = useSelector(state => state.user.status)
     const data = useSelector(state => state.user.list)
-    console.log('data: ', data);
     const error = useSelector(state => state.user.error);
 
-    const helper = new UserHelper();
+    const helper = new UserPrivilegesHelper();
     return (
+
         <BasicTable
             helper={helper}
             action={USER}
-            title="User"
+            title="User Privileges"
             status={status}
             data={data}
-            columns={columns}></BasicTable>
-
-    );
+            columns={columns}></BasicTable>);
 }
 
 export default User;

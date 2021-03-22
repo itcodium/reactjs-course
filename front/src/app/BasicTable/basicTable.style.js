@@ -1,4 +1,7 @@
 const styles = theme => ({
+    title: {
+        marginBottom: theme.spacing(1),
+    },
     table: {
         minWidth: 650,
     },
@@ -16,14 +19,8 @@ const styles = theme => ({
     error: {
         color: `red`,
     },
-    root: {
-        flexGrow: 1,
-        overflow: 'hidden',
-        padding: theme.spacing(0, 3),
-    },
     paper: {
         maxWidth: "100%",
-
         padding: theme.spacing(1),
     },
 });

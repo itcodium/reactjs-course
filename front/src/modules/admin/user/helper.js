@@ -21,6 +21,11 @@ export default function UserHelper() {
     this.create = (close) => {
         return <UserCreate handleClose={close}></UserCreate>;
     }
+
+    this.custom = (close) => {
+        const data = { id_user: 22 };
+        return <h1 model={data} handleClose={close}>Custom</h1>;
+    }
 }
 
 

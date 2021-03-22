@@ -24,6 +24,7 @@ class CreateMenu{
             "icon"=>$value["icon"], 
             "action"=>$value["action"], 
             "url"=>$value["url"], 
+            "enabled"=>$value["enabled"], 
             "class"=>"menu-icon icon-folder", 
             "items"=>[]);
         return $result;
@@ -41,7 +42,7 @@ class CreateMenu{
         }
         return $this->length;
     }
-    public function getMenu($index,$nextIndex=null){
+    public function getMenu($index,$nextIndex=null, $all=false){
         $list=[];
         if($index<$this->length){
             if (is_null($nextIndex)){
@@ -49,11 +50,11 @@ class CreateMenu{
             }
             $depth= $this->getNode($this->data[$index])["depth"];
             for ($i = $index; $i < $this->length &&  $i< $nextIndex; $i++) {
-                if($depth==$this->data[$i]["depth"] && $this->data[$i]["enabled"]){
+                if($depth==$this->data[$i]["depth"] && ($this->data[$i]["enabled"] || $all)){  
                     $node= $this->getNode($this->data[$i],$nextIndex);
                     $next=$this->getNextDepthIndex($depth,$i);
                     if($this->data[$i+1]["depth"]-1== $node["depth"]){
-                         $node["items"]=$this->getMenu($i+1, $next);
+                         $node["items"]=$this->getMenu($i+1, $next,$all);
                     }
                     array_push($list,$node);
                 }   

@@ -58,7 +58,9 @@ $app->delete('/perfilmodule/{id:[0-9]+}','PerfilModuleBus::delete');
  */
 $app->get('/product', 'ProductBus::getAll');
 $app->get('/product/{id:[0-9]+}','ProductBus::getById');
+
 $app->get('/menu/full', 'MenuBus::getFullMenu');
+$app->get('/menu/{id:[0-9]+}', 'MenuBus::getNodesDepthByUser');
 $app->post('/menu/samelevel', 'MenuBus::addNodeSameLevel');
 $app->post('/menu/child', 'MenuBus::addNodeChild');
 $app->put('/menu/{id:[0-9]+}','MenuBus::update');

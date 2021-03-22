@@ -5,17 +5,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
 function Edition(props) {
-    const { row, data, onEdit, onDelete, handleOpen, handleClose } = props;
+    const { row, data, handleOpen, edit, itemDelete } = props;
     if (row.type == "edit") {
         return <TableCell align={row.align ? row.align : "left"} component="th" scope="row">
-            {row.buttons.delete ?
+            {row.buttons.delete && itemDelete ?
                 <IconButton onClick={() => {
                     handleOpen('DELETE', data)
                 }} size="small" aria-label="delete">
                     <DeleteIcon fontSize="small" />
                 </IconButton> : null
             }
-            {row.buttons.edit ?
+            {row.buttons.edit && edit ?
                 <IconButton onClick={() => {
                     handleOpen('PUT', data)
                 }} size="small" aria-label="edit">

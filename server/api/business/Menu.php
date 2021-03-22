@@ -19,15 +19,15 @@ class MenuBus
         self::init();
     }
 
-    public static function getNodesDepthByUser(){
+    public static function getNodesDepthByUser($id){
         try{
             //$valid=Auth::Check(apache_request_headers()['Authorization']);
-            self::$menu->getByUserURL($user,self::$path);
-            $user=apache_request_headers()['user_id'];
-            // $data=self::getNodesDepthByUser('ES',$user);
+            // self::$menu->getByUserURL($user,self::$path);
+            //$user=apache_request_headers()['user_id'];
+            $data=self::$item->getNodesDepthByUser('ES',$id);
             $cmenu=new CreateMenu();
             $cmenu->setData($data);
-            $menu=$cmenu->getMenu(0);
+            $menu=$cmenu->getMenu(0,null,true);
             self::$response->data($menu);
         }catch(exception $e) {
             self::$response->error($e->getMessage());

@@ -19,6 +19,11 @@ function menu(state = initialState, action) {
                 status: STATUS.PENDING
             });
         }
+        case MENU.FETCH_BY_USER: {
+            return Object.assign({}, state, {
+                status: STATUS.PENDING
+            });
+        }
         case MENU.ADD_SAME_LEVEL: {
             return Object.assign({}, state, {
                 error: null,
@@ -34,6 +39,13 @@ function menu(state = initialState, action) {
         case MENU.ADD_CRUD_SUCCESS: {
             return Object.assign({}, state, {
                 response: action.payload.data,
+                error: null,
+                status: STATUS.SUCCESS
+            });
+        }
+        case MENU.FETCH_BY_USER_SUCCESS: {
+            return Object.assign({}, state, {
+                menuUserPrivileges: action.payload.data,
                 error: null,
                 status: STATUS.SUCCESS
             });

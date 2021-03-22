@@ -15,6 +15,7 @@ import ProductDetail from './modules/products/productDetail'
 import Menu from './modules/admin/menu/menu'
 import Module from './modules/admin/module'
 import User from './modules/admin/user/user'
+import UserPrivileges from './modules/admin/user/userPrivileges'
 import Perfil from './modules/admin/perfil'
 import PerfilModule from './modules/admin/perfilModule'
 
@@ -55,6 +56,8 @@ function App(props) {
                 <PrivateRoute key="130" path='/module' component={Module} />
                 <PrivateRoute key="140" path='/perfilModule' component={PerfilModule} />
                 <PrivateRoute key="150" path='/user' component={User} />
+                <PrivateRoute key="150" path='/userPrivileges' component={UserPrivileges} />
+
                 <PrivateRoute key="160" path='/menu' component={Menu} />
               </div>
             </Grid>
