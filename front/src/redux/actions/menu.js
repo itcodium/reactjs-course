@@ -39,6 +39,21 @@ const update = (payload) => {
         payload: payload
     }
 }
+
+const changeUserPrivileges = (payload) => {
+    return {
+        type: MENU.CHANGE_USER_PRIVILEGE,
+        payload: payload
+    }
+}
+const uiRefresh = (payload) => {
+    return {
+        type: MENU.UI_REFRESH,
+        payload: payload
+    }
+}
+
+
 const Menu = {
     init: init,
     get: get,
@@ -47,7 +62,9 @@ const Menu = {
     addSameLevel: addSameLevel,
     addChild: addChild,
     remove: remove,
-    update: update
+    update: update,
+    changeUserPrivileges: changeUserPrivileges,
+    uiRefresh: uiRefresh
 };
 export default Menu;
 

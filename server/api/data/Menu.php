@@ -104,6 +104,29 @@ class Menu
         }
     }
 
+    
+    public function changeUserPrivilege($node){
+        try {
+            $statement = $this->con->prepare("call menu_changeUserPrivilege(?,?,?)");
+            $statement->bind_param("iii",$node->id_menu,
+                                            $node->id_usuario,
+                                            $node->checked);
+            $statement->execute();
+            $rawdata = array();
+            $i=0;
+            $result = $statement->get_result();
+            while($row = $result->fetch_object()){
+                $rawdata[$i] = $row;
+                $i++;
+            }
+            $result->close();
+            return $rawdata;
+        } catch (Exception $e){
+            throw new Exception($e->getMessage());
+        }finally{
+            $this->con->close();
+        }
+    }
     public function addNodeChild($node){
         try {
             $statement = $this->con->prepare("call menu_addNodeChild(?,?,?,?,?,?)");

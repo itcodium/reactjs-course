@@ -58,14 +58,25 @@ function* fetchByUser(params) {
         null,
         null,
         MENU.FETCH_BY_USER_SUCCESS
+
     );
 }
 
+function* changeUserPrivilege(params) {
+    yield SagaCall(
+        MENU,
+        API_URL + "/privileges",
+        'PUT',
+        params.payload,
+        MENU.UI_REFRESH
+    );
+}
 export function* menu() {
     yield takeLatest(MENU.FETCH, fetchMenuFull);
     yield takeLatest(MENU.FETCH_BY_USER, fetchByUser);
     yield takeLatest(MENU.ADD_SAME_LEVEL, addSameLevel);
     yield takeLatest(MENU.ADD_CHILD, addChild);
+    yield takeLatest(MENU.CHANGE_USER_PRIVILEGE, changeUserPrivilege);
     yield takeLatest(MENU.DELETE, remove);
     yield takeLatest(MENU.PUT, update);
 

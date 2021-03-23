@@ -26,6 +26,7 @@ function Menu(props) {
     const status = useSelector(state => state.menu.status)
     const menu = useSelector(state => privileges ? state.menu.menuUserPrivileges : state.menu.menu)
 
+    const [state, setState] = React.useState(menu);
 
     const [open, setOpen] = React.useState(false);
     const [content, setContent] = React.useState(null);
@@ -92,16 +93,26 @@ function Menu(props) {
         </span>
     }
     const handleChange = (event) => {
-        console.log('event: ', event);
+        console.log('event: ', user.id_usuario, event.target.value, event.target.checked);
+        //dispatch(MENU.uiRefresh(event.target));
+        dispatch(MENU.changeUserPrivileges({
+            id_usuario: user.id_usuario,
+            id_menu: event.target.value,
+            checked: event.target.checked
+        }));
+        // CHANGE_USER_PRIVILEGE
     }
+
     const getCheckPrivileges = (menu) => {
         if (privileges) {
             return <FormControlLabel
                 control={
                     <Checkbox
+                        key={menu.id_menu}
                         checked={menu.enabled}
                         onChange={handleChange}
                         color="primary"
+                        value={menu.id_menu}
                     />
                 }
                 label={menu.title}
@@ -148,24 +159,24 @@ function Menu(props) {
                     />
                 </Card> : null
             }
-            <Paper>
-                {
-                    (status === STATUS.SUCCESS && Array.isArray(menu)) || Array.isArray(menu) ?
 
-                        <ul >{menu.map((sub, index) =>
-                            <li className={classes.item} key={index}>
-                                {getLink(sub, index)}</li>
-                        )}</ul>
+            {
+                (status === STATUS.SUCCESS && Array.isArray(menu)) || Array.isArray(menu) ?
 
-                        : null
-                }
-                {
-                    status === STATUS.PENDING ?
-                        <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div>
-                        : null
+                    <ul >{menu.map((sub, index) =>
+                        <li className={classes.item} key={index}>
+                            {getLink(sub, index)}</li>
+                    )}</ul>
 
-                }
-            </Paper>
+                    : null
+            }
+            {
+                status === STATUS.PENDING ?
+                    <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div>
+                    : null
+
+            }
+
             {open ?
                 <BasicModal
                     open={open}

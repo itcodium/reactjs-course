@@ -10,7 +10,7 @@ function* SagaCall(TYPE, URL, method = 'GET', params, AFTER_TYPE, onSuccess) {
         if (response.status === "ok") {
             yield put({ type: onSuccess ? onSuccess : TYPE.SUCCESS, payload: response });
             if (AFTER_TYPE) {
-                yield put({ type: AFTER_TYPE });
+                yield put({ type: AFTER_TYPE, payload: params });
             }
         }
     } catch (e) {

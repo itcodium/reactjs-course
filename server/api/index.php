@@ -63,7 +63,9 @@ $app->get('/menu/full', 'MenuBus::getFullMenu');
 $app->get('/menu/{id:[0-9]+}', 'MenuBus::getNodesDepthByUser');
 $app->post('/menu/samelevel', 'MenuBus::addNodeSameLevel');
 $app->post('/menu/child', 'MenuBus::addNodeChild');
+$app->put('/menu/privileges','MenuBus::changeUserPrivilege');
 $app->put('/menu/{id:[0-9]+}','MenuBus::update');
+
 $app->delete('/menu/{id:[0-9]+}','MenuBus::delete');
 
 

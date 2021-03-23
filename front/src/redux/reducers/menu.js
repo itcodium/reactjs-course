@@ -6,6 +6,7 @@ const initialState = {
     error: null
 }
 
+
 function menu(state = initialState, action) {
     switch (action.type) {
         case MENU.INIT: {
@@ -30,6 +31,7 @@ function menu(state = initialState, action) {
                 status: STATUS.CRUD
             });
         }
+
         case MENU.ADD_CHILD: {
             return Object.assign({}, state, {
                 error: null,
@@ -63,10 +65,38 @@ function menu(state = initialState, action) {
                 status: STATUS.ERROR
             });
         }
+        case MENU.CHANGE_USER_PRIVILEGE: {
+            return Object.assign({}, state, {
+                error: null,
+                status: STATUS.CRUD
+            });
+        }
+        case MENU.UI_REFRESH: {
+            const menu = menuFind(state.menuUserPrivileges, action.payload);
+            return Object.assign({}, state, {
+                menuUserPrivileges: menu,
+                error: null,
+                status: STATUS.SUCCESS
+            });
+        }
         default: {
             return state;
         }
     }
+}
+
+const menuFind = (menu, target) => {
+
+    return menu.map(item => {
+        if (item.id_menu == target.id_menu) {
+            item.enabled = target.checked;
+            console.log('target: ', target);
+        }
+        if (item.items.length) {
+            item.items = menuFind(item.items, target);
+        }
+        return item;
+    })
 }
 
 export { menu }

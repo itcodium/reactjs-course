@@ -57,7 +57,19 @@ class MenuBus
             $cmenu->setData($data);
             return $cmenu->getMenu(0);
     }
+    
 
+    public static function changeUserPrivilege(){
+        try{
+            $valid=Auth::Check(apache_request_headers()['Authorization']);
+            $parameters =self::$app->request->getJsonRawBody();
+            $data=self::$item->changeUserPrivilege($parameters);
+            self::$response->data($data);
+        }catch(exception $e) {
+            self::$response->error($e->getMessage());
+        }
+        return self::$response->get();
+    }
     public static function addNodeSameLevel(){
         try{
             $valid=Auth::Check(apache_request_headers()['Authorization']);
