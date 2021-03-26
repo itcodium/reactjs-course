@@ -13,15 +13,16 @@ import styles from './App.styles';
 import ProductView from './modules/products/productView'
 import ProductDetail from './modules/products/productDetail'
 import Menu from './modules/admin/menu/menu'
-import Module from './modules/admin/module'
 import User from './modules/admin/user/user'
 import UserPrivileges from './modules/admin/user/userPrivileges'
-import Perfil from './modules/admin/perfil'
-import PerfilModule from './modules/admin/perfilModule'
+
 
 const MENU = {
   "/menu": Menu,
-  "/products": ProductView
+  "/products": ProductView,
+  "/userPrivileges": UserPrivileges,
+  "/user": User,
+  "/menu": Menu,
 }
 
 function App(props) {
@@ -29,8 +30,18 @@ function App(props) {
   const { menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
 
   let URL = "/products";
+
   if (menu && menu.length) {
-    URL = !menu[0].url ? menu[0].items[0].url : menu[0].url;
+    console.log('menu: ', menu);
+    if (!menu[0].url && menu[0].items.length) {
+      URL = menu[0].items[0].url;
+      console.log('IF: ', menu[0].items[0]);
+    } else {
+      console.log('ELSE: ', menu[1].url);
+      URL = !menu[1].url ? menu[1].items[0].url : menu[1].url;
+      console.log('URL: ', URL);
+      console.log('ELSE: ', menu[1].items[0]);
+    }
   }
   return (
     <HashRouter >
@@ -52,13 +63,9 @@ function App(props) {
                 <Route key="90" path="/Logout" component={Logout} />
                 <PrivateRoute key="10" path='/products' component={ProductView} />
                 <PrivateRoute key="110" path='/productDetail/:id' component={ProductDetail} />
-                <PrivateRoute key="120" path='/perfil' component={Perfil} />
-                <PrivateRoute key="130" path='/module' component={Module} />
-                <PrivateRoute key="140" path='/perfilModule' component={PerfilModule} />
-                <PrivateRoute key="150" path='/user' component={User} />
-                <PrivateRoute key="150" path='/userPrivileges' component={UserPrivileges} />
-
-                <PrivateRoute key="160" path='/menu' component={Menu} />
+                <PrivateRoute key="120" path='/user' component={User} />
+                <PrivateRoute key="130" path='/userPrivileges' component={UserPrivileges} />
+                <PrivateRoute key="140" path='/menu' component={Menu} />
               </div>
             </Grid>
           </Grid>
