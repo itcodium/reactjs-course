@@ -9,6 +9,7 @@ const UserTypes = {
     PUT: USER.PUT,
     POST: USER.POST,
     SAVE: "USER_SAVE",
+    SAVE_SUCCESS: "USER_SAVE_SUCCESS",
     SAVE_MODAL: "USER_SAVE_MODAL",
 }
 export default UserTypes;

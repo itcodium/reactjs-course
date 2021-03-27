@@ -35,35 +35,7 @@ CREATE TABLE `hr_app_session_keys` (
 --
 -- Dumping data for table `hr_app_session_keys`
 --
-
-LOCK TABLES `hr_app_session_keys` WRITE;
-/*!40000 ALTER TABLE `hr_app_session_keys` DISABLE KEYS */;
-INSERT INTO `hr_app_session_keys` VALUES ('4b6084ec-2b6e-11e6-a94e-c04a00011902',2,'2016-06-05 20:09:04','2016-06-06 01:39:04'),('8084d8c4-2b79-11e6-a94e-c04a00011902',2,'2016-06-05 21:29:18','2016-06-06 02:59:18'),('a223e322-3657-11e6-a49b-c04a00011902',2,'2050-01-01 00:00:00','2016-06-19 22:54:29'),('02a89193-3b17-11e6-a1f2-c04a00011902',2,'2016-06-25 18:24:29','2016-06-25 23:54:29'),('1f221745-8519-11e6-a581-c04a00011902',4,'2016-09-27 22:46:02','2016-09-28 04:16:02'),('c74a87ab-bf08-11ea-950b-c04a00011902',18,'2020-07-05 19:15:01','2020-07-05 21:45:01'),('2991e386-42fc-11eb-9da6-c04a00011902',18,'2020-12-20 17:17:16','2020-12-20 19:47:16'),('2bc361d9-43cd-11eb-a3fc-0242ac170003',18,'2020-12-21 21:13:24','2020-12-21 20:43:24'),('9af137bd-43d1-11eb-a3fc-0242ac170003',18,'2020-12-21 21:45:09','2020-12-21 21:15:09'),('4f1716f7-7556-11eb-a3da-0242ac170003',25,'2021-02-22 22:08:31','2021-02-22 21:38:31'),('048afce5-75fc-11eb-abf5-0242ac170003',25,'2021-02-23 17:54:43','2021-02-23 17:24:43'),('507c3cbb-7608-11eb-abf5-0242ac170003',25,'2021-02-23 19:22:44','2021-02-23 18:52:44'),('3a3c6851-76b1-11eb-922a-0242ac170003',25,'2021-02-24 15:31:52','2021-02-24 15:01:52'),('1f3c4118-76bd-11eb-922a-0242ac170003',25,'2021-02-24 16:57:00','2021-02-24 16:27:00'),('1a8724e1-76c2-11eb-922a-0242ac170003',25,'2021-02-24 17:32:40','2021-02-24 17:02:40'),('22e8b126-828d-11eb-a039-0242ac170002',85,'2021-03-11 17:43:45','2021-03-11 17:13:45'),('3faa9ac9-8292-11eb-a039-0242ac170002',85,'2021-03-11 18:20:20','2021-03-11 17:50:20');
-/*!40000 ALTER TABLE `hr_app_session_keys` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`u159062377_react`@`127.0.0.1`*/ /*!50003 TRIGGER before_insert_session_keys
-BEFORE INSERT ON hr_app_session_keys
-FOR EACH ROW
-BEGIN
-  IF new.uuid IS NULL THEN
-    SET new.uuid = uuid();
-  END IF;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-
+ 
 --
 -- Table structure for table `hr_app_usuario`
 --
@@ -375,7 +347,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` FUNCTION `getErrorMessage`(pLang varchar(2),pValue varchar(5)) RETURNS varchar(1024) CHARSET utf8
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` FUNCTION `getErrorMessage`(pLang varchar(2),pValue varchar(5)) RETURNS varchar(1024) CHARSET utf8
 BEGIN
 	DECLARE  vMessage varchar(1024);
     DECLARE vLanguage varchar(500);
@@ -415,7 +387,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` FUNCTION `getMenuId`(pName varchar(128)) RETURNS int(11)
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` FUNCTION `getMenuId`(pName varchar(128)) RETURNS int(11)
 BEGIN
 		DECLARE  vId INT;
         SELECT a.id_menu
@@ -441,7 +413,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` FUNCTION `getParamValue`(pParamName varchar(50)) RETURNS varchar(500) CHARSET utf8
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` FUNCTION `getParamValue`(pParamName varchar(50)) RETURNS varchar(500) CHARSET utf8
 BEGIN
 
 	DECLARE  vParamValue varchar(1024);
@@ -468,7 +440,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` FUNCTION `raiseError`(pLang varchar(2),pValue varchar(5)) RETURNS varchar(1024) CHARSET utf8
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` FUNCTION `raiseError`(pLang varchar(2),pValue varchar(5)) RETURNS varchar(1024) CHARSET utf8
 BEGIN
 
 	DECLARE  vMessage varchar(1024);
@@ -500,7 +472,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `getErrorMessage`(pLang varchar(2),pValue varchar(5))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `getErrorMessage`(pLang varchar(2),pValue varchar(5))
 BEGIN
     SELECT getErrorMessage(pLang,pValue) ErrorMessage;
 END ;;
@@ -519,7 +491,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `getSessionKeyByUser`(pEmail varchar(200),pPassword varchar(50),pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `getSessionKeyByUser`(pEmail varchar(200),pPassword varchar(50),pLang varchar(2))
 BEGIN
 	
     
@@ -603,7 +575,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `getSessionKeys`()
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `getSessionKeys`()
 BEGIN
    	Select 
 	  uuid,
@@ -627,7 +599,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `getSessionkeysByUUID`(pUuid varchar(64))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `getSessionkeysByUUID`(pUuid varchar(64))
 BEGIN
     select uuid,id_usuario,expiration,created
     from hr_app_session_keys
@@ -648,7 +620,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_addNodeChild`(pId_menu int,
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_addNodeChild`(pId_menu int,
 pLang varchar(2),
 pName varchar(128),
 pUrl varchar(255),
@@ -685,7 +657,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_addNodeSameLevel`(pId_menu int,
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_addNodeSameLevel`(pId_menu int,
 pLang varchar(2),
 pName varchar(128),
 pUrl varchar(255),
@@ -762,7 +734,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_changeUserPrivilege`(pId_menu int,
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_changeUserPrivilege`(pId_menu int,
 pId_usuario int,
 pValue int
 )
@@ -793,7 +765,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_deleteNode`(pId_menu int)
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_deleteNode`(pId_menu int)
 BEGIN
 		DECLARE vCount INT;
         DECLARE myLeft INT;
@@ -830,7 +802,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_deleteNodeMoveChild`(pId_menu int)
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_deleteNodeMoveChild`(pId_menu int)
 BEGIN
 
 		SELECT @myLeft := lft, @myRight := rgt, @myWidth := rgt - lft + 1
@@ -861,7 +833,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getAll`(pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getAll`(pLang varchar(2))
 BEGIN
 		SELECT a.id_menu,b.menu_text
 		FROM hr_menu  a
@@ -885,7 +857,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getAllLeafNodes`(pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getAllLeafNodes`(pLang varchar(2))
 BEGIN
 		SELECT c.menu_text
 		FROM hr_menu node,hr_menu_text AS c
@@ -908,7 +880,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getDepthSubTree`(id int,pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getDepthSubTree`(id int,pLang varchar(2))
 BEGIN
      SELECT c.menu_text , (COUNT(parent.id_menu) - (sub_tree.depth + 1)) AS depth
 		FROM hr_menu AS node,
@@ -948,7 +920,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getFullTree`(id int,pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getFullTree`(id int,pLang varchar(2))
 BEGIN
 		SELECT c.menu_text
 		FROM hr_menu AS node,hr_menu AS parent,hr_menu_text AS c
@@ -973,7 +945,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getImmediateSubordinatesNode`(id int,pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getImmediateSubordinatesNode`(id int,pLang varchar(2))
 BEGIN
     	SELECT c.menu_text, (COUNT(parent.id_menu) - (sub_tree.depth + 1)) AS depth
 		FROM hr_menu AS node,
@@ -1013,7 +985,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getNodesDepth`(pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getNodesDepth`(pLang varchar(2))
 BEGIN
 		SELECT node.lft,node.id_menu ,c.menu_text as title,  c.url,c.icon,c.action, (COUNT(parent.id_menu) - 1) AS depth, 1 AS enabled
 		FROM hr_menu AS node,
@@ -1040,7 +1012,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `menu_getNodesDepthByUser`(pLang varchar(2),idUser int)
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getNodesDepthByUser`(pLang varchar(2),idUser int)
 BEGIN
 SELECT  node.lft,node.id_menu ,c.menu_text as title,  c.url,c.icon,c.action, (COUNT(parent.id_menu) - 1) AS depth,
         ifnull(( select enabled from hr_menu_usuario  
@@ -1069,7 +1041,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getNodesDepthByUserUrl`(pIdUser int ,pUrl varchar(128))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getNodesDepthByUserUrl`(pIdUser int ,pUrl varchar(128))
 BEGIN
 SELECT  node.lft,node.id_menu ,c.menu_text as title,  c.url,c.icon,c.action, (COUNT(parent.id_menu) - 1) AS depth,
         ifnull(( select enabled from hr_menu_usuario  
@@ -1101,7 +1073,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_getSinglePath`(id int,pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_getSinglePath`(id int,pLang varchar(2))
 BEGIN
 		SELECT c.menu_text 
 		FROM hr_menu AS node,hr_menu AS parent,hr_menu_text AS c
@@ -1126,7 +1098,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_List`(pLang varchar(2))
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_List`(pLang varchar(2))
 BEGIN
 		SELECT node.id_menu,CONCAT( REPEAT('    ', COUNT(parent.id_menu) - 1), c.menu_text) AS name
 		FROM hr_menu AS node,	hr_menu AS parent,hr_menu_text AS c
@@ -1151,7 +1123,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `menu_updateNode`(
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `menu_updateNode`(
 pId_menu int,
 pLang varchar(2),
 pName varchar(128),
@@ -1184,7 +1156,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `productGetAll`()
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `productGetAll`()
 BEGIN
  select a.id_product as id, a.sku, a.name, a.description, b.url as image, a.price, a.created, a.created_by, a.updated, a.updated_by
    from st_product a
@@ -1206,7 +1178,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `productGetById`(pk int)
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `productGetById`(pk int)
 BEGIN
     select a.id_product as id, a.sku, a.name, a.description, b.url as image, a.price, a.created, a.created_by, a.updated, a.updated_by
    from st_product a
@@ -1229,7 +1201,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `sessionkeysGetAll`()
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `sessionkeysGetAll`()
 BEGIN
     select uuid,id_usuario,expiration,created
     from hr_app_session_keys;
@@ -1249,7 +1221,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `usuarioDelete`(pk int)
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `usuarioDelete`(pk int)
 BEGIN
     delete from hr_app_usuario
     where id_usuario=pk;
@@ -1270,7 +1242,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `usuarioGetAll`()
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `usuarioGetAll`()
 BEGIN
     select id_usuario,usuario,nombre,apellido,email,password,id_perfil,vigencia_desde,vigencia_hasta,creado_por,fecha_creacion,modificado_por,fecha_modificacion
     from hr_app_usuario;
@@ -1290,7 +1262,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `usuarioGetById`(pk int)
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `usuarioGetById`(pk int)
 BEGIN
     select id_usuario,usuario,nombre,apellido,email,password,id_perfil,vigencia_desde,vigencia_hasta,creado_por,fecha_creacion,modificado_por,fecha_modificacion 
     from hr_app_usuario
@@ -1311,7 +1283,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `usuarioInsert`(
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `usuarioInsert`(
 	pUsuario varchar(50),
 	pNombre varchar(50),
 	pApellido varchar(50),
@@ -1343,7 +1315,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u159062377_react`@`127.0.0.1` PROCEDURE `usuarioUpdate`(
+CREATE DEFINER=`u447625416_react`@`127.0.0.1` PROCEDURE `usuarioUpdate`(
 	pId_Usuario int,
 	pNombre varchar(50),
 	pApellido varchar(50),

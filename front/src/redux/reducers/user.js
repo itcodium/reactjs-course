@@ -54,6 +54,13 @@ function reducer(state = initialState, action) {
                 status: "succeeded"
             });
         }
+        case USER.SAVE_SUCCESS: {
+            return Object.assign({}, state, {
+                user: action.payload.data,
+                error: null,
+                status: "succeeded"
+            });
+        }
         case USER.ERROR: {
             return Object.assign({}, state, {
                 user: [],

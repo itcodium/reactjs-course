@@ -1,4 +1,5 @@
 import PRODUCTS from '../types/products'
+import STATUS from '../constants/status'
 const initialState = {
     products: [],
     status: 'idle',
@@ -12,7 +13,7 @@ function reducer(state = initialState, action) {
             return Object.assign({}, state, {
                 loading: true,
                 error: null,
-                status: "loading"
+                status: STATUS.PENDING
             });
         }
         case PRODUCTS.SUCCESS: {
@@ -20,7 +21,7 @@ function reducer(state = initialState, action) {
                 products: action.payload.data,
                 error: null,
                 loading: false,
-                status: "succeeded"
+                status: STATUS.SUCCESS
             });
             return products;
         }
@@ -28,7 +29,7 @@ function reducer(state = initialState, action) {
             return Object.assign({}, state, {
                 error: action.payload,
                 loading: false,
-                status: "failed"
+                status: STATUS.ERROR
             });
         }
         default: {

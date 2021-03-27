@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import styles from './productDetail.style';
+import STATUS from '../../redux/constants/status'
 import PRODUCTS from '../../redux/actions/products';
 
 function ProductDetail(props) {
@@ -18,6 +19,7 @@ function ProductDetail(props) {
 
     const status = useSelector(state => state.productDetail.status)
     const product = useSelector(state => state.productDetail.product)
+    const error = useSelector(state => state.productDetail.error)
 
     useEffect(() => {
         dispatch(PRODUCTS.getDetail(params))
@@ -26,7 +28,7 @@ function ProductDetail(props) {
     return (
         <div>
             {
-                status === "succeeded" ?
+                status === STATUS.SUCCESS ?
                     <Card>
                         <CardContent>
                             <Typography component="h4" variant="h4" className={classes.title}>
@@ -54,8 +56,8 @@ function ProductDetail(props) {
                     </Card>
                     : null
             }
-            { status === "loading" ? <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div> : null}
-            { status === "failed" ? <Typography className={classes.error} variant="overline" display="block" gutterBottom>{""}</Typography> : null}
+            { status === STATUS.PENDING ? <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div> : null}
+            { status === STATUS.ERROR ? <Typography color="error" variant="overline" display="block" gutterBottom>{error.message}</Typography> : null}
         </div>);
 }
 

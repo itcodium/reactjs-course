@@ -31,6 +31,8 @@ const MENU = {
 function App(props) {
   const { classes } = props;
   const { menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+  const { state } = useSelector(state => state);
+  console.log('state: ', state);
   const dispatch = useDispatch();
 
   let URL = "/products";
@@ -44,12 +46,8 @@ function App(props) {
   if (menu && menu.length) {
     if (!menu[0].url && menu[0].items.length) {
       URL = menu[0].items[0].url;
-      console.log('IF: ', menu[0].items[0]);
     } else {
-      console.log('ELSE: ', menu[1].url);
       URL = !menu[1].url ? menu[1].items[0].url : menu[1].url;
-      console.log('URL: ', URL);
-      console.log('ELSE: ', menu[1].items[0]);
     }
   }
   return (

@@ -18,7 +18,9 @@ function* save(params) {
         USER,
         API_URL,
         'POST',
-        params.payload
+        params.payload,
+        null,
+        USER.SAVE_SUCCESS
     );
 
     /*

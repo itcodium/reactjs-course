@@ -2,7 +2,6 @@ import { call, put } from 'redux-saga/effects'
 import LOGIN from '../redux/types/login';
 import apiCall from '../redux/api';
 
-
 function* SagaCall(TYPE, URL, method = 'GET', params, AFTER_TYPE, onSuccess) {
     try {
         yield put({ type: TYPE.PENDING });
@@ -14,9 +13,8 @@ function* SagaCall(TYPE, URL, method = 'GET', params, AFTER_TYPE, onSuccess) {
             }
         }
     } catch (e) {
-        console.log('e: ', e);
         if (e.code == 10002) {
-            alert(e.message);
+            //alert(e.message);
         }
         if (e.code == 10001 || e.message === "Wrong number of segments") {
             yield put({ type: LOGIN.OUT });

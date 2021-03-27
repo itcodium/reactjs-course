@@ -19,7 +19,6 @@ import BasicModal from '../../../app/BasicModal/basicModal';
 import MenuCreate from './menuCreate';
 import MenuDelete from './menuDelete';
 import Button from '@material-ui/core/Button';
-import { SnackbarProvider, useSnackbar } from 'notistack';
 
 function Menu(props) {
     const { classes, hideEdition, hideTitle, privileges, user } = props;
@@ -63,13 +62,6 @@ function Menu(props) {
         setOpen(false);
     };
 
-    const { enqueueSnackbar } = useSnackbar();
-    const handleClickVariant = (variant) => {
-        enqueueSnackbar('This is a success message!', { variant });
-    };
-
-
-
     const getSubList = (menu) => {
         return <ul className={classes.nested}>{
             menu.items.map((sub, indexSub) => (
@@ -101,14 +93,11 @@ function Menu(props) {
         </span>
     }
     const handleChange = (event) => {
-        console.log('event: ', user.id_usuario, event.target.value, event.target.checked);
-        //dispatch(MENU.uiRefresh(event.target));
         dispatch(MENU.changeUserPrivileges({
             id_usuario: user.id_usuario,
             id_menu: event.target.value,
             checked: event.target.checked
         }));
-        // CHANGE_USER_PRIVILEGE
     }
 
     const getCheckPrivileges = (menu) => {
@@ -152,8 +141,6 @@ function Menu(props) {
 
     return (
         <div>
-            <Button onClick={handleClickVariant('success')}>Show success snackbar</Button>
-
             {!hideTitle ?
                 <Card className={classes.root}>
                     <CardHeader
