@@ -20,6 +20,17 @@ function* save(params) {
         'POST',
         params.payload
     );
+
+    /*
+    yield SagaCall(
+        MENU,
+        API_URL + "/" + params.payload.id_usuario,
+        null,
+        null,
+        null,
+        MENU.FETCH_BY_USER_SUCCESS
+    );
+    */
 }
 
 function* update(params) {

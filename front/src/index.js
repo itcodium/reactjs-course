@@ -8,14 +8,19 @@ import reportWebVitals from './reportWebVitals';
 import { store, persistor } from './redux/store/store'
 import { PersistGate } from 'redux-persist/integration/react'
 
+import { SnackbarProvider } from 'notistack';
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
+    <SnackbarProvider maxSnack={3}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { Route, HashRouter } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PrivateRoute from './services/PrivateRoute'
@@ -9,12 +10,14 @@ import Login from './modules/auth/login/login'
 import Logout from './modules/auth/login/logout'
 import SignUp from './modules/auth/signUp/signUp.js';
 import styles from './App.styles';
+import LOGIN from './redux/actions/login'
 
 import ProductView from './modules/products/productView'
 import ProductDetail from './modules/products/productDetail'
 import Menu from './modules/admin/menu/menu'
 import User from './modules/admin/user/user'
 import UserPrivileges from './modules/admin/user/userPrivileges'
+
 
 
 const MENU = {
@@ -28,11 +31,17 @@ const MENU = {
 function App(props) {
   const { classes } = props;
   const { menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+  const dispatch = useDispatch();
 
   let URL = "/products";
 
+  useEffect(() => {
+    if (!menu) {
+      dispatch(LOGIN.out())
+    }
+  }, [])
+
   if (menu && menu.length) {
-    console.log('menu: ', menu);
     if (!menu[0].url && menu[0].items.length) {
       URL = menu[0].items[0].url;
       console.log('IF: ', menu[0].items[0]);

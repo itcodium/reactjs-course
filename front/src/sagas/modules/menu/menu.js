@@ -58,7 +58,6 @@ function* fetchByUser(params) {
         null,
         null,
         MENU.FETCH_BY_USER_SUCCESS
-
     );
 }
 

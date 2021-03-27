@@ -56,7 +56,11 @@ function SignUp(props) {
         }
     }
 
+    console.log('status: ', status);
+    console.log('user: ', user);
     if (!(user.users && user.users.id || status === "idle") || status !== "succeeded") {
+
+
         return (
 
             <Container component="main" maxWidth="xs">
