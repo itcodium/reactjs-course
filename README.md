@@ -4,12 +4,11 @@
 - docker-compose up
 
     docker ps
-
     docker container ls -a
-    docker container rm       1f63344a0537 308560b00b29   --force
+    docker container rm       a100ca8f709f   --force
 
     docker images -a
-    docker image rm   2fb283157d3c      --force
+    docker image rm     e43e672c4fd9    --force
 
   
 # Iniciar base datos

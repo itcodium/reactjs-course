@@ -18,7 +18,6 @@ import styles from './menu.style';
 import BasicModal from '../../../app/BasicModal/basicModal';
 import MenuCreate from './menuCreate';
 import MenuDelete from './menuDelete';
-import Button from '@material-ui/core/Button';
 
 function Menu(props) {
     const { classes, hideEdition, hideTitle, privileges, user } = props;
@@ -54,7 +53,6 @@ function Menu(props) {
         if (method == 'DELETE' && !hideEdition) {
             setContent(<MenuDelete model={data} handleClose={handleClose}></MenuDelete>)
         }
-
         setOpen(true);
     };
 
@@ -156,7 +154,6 @@ function Menu(props) {
                     />
                 </Card> : null
             }
-
             {
                 (status === STATUS.SUCCESS && Array.isArray(menu)) || Array.isArray(menu) ?
 
@@ -171,9 +168,7 @@ function Menu(props) {
                 status === STATUS.PENDING ?
                     <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div>
                     : null
-
             }
-
             {open ?
                 <BasicModal
                     open={open}

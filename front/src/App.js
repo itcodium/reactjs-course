@@ -13,6 +13,7 @@ import styles from './App.styles';
 import LOGIN from './redux/actions/login'
 
 import ProductView from './modules/products/productView'
+import Home from './modules/home/home'
 import ProductDetail from './modules/products/productDetail'
 import Menu from './modules/admin/menu/menu'
 import User from './modules/admin/user/user'
@@ -22,6 +23,7 @@ import UserPrivileges from './modules/admin/user/userPrivileges'
 
 const MENU = {
   "/menu": Menu,
+  "/": Home,
   "/products": ProductView,
   "/userPrivileges": UserPrivileges,
   "/user": User,
@@ -35,7 +37,7 @@ function App(props) {
   console.log('state: ', state);
   const dispatch = useDispatch();
 
-  let URL = "/products";
+  let URL = "/";
 
   useEffect(() => {
     if (!menu) {
@@ -50,6 +52,7 @@ function App(props) {
       URL = !menu[1].url ? menu[1].items[0].url : menu[1].url;
     }
   }
+  console.log('URL: ', URL);
   return (
     <HashRouter >
       <div>
@@ -60,7 +63,7 @@ function App(props) {
           <Grid container>
             <Grid item xs={12} md={12}>
               <div className={classes.container} >
-                <PrivateRoute key="1" exact path="/" component={MENU[URL]} />
+                <Route key="1" exact path="/" component={MENU[URL]} />
               </div>
             </Grid>
             <Grid item xs={12} md={12} >
