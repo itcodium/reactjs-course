@@ -28,3 +28,25 @@
         use u447625416_react;	
 
     - source db.sql	
+
+# 
+docker run --name=store_database -p3306:3306 -v mysql-volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql/mysql-server:8.0.20
+
+#### Login mysql and list databases
+
+    - mysql -u root -p
+    - show databases;
+
+#### Buckup databases
+
+    - docker exec -it store_database bash
+    - mysqldump -u root -p --triggers --routines --databases  u447625416_react > react_20210703.sql;
+    
+#### Copiar el buckup al host
+
+    - docker cp store_database:/react_20210703.sql ~/Documents/itcodium/reactjs-course/server/api/database/
+    
+
+
+
+
