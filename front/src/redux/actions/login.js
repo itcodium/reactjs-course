@@ -5,6 +5,10 @@ const check = (payload) => ({
     payload: payload
 })
 
+const getMenu = (payload) => ({
+    type: LOGIN.FETCH_MENU,
+    payload: payload
+})
 const out = () => ({
     type: LOGIN.OUT,
     payload: null
@@ -16,7 +20,8 @@ const clear = () => ({
 const Login = {
     check: check,
     out: out,
-    clear: clear
+    clear: clear,
+    getMenu: getMenu
 };
 export default Login;
 

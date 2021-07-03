@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import compose from 'recompose/compose';
 import { useSelector, useDispatch } from 'react-redux'
-
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -31,8 +31,11 @@ function Header(props) {
         history.push('/Login')
         event.preventDefault();
     }
+    const location = useLocation();
 
-    const { user, menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+
+    const { menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
+    console.log('menu: ', menu);
 
     const toggleDrawer = (open) => () => {
         setOpen(open)
@@ -49,12 +52,10 @@ function Header(props) {
         </Typography>
     }
 
-
-
-    if (!user) {
+    if (!menu || location.pathname == "/Login") {
         return null;
     }
-    return <AppBar position="static" color="default">
+    return <AppBar position="static" color="transparent" className={classes.toolbarHeader}>
         <Hidden mdUp>
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 <Grid>
@@ -82,7 +83,7 @@ function Header(props) {
                 </div>
             </Drawer>
         </Hidden>
-        <Toolbar className={classes.toolbarHeader}>
+        <Toolbar >
             <Hidden mdUp>
                 {getLogo("left")}
             </Hidden>

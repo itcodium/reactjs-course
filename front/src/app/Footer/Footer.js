@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,6 +17,10 @@ import FooterSiteLink from '../FooterSiteLink/FooterSiteLink.js';
 function Footer(props) {
     let features;
     const { classes } = props;
+    const location = useLocation();
+    if (location.pathname == "/Login") {
+        return null;
+    }
     const getFeatureWith = (data) => {
         if (data.length === 1) {
             return 12
@@ -58,11 +62,7 @@ function Footer(props) {
             ))
         )
     }
-    const { user } = useSelector(state => (state.login.payload ? state.login.payload : {}))
 
-    if (!user) {
-        return null;
-    }
     return <Grid container className={classes.footer}>
         <Grid item xs={12} sm={12} md={12} align="center" className={classes.p5}>
             <a href="/#">

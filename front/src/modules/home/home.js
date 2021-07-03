@@ -9,18 +9,19 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './home.style';
 import slides from './slider.data.js'
 import Slider from '../../app/Slider/slider';
-
+import LOGIN from '../../redux/actions/login'
 
 function Home(props) {
     const { classes } = props;
     const dispatch = useDispatch();
     useEffect(() => {
+        dispatch(LOGIN.getMenu())
     }, [])
 
     return (
         <div>
             <Slider slides={slides} />
-            <div className={classes.container}  >
+            <div className={classes.container}>
                 <Hidden only={['xl', 'lg', 'md', 'sm']}>
                     <Grid container spacing={0} >
                         <Typography variant="h4" gutterBottom>Catalogo FULL</Typography>

@@ -5,7 +5,11 @@ const styles = theme => ({
     },
     toolbarHeader: {
         margin: 0,
-        padding: 0
+        padding: 0,
+        WebkitBoxShadow: "none",
+        MozBoxShadow: "none",
+        boxShadow: "none",
+        border: "solid 0px red"
     },
     IconHeader: {
         marginLeft: 1,

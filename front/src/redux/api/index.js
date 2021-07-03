@@ -7,7 +7,9 @@ export default function apiCall(url, params = {}, body) {
         jsonUser = JSON.parse(localUser);
         if (jsonUser && jsonUser.payload) {
             token = jsonUser.payload.token
-            userId = jsonUser.payload.user.id_usuario;
+            if (jsonUser.payload.user) {
+                userId = jsonUser.payload.user.id_usuario;
+            }
         }
     }
     params.headers = params.headers ? params.headers : {};

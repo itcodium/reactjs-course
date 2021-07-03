@@ -25,6 +25,7 @@ class CreateMenu{
             "action"=>$value["action"], 
             "url"=>$value["url"], 
             "enabled"=>$value["enabled"], 
+            "visible"=>$value["visible"], 
             "class"=>"menu-icon icon-folder", 
             "items"=>[]);
         return $result;

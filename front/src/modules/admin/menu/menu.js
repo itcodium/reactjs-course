@@ -26,7 +26,7 @@ function Menu(props) {
     const status = useSelector(state => state.menu.status)
     const menu = useSelector(state => privileges ? state.menu.menuUserPrivileges : state.menu.menu)
 
-    const [state, setState] = React.useState(menu);
+    // const [state, setState] = React.useState(menu);
 
     const [open, setOpen] = React.useState(false);
     const [content, setContent] = React.useState(null);

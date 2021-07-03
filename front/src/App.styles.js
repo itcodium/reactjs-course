@@ -2,7 +2,7 @@ const styles = theme => ({
 
     container: {
         width: 'auto',
-        marginBottom: theme.spacing(3),
+        marginBottom: theme.spacing(0),
         marginLeft: theme.spacing(3),
         marginRight: theme.spacing(3),
         [theme.breakpoints.up(1000 + theme.spacing(0))]: {

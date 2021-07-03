@@ -71,6 +71,9 @@ function MenuToggle(props) {
     }
 
     const menuLink = (menu) => {
+        if (!menu.visible) {
+            return;
+        }
         if (menu.icon) {
             return <IconButton
                 className={classes.menuLink}
@@ -115,6 +118,7 @@ function MenuToggle(props) {
                                             <MenuItem key={subItem.title} onClick={handleClose}>
                                                 {menuLink(subItem)}
                                             </MenuItem>
+
                                         ))}
                                     </MenuList>
 

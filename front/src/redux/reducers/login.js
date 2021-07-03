@@ -1,5 +1,5 @@
 import LOGIN from '../types/login'
-
+import STATUS from '../constants/status'
 const initialState = {
     status: 'idle',
     loading: false,
@@ -27,8 +27,28 @@ function reducer(state = initialState || {}, action) {
                 status: "succeeded"
             });
             localStorage.setItem('user', JSON.stringify(user));
+            console.log('user: ', user);
             return user;
         }
+        case LOGIN.FETCH_MENU: {
+            return Object.assign({}, state, {
+                status: STATUS.PENDING,
+            });
+
+        }
+        case LOGIN.FETCH_MENU_SUCCESS: {
+            const user = Object.assign({}, state, {
+                ...state,
+                payload: {
+                    ...state.payload,
+                    menu: action.payload.data
+                },
+                status: "MENU_SUCCESS"
+            });
+            localStorage.setItem('user', JSON.stringify(user));
+            return user;
+        }
+
         case LOGIN.ERROR: {
             return Object.assign({}, state, {
                 error: action.payload,

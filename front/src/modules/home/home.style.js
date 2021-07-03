@@ -1,4 +1,15 @@
 const styles = theme => ({
+    container: {
+        width: 'auto',
+        padding: theme.spacing(1),
+        marginLeft: theme.spacing(3),
+        marginRight: theme.spacing(3),
+        [theme.breakpoints.up(1000 + theme.spacing(0))]: {
+            width: 1000,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+    },
     box: {
         display: 'flex',
         flexDirection: 'column',
@@ -21,7 +32,7 @@ const styles = theme => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: theme.spacing(10),
+
     },
     spinnerContainer: {
         alignItems: 'center',

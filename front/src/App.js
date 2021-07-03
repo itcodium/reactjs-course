@@ -33,8 +33,6 @@ const MENU = {
 function App(props) {
   const { classes } = props;
   const { menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
-  const { state } = useSelector(state => state);
-  console.log('state: ', state);
   const dispatch = useDispatch();
 
   let URL = "/";
@@ -45,11 +43,17 @@ function App(props) {
     }
   }, [])
 
+  console.log('APP menu: ', menu);
   if (menu && menu.length) {
-    if (!menu[0].url && menu[0].items.length) {
-      URL = menu[0].items[0].url;
+    console.log('menu[0].url: ', menu[0].url);
+    if (menu[0].url) {
+      URL = menu[0].url;
     } else {
-      URL = !menu[1].url ? menu[1].items[0].url : menu[1].url;
+      if (!menu[0].url && menu[0].items.length) {
+        URL = menu[0].items[0].url;
+      } else {
+        URL = !menu[1].url ? menu[1].items[0].url : menu[1].url;
+      }
     }
   }
   console.log('URL: ', URL);
@@ -62,7 +66,7 @@ function App(props) {
         <main className={classes.layout}>
           <Grid container>
             <Grid item xs={12} md={12}>
-              <div className={classes.container} >
+              <div className={URL !== "/" ? classes.container : null} >
                 <Route key="1" exact path="/" component={MENU[URL]} />
               </div>
             </Grid>

@@ -11,6 +11,18 @@ function* checkLogin(params) {
         params.payload
     );
 }
+function* fetchMenu() {
+    yield SagaCall(
+        LOGIN,
+        `/api/menu/0`,
+        'GET',
+        null,
+        null,
+        LOGIN.FETCH_MENU_SUCCESS
+    );
+}
+
 export function* login() {
     yield takeLatest(LOGIN.FETCH, checkLogin);
+    yield takeLatest(LOGIN.FETCH_MENU, fetchMenu);
 }
