@@ -2,7 +2,6 @@
 --
 -- Host: localhost    Database: u447625416_react
 -- ------------------------------------------------------
--- Server version	5.7.33
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,8 +17,6 @@
 --
 -- Current Database: `u447625416_react`
 --
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `u447625416_react` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `u447625416_react`;
 

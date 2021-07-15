@@ -1,17 +1,20 @@
 # reactjs-course
+    
+    sudo  gnome-terminal
 
-- docker-compose build
-- docker-compose up
+    - docker-compose up
+    - docker-compose build
+
 
     docker ps
-    docker container ls -a
-    docker container rm       a100ca8f709f   --force
-
+    
     docker images -a
-    docker image rm     e43e672c4fd9    --force
+    docker image rm     5c62e459e087    --force
 
-  
-# Iniciar base datos
+    docker container ls -a
+    sudo docker container rm 0011e1df5737 --force
+
+# Iniciar base datos (commanda line)
 
     - Copiar script
         docker cp server/api/database/db.sql store_database:/db.sql
@@ -29,15 +32,13 @@
 
     - source db.sql	
 
-# 
-docker run --name=store_database -p3306:3306 -v mysql-volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql/mysql-server:8.0.20
 
-#### Login mysql and list databases
-
+#### Login mysql and list databases 
+    
     - mysql -u root -p
     - show databases;
 
-#### Buckup databases
+### Buckup databases
 
     - docker exec -it store_database bash
     - mysqldump -u root -p --triggers --routines --databases  u447625416_react > react_20210703.sql;
@@ -47,6 +48,15 @@ docker run --name=store_database -p3306:3306 -v mysql-volume:/var/lib/mysql -e M
     - docker cp store_database:/react_20210703.sql ~/Documents/itcodium/reactjs-course/server/api/database/
     
 
+### MYSQL workbench configurar conexion
 
+        hostname=localhost
+        port=9906
+        username= root
+        password= root
 
+##  docker-compose.yml database optional config
 
+    volumes:
+        - ./server/api/database:/tmp/database
+    command: mysqld --init-file="/tmp/database/install_db.sql"
