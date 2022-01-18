@@ -60,3 +60,7 @@
     volumes:
         - ./server/api/database:/tmp/database
     command: mysqld --init-file="/tmp/database/install_db.sql"
+    
+## Todo
+
+    - https://docs.microsoft.com/en-us/aspnet/web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-2
