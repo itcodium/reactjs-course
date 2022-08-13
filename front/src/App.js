@@ -1,95 +1,51 @@
-import { useEffect } from 'react';
-import { Route, HashRouter } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import PrivateRoute from './services/PrivateRoute'
-import Header from './app/Header/Header'
-import Footer from './app/Footer/Footer'
-import Login from './modules/auth/login/login'
-import Logout from './modules/auth/login/logout'
-import SignUp from './modules/auth/signUp/signUp.js';
-import styles from './App.styles';
-import LOGIN from './redux/actions/login'
+import './index.css'
+import * as React from 'react';
+import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { ThemeProvider } from '@mui/material/styles';
+import Container from '@mui/material/Container';
+import { NavBar, Footer, AplicationText } from './components/index';
+import { theme } from './App.style';
 
-import ProductView from './modules/products/productView'
-import Home from './modules/home/home'
-import ProductDetail from './modules/products/productDetail'
-import Menu from './modules/admin/menu/menu'
-import User from './modules/admin/user/user'
-import UserPrivileges from './modules/admin/user/userPrivileges'
+import {
+  ProductsListContainer,
+  ProductsDetailContainer,
+  CartListContainer,
+} from './modules/e-commerce/index';
 
+import {
+  LogInContainer,
+  SignUpContainer
+} from './modules/authentication/index';
 
-
-const MENU = {
-  "/menu": Menu,
-  "/": Home,
-  "/products": ProductView,
-  "/userPrivileges": UserPrivileges,
-  "/user": User,
-  "/menu": Menu,
-}
-
-function App(props) {
-  const { classes } = props;
-  const { menu } = useSelector(state => (state.login.payload ? state.login.payload : {}))
-  const dispatch = useDispatch();
-
-  let URL = "/";
-
-  useEffect(() => {
-    if (!menu) {
-      dispatch(LOGIN.out())
-    }
-  }, [])
-
-  console.log('APP menu: ', menu);
-  if (menu && menu.length) {
-    console.log('menu[0].url: ', menu[0].url);
-    if (menu[0].url) {
-      URL = menu[0].url;
-    } else {
-      if (!menu[0].url && menu[0].items.length) {
-        URL = menu[0].items[0].url;
-      } else {
-        URL = !menu[1].url ? menu[1].items[0].url : menu[1].url;
-      }
-    }
-  }
-  console.log('URL: ', URL);
+function App() {
   return (
-    <HashRouter >
-      <div>
-        <header className={classes.container}>
-          <Header></Header>
-        </header>
-        <main className={classes.layout}>
-          <Grid container>
-            <Grid item xs={12} md={12}>
-              <div className={URL !== "/" ? classes.container : null} >
-                <Route key="1" exact path="/" component={MENU[URL]} />
-              </div>
-            </Grid>
-            <Grid item xs={12} md={12} >
-              <div className={classes.container} >
-                <Route key="70" path="/SignUp" component={SignUp} />
-                <Route key="80" path="/Login" component={Login} />
-                <Route key="90" path="/Logout" component={Logout} />
-                <PrivateRoute key="10" path='/products' component={ProductView} />
-                <PrivateRoute key="110" path='/productDetail/:id' component={ProductDetail} />
-                <PrivateRoute key="120" path='/user' component={User} />
-                <PrivateRoute key="130" path='/userPrivileges' component={UserPrivileges} />
-                <PrivateRoute key="140" path='/menu' component={Menu} />
-              </div>
-            </Grid>
-          </Grid>
-        </main>
-        <footer className={classes.container}>
-          <Footer></Footer>
-        </footer>
-      </div>
-    </HashRouter>
-  )
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Container disableGutters={true} maxWidth="lg">
+          <NavBar languages = {AplicationText.lang}></NavBar>
+          <Container sx={{ pl: { xs: 1 }, pr: { xs: 1 }, minHeight: '70vh', mb:8 }} disableGutters={true} fixed >
+            <Routes>
+              <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>
+              <Route path="/:id" element={<ProductsListContainer></ProductsListContainer>}></Route>
+              <Route path="/productDetail/:id" element={<ProductsDetailContainer></ProductsDetailContainer>}></Route>
+              <Route path="/cart" element={<CartListContainer></CartListContainer>}></Route>
+              <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
+              <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />
+            </Routes>
+          </Container>
+          <Footer
+            sections={AplicationText.footer}
+            social={AplicationText.social}
+            copyright={AplicationText.copyright}
+          ></Footer>
+        </Container>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
 }
 
-export default withStyles(styles)(App);
+export default App;
+ // https://docs.google.com/document/d/1pj-gatjxqk7pv8uRv4gN3HBFVuQj3FhGQxwNy1gA2Uk/edit
+// sx={{ mt: 4, mb: 4, pl: { xs:1}, mr: {xs:1 } }}
+
+// 

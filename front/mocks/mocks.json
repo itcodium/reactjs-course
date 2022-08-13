@@ -1,0 +1,16 @@
+[
+  {
+    "id": "base",
+    "routesVariants": ["add-headers:enabled", "get-products:success", "get-product:success"]
+  },
+  {
+    "id": "no-headers",
+    "from": "base",
+    "routesVariants": ["add-headers:disabled"]
+  },
+  {
+    "id": "product-real",
+    "from": "no-headers",
+    "routesVariants": ["get-product:real"]
+  }
+]

@@ -2,22 +2,28 @@
     
     sudo  gnome-terminal
 
-    - docker-compose up
-    - docker-compose build
+#### Install docker-compose     
+    - apt-get install docker-compose
+    - docker-compose --version
 
+#### Init app
 
+    sudo docker-compose build
+    docker-compose up
+
+#### commands
     docker ps
     
     docker images -a
-    docker image rm     5c62e459e087    --force
+    docker image rm     3147495b3a5c    --force
 
     docker container ls -a
-    sudo docker container rm 0011e1df5737 --force
+    sudo docker container rm 297d7ef61127 --force
 
 # Iniciar base datos (commanda line)
 
     - Copiar script
-        docker cp server/api/database/db.sql store_database:/db.sql
+        docker cp server/api/database/install_db.sql store_database:/install_db.sql
 
     - login to our container
         docker exec -it store_database /bin/bash
@@ -28,9 +34,9 @@
         
     - select the database 
 
-        use u447625416_react;	
+        use u477008465_react;	
 
-    - source db.sql	
+    - source install_db.sql
 
 
 #### Login mysql and list databases 
@@ -41,12 +47,26 @@
 ### Buckup databases
 
     - docker exec -it store_database bash
-    - mysqldump -u root -p --triggers --routines --databases  u447625416_react > react_20210703.sql;
+    - mysqldump -u root -p --triggers --routines --databases  u477008465_react > react_20210703.sql;
     
 #### Copiar el buckup al host
 
     - docker cp store_database:/react_20210703.sql ~/Documents/itcodium/reactjs-course/server/api/database/
     
+### MYSQL workbench download
+
+Intalar cualquiera de los siguientes:
+
+    sudo apt install mysql-workbench-community    
+    snap install mysql-workbench-community
+    
+Habilitar coneccion por contraseña
+
+    snap connect mysql-workbench-community:password-manager-service
+
+Matar proceso de mysql-workbench
+
+    kill workbench: ps -ef |grep mysql-workbench
 
 ### MYSQL workbench configurar conexion
 

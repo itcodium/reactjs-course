@@ -38,8 +38,8 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: u447625416_react
-      MYSQL_USER: u447625416_react
+      MYSQL_DATABASE: u477008465_react
+      MYSQL_USER: u477008465_react
       MYSQL_PASSWORD: React123
     ports:
       - "9906:3306"        
