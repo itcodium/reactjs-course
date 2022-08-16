@@ -1,10 +1,10 @@
-/* reducers 
-export { default as productsReducer } from './reducers/products'; 
-*/
+/* reducers */
+export { default as loginReducer } from './reducers/login'; 
 
-/* sagas 
-export { products } from './sagas/products';
-*/
+
+/* sagas saga */
+export { login } from './sagas/login';
+
 
 /* views */
 export { default as LogInContainer } from './views/LogInContainer';

@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, Navigate } from "react-router-dom";
 import ValidateForm from '../services/ValidateForm'
@@ -17,8 +17,8 @@ import Box from '@mui/material/Box';
 
 
 // import Link from '@material-ui/core/Link';
-// import LOGIN from '../../../redux/actions/login'
-
+import { loginUser, init } from '../reducers/login'
+import STATUS from '../../../store/status';
 
 function LogIn(props) {
     // const { classes, state } = props;
@@ -27,25 +27,31 @@ function LogIn(props) {
         email: {},
         password: {}
     });
-    
+
+    // useEffect(() => { dispatch(init()); }, [])
+
     ValidateForm.setForm = setForm;
 
     const status = useSelector(state => state.login?.status)
-    const stateLogin = useSelector(state => state.login)
+    const error = useSelector(state => state.login?.error);
+    const login = useSelector(state => state.login?.data);
+    console.log("login", login)
+    
     const redirectPath = () => {
+        console.log("+  redirectPath +  props", props)
         // const locationState = props.location.state;
-        const pathname = "";
+        //const pathname = "";
         // const pathname = (
         //     locationState && locationState.from && locationState.from.pathname
         // );
-        return pathname || "";
+        //return pathname || "";
     };
 
-    if (status !== "succeeded") {
-        return <Container component="main" maxWidth="xs">
+    if (status !== STATUS.SUCCESS) {
+        return <Container component="main" maxWidth="xs"> STATUS:  {status}
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5, mt: 8 }}>
                 <Avatar>
-                    <LockIcon />
+                    <LockIcon /> 
                 </Avatar>
                 <Typography sx={{ mt: 2 }} component="h1" variant="h5">Login</Typography>
                 <Grid item>
@@ -99,17 +105,17 @@ function LogIn(props) {
                                         "password": form.password.value
                                     }
                                     console.log("payload", payload)
-                                    { /* dispatch(LOGIN.check(payload))*/ }
+                                    { dispatch(loginUser(payload)) }
                                 }}
                                 sx={{ mb: 3 }}
                             >
-                                {status === "loading" ? <CircularProgress /> : "Sign In"}
+                                {status === STATUS.LOADING ? <CircularProgress /> : "Sign In"}
                             </Button>
                             {
-                                status === "failed" ? <Typography color="red" variant="overline" display="block" gutterBottom>{stateLogin.payload.message}</Typography> : null
+                                status === STATUS.ERROR ? <Typography color="red" variant="overline" display="block" gutterBottom>{error.message}</Typography> : null
                             }
                         </Grid>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} disableSpacing>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <NavLink to='/' variant="body2">
                                 Forgot password?
                             </NavLink>
@@ -119,13 +125,12 @@ function LogIn(props) {
                         </Box>
                     </form>
                 </Grid>
-
             </Box>
         </Container>
-    } else {
-        return (
-            <Navigate to={redirectPath()} />
-        );
+    } 
+    else {
+        // return <Navigate to={redirectPath()} />;
+        return <p>{JSON.stringify(login) }</p>
     }
 }
 

@@ -11,10 +11,10 @@ const persistConfig = {
     storage,
 }
 const rootReducer = (state, action) => {
-  if (action.type === 'LOG_OUT') {
+  /*if (action.type === 'LOG_OUT') {
       state = undefined
       console.log('LOG_OUT')
-  }
+  }*/
   return reducers(state, action)
 }
 

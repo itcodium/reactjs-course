@@ -41,7 +41,7 @@ const CartItem = ({ product, category }) => {
                         </Typography>
                     </Typography>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap' }} disableSpacing>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap' }}>
                     <Box sx={{ width: '100%' }}>
                         <Chip label={category.name} size="medium" />
                         </Box>
@@ -92,7 +92,7 @@ const CartItem = ({ product, category }) => {
                         justifyContent: 'space-between',
                         flex: 1, pl: 1
                     }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} disableSpacing>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} >
                             <Chip label={category.name} size="medium" />
 
                             <Typography component="p" variant="button">

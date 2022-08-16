@@ -5,7 +5,7 @@ function* SagaCall(saga, URL, method = 'GET', params, AFTER_TYPE, onSuccess) {
     try {
         yield put({ type: saga.saga + '/loading' });
         const response = yield call(apiCall, URL, { method: method ? method : 'GET' }, params ? params : null);
-        yield put({ type: onSuccess ? onSuccess : saga.success, payload: response });
+        yield put({ type: onSuccess ? onSuccess : saga.success, payload: response.data });
         /* if (response.status === "ok") {
              if (AFTER_TYPE) {
                  yield put({ type: AFTER_TYPE, payload: params });

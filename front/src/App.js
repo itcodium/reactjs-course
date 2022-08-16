@@ -17,29 +17,35 @@ import {
   SignUpContainer
 } from './modules/authentication/index';
 
+const logIn = false;
+
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <Container disableGutters={true} maxWidth="lg">
-          <NavBar languages = {AplicationText.lang}></NavBar>
-          <Container sx={{ pl: { xs: 1 }, pr: { xs: 1 }, minHeight: '70vh', mb:8 }} disableGutters={true} fixed >
-            <Routes>
-              <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>
-              <Route path="/:id" element={<ProductsListContainer></ProductsListContainer>}></Route>
-              <Route path="/productDetail/:id" element={<ProductsDetailContainer></ProductsDetailContainer>}></Route>
-              <Route path="/cart" element={<CartListContainer></CartListContainer>}></Route>
-              <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
-              <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />
-            </Routes>
-          </Container>
-          <Footer
-            sections={AplicationText.footer}
-            social={AplicationText.social}
-            copyright={AplicationText.copyright}
-          ></Footer>
-        </Container>
+        <Routes>
+          {logIn ?
+            <Container disableGutters={true} maxWidth="lg">
+              <NavBar languages={AplicationText.lang}></NavBar>
+              <Container sx={{ pl: { xs: 1 }, pr: { xs: 1 }, minHeight: '70vh', mb: 8 }} disableGutters={true} fixed >
+                <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>
+                <Route path="/:id" element={<ProductsListContainer></ProductsListContainer>}></Route>
+                <Route path="/productDetail/:id" element={<ProductsDetailContainer></ProductsDetailContainer>}></Route>
+                <Route path="/cart" element={<CartListContainer></CartListContainer>}></Route>
+                <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />
+              </Container>
+              <Footer
+                sections={AplicationText.footer}
+                social={AplicationText.social}
+                copyright={AplicationText.copyright}
+              ></Footer>
+            </Container>
+            :
+            <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
+          }
+        </Routes>
       </ThemeProvider>
+
     </BrowserRouter>
   );
 }

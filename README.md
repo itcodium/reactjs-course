@@ -8,7 +8,7 @@
 
 #### Init app
 
-    sudo docker-compose build
+    docker-compose build
     docker-compose up
 
 #### commands

@@ -27,7 +27,7 @@ const ProductDetail = ({ product }) => {
     }
    
     const getActions = (product) => {
-        return <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} disableSpacing>
+        return <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography variant="h6" component="p">
                 $ {product.price}
             </Typography>
