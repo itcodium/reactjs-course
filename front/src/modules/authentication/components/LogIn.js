@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import ValidateForm from '../services/ValidateForm'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
@@ -16,12 +16,10 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
 
-// import Link from '@material-ui/core/Link';
 import { loginUser, init } from '../reducers/login'
 import STATUS from '../../../store/status';
 
 function LogIn(props) {
-    // const { classes, state } = props;
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         email: {},
@@ -35,8 +33,7 @@ function LogIn(props) {
     const status = useSelector(state => state.login?.status)
     const error = useSelector(state => state.login?.error);
     const login = useSelector(state => state.login?.data);
-    console.log("login", login)
-    
+
     const redirectPath = () => {
         console.log("+  redirectPath +  props", props)
         // const locationState = props.location.state;
@@ -44,14 +41,23 @@ function LogIn(props) {
         // const pathname = (
         //     locationState && locationState.from && locationState.from.pathname
         // );
-        //return pathname || "";
+        return "/"
+        // return pathname || "";
     };
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (login.user) {
+            navigate('/');
+        }
+    });
+
     if (status !== STATUS.SUCCESS) {
-        return <Container component="main" maxWidth="xs"> STATUS:  {status}
+        return <Container component="main" maxWidth="xs">
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5, mt: 8 }}>
                 <Avatar>
-                    <LockIcon /> 
+                    <LockIcon />
                 </Avatar>
                 <Typography sx={{ mt: 2 }} component="h1" variant="h5">Login</Typography>
                 <Grid item>
@@ -92,7 +98,6 @@ function LogIn(props) {
                                 label="Remember me"
                             />
                         </Grid>
-
                         <Grid sx={{ textAlign: "center", mt: 5 }} item xs={12}>
                             <Button
                                 type="button"
@@ -127,10 +132,6 @@ function LogIn(props) {
                 </Grid>
             </Box>
         </Container>
-    } 
-    else {
-        // return <Navigate to={redirectPath()} />;
-        return <p>{JSON.stringify(login) }</p>
     }
 }
 
