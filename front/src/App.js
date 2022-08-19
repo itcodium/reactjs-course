@@ -15,7 +15,8 @@ import {
 
 import {
   LogInContainer,
-  SignUpContainer
+  SignUpContainer,
+  LogOut,
 } from './modules/authentication/index';
 
 function App() {
@@ -23,17 +24,18 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        {logIn.user ?
+        
           <Container disableGutters={true} maxWidth="lg">
-            <NavBar languages={AplicationText.lang}></NavBar>
+            <NavBar user = {logIn.user} languages={AplicationText.lang}></NavBar>
             <Container sx={{ pl: { xs: 1 }, pr: { xs: 1 }, minHeight: '70vh', mb: 8 }} disableGutters={true} fixed >
               <Routes>
                 <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>
                 <Route path="/:id" element={<ProductsListContainer></ProductsListContainer>}></Route>
+                <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
                 <Route path="/productDetail/:id" element={<ProductsDetailContainer></ProductsDetailContainer>}></Route>
                 <Route path="/cart" element={<CartListContainer></CartListContainer>}></Route>
                 <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />
-                <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
+                <Route path="/logout" element={<LogOut></LogOut>}></Route>
               </Routes>
             </Container>
             <Footer
@@ -42,11 +44,7 @@ function App() {
               copyright={AplicationText.copyright}
             ></Footer>
           </Container>
-          :
-          <Routes>
-            <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
-          </Routes>
-        }
+          
       </ThemeProvider>
     </BrowserRouter>
   );
@@ -56,3 +54,12 @@ export default App;
  // https://docs.google.com/document/d/1pj-gatjxqk7pv8uRv4gN3HBFVuQj3FhGQxwNy1gA2Uk/edit
 // sx={{ mt: 4, mb: 4, pl: { xs:1}, mr: {xs:1 } }}
 
+/*
+
+{logIn.user ?:
+        
+        }
+<Routes>
+            <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
+          </Routes>
+*/

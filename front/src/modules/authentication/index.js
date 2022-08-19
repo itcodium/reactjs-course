@@ -13,5 +13,6 @@ export { default as SignUpContainer } from './views/SignUpContainer';
 
 /* components */
 export { default as LogIn } from './components/LogIn';
+export { default as LogOut } from './components/LogOut';
 export { default as SignUp } from './components/SignUp';
 

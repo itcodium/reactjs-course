@@ -10,9 +10,16 @@ const login = createSlice({
     },
     reducers: {
         init(state, action) {
-            console.log("++++ state, action +++", state, action , STATUS.IDLE)
             return Object.assign({}, state, {
                 data: action.payload || {},
+                error: null,
+                status: STATUS.IDLE
+            });
+        },
+        logout(state) {
+
+            return Object.assign({}, state, {
+                data: {},
                 error: null,
                 status: STATUS.IDLE
             });
@@ -23,12 +30,12 @@ const login = createSlice({
             });
         },
         loginUser(state) {
-            console.log("state", state)
             return Object.assign({}, state, {
                 status: STATUS.LOADING
             });
         },
         success(state, action) {
+            console.log("state", action.payload)
             return Object.assign({}, state, {
                 data: action.payload,
                 error: null,

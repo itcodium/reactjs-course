@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom';
-import LOGIN from '../../../redux/actions/login'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { init } from '../reducers/login';
 
 function LogOut() {
     const dispatch = useDispatch();
-    let history = useHistory();
+    const navigate = useNavigate()
+
     useEffect(() => {
-        dispatch(LOGIN.out());
-        history.push('/Login')
-    }, [])
-    return (<a href="#/">Home</a>)
+        dispatch(init());
+        navigate('/');
+    }, []);
 }
 
 export default LogOut;
