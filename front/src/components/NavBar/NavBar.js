@@ -15,7 +15,6 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 import mainLogo from '../../assets/logo.png';
-import categories from "../../data/categories.json";
 import { CartWidget } from '../../modules/e-commerce/index';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import RmMenu from '../RmMenu/RmMenu';
@@ -27,7 +26,7 @@ const userLogout = {
     enabled: 1,
     visible: 1,
 }
-const userLogin ={
+const userLogin = {
     title: "Login",
     id_menu: 11,
     url: "/login",
@@ -56,19 +55,8 @@ const NavBar = ({ user, languages }) => {
 
     menuList.items = [];
     menuList.title = user?.usuario || '';
-    menuList.items.push(user ? userLogout :  userLogin)
+    menuList.items.push(user ? userLogout : userLogin)
 
-    const getCategories = (display) => {
-        return <MenuList sx={{ display }}> {
-            categories.map((item, i) => (
-                <MenuItem key={i} >
-                    <Link to={"/" + item.id} className='link' >
-                        <Typography variant="button">{item.name}</Typography>
-                    </Link>
-                </MenuItem>
-            ))
-        }</MenuList>
-    }
     const getLogo = () => {
         return <Link to={"/"} >
             <img width='140' alt="" flex='1' align="center" src={mainLogo}></img>
@@ -87,7 +75,20 @@ const NavBar = ({ user, languages }) => {
                         {getLogo()}
                     </Box>
                     <Divider />
-                    {getCategories('block')}
+                    { /* getCategories('block') */}
+                    <Divider />
+                    <Box sx={{ pt: 1 }}>
+                        {
+                            user ?
+                                <Link className='link' to="logout" >
+                                    <Typography sx={{ pl: 2 }} variant="button"> Logout</Typography>
+                                </Link>
+                                :
+                                <Link className='link' to="login" >
+                                    <Typography sx={{ pl: 2 }} variant="button"> Login</Typography>
+                                </Link>
+                        }
+                    </Box>
                 </Box>
 
             </Drawer>
@@ -97,14 +98,18 @@ const NavBar = ({ user, languages }) => {
             {getLogo()}
             <Hidden mdDown>
                 <Box>
-                    {getCategories('flex')}
+                    { /* getCategories('flex') */}
                 </Box>
             </Hidden>
             <Box>
                 <LanguageSelector languages={languages}></LanguageSelector>
                 <CartWidget />
-                <Hidden mdDown>
-                    <RmMenu list= { menuList }></RmMenu>
+                <Hidden mdDown >
+                    {user ? <RmMenu list={menuList}></RmMenu> :
+                        <Link className='link' to="login" >
+                            <Typography sx={{ pl: 2 }} variant="button"> Login</Typography>
+                        </Link>
+                    }
                 </Hidden>
                 <Hidden mdUp>
                     <IconButton onClick={toggleDrawer(true)} sx={{ pl: 2 }} color="inherit" aria-label="SideBarMenu">
@@ -116,10 +121,3 @@ const NavBar = ({ user, languages }) => {
     </AppBar >
 }
 export default NavBar;
-
-
-/*
-<IconButton sx={{ pl: 2 }} color="inherit" aria-label="SideBarMenu">
-                        <AccountCircleIcon />
-                    </IconButton>
-*/

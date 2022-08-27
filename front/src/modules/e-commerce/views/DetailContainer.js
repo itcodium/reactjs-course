@@ -1,13 +1,15 @@
-import React from 'react'
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 import ProductDetail from '../components/Detail'
 import STATUS from '../../../store/status';
-import { fetch } from '../reducers/detail'
+import Categories from '../components/Categories';
+import { fetch } from '../reducers/detail';
+
 const ProductsDetailContainer = () => {
     const dispatch = useDispatch();
     const status = useSelector(state => state.productsDetail.status);
@@ -16,10 +18,13 @@ const ProductsDetailContainer = () => {
     let { id } = useParams();
     useEffect(() => {
         console.log("id", id)
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         dispatch(fetch({ id: id }));
+
     }, [])
     return (
         <>
+            <Categories></Categories>
           {status === STATUS.SUCCESS ?
                 <ProductDetail product={product} ></ProductDetail>
                 : null}
@@ -29,7 +34,3 @@ const ProductsDetailContainer = () => {
     )
 }
 export default ProductsDetailContainer;
-
-/**
-   
- */

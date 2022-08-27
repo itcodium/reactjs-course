@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Cart from '../components/Cart';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import Categories from '../components/Categories'
 import { init } from '../reducers/orders';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -13,6 +14,7 @@ const CartListContainer = () => {
     const user = useSelector(state => state.user.data);
     const dispatch = useDispatch();
     useEffect(() => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         return () => {
             if (order && order.id) {
                 dispatch(init());
@@ -20,6 +22,7 @@ const CartListContainer = () => {
         }
     }, [])
     return (<>
+        <Categories></Categories>
         <Box>
             {!order.id && <Cart user={user} items={cart}></Cart>}
             {order.id && <Alert sx={{ mt: 2, textAlign: "center" }} severity="success">Your order number is: <strong>{order.id}</strong>

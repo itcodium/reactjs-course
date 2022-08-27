@@ -12,7 +12,7 @@ import CartItem from './CartItem';
 import { getTotal } from '../reducers/cart';
 import { fetch, post } from '../reducers/orders';
 import STATUS from '../../../store/status';
-import categories from "../../../data/categories.json";
+import categories from "../data/categories.json";
 
 const Cart = ({ items, user }) => {
     const dispatch = useDispatch();

@@ -18,4 +18,5 @@ export { default as CartListContainer } from './views/CartListContainer';
 
 /* components */
 export { default as CartWidget } from './components/CartWidget';
+export { default as Categories } from './components/Categories';
 
