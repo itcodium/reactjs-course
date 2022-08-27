@@ -21,12 +21,12 @@ import {
 
 function App() {
   const logIn = useSelector(state => state.login?.data);
+  const menu = useSelector(state => state.login?.data);
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        
           <Container disableGutters={true} maxWidth="lg">
-            <NavBar user = {logIn.user} languages={AplicationText.lang}></NavBar>
+            <NavBar menu = { menu.menu }  user = {logIn.user} languages={AplicationText.lang}></NavBar>
             <Container sx={{ pl: { xs: 1 }, pr: { xs: 1 }, minHeight: '70vh', mb: 8 }} disableGutters={true} fixed >
               <Routes>
                 <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>

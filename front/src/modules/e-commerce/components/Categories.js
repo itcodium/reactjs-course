@@ -9,7 +9,7 @@ const Categories = () => {
     return <MenuList sx={{ display: 'flex' }}>
         {
             categoryList.map((item, i) => (
-                <MenuItem>
+                <MenuItem key = {i}>
                     <Link to={"/" + item.id} className='link' sx={{ minWidth: 100 }} >
                         <Typography variant="overline" color="secondary">{item.name}</Typography>
                     </Link>
