@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ValidateForm from '../services/ValidateForm'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
@@ -14,42 +15,32 @@ import Avatar from '@mui/material/Avatar';
 import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
-
 import { loginUser, init } from '../reducers/login'
 import STATUS from '../../../store/status';
 
-function LogIn(props) {
+function LogIn() {
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         email: {},
         password: {}
     });
-
-    // useEffect(() => { dispatch(init()); }, [])
+    let location = useLocation();
 
     ValidateForm.setForm = setForm;
-
+    // dispatch(init());
     const status = useSelector(state => state.login?.status)
     const error = useSelector(state => state.login?.error);
     const login = useSelector(state => state.login?.data);
-
-    const redirectPath = () => {
-        console.log("+  redirectPath +  props", props)
-        // const locationState = props.location.state;
-        //const pathname = "";
-        // const pathname = (
-        //     locationState && locationState.from && locationState.from.pathname
-        // );
-        return "/"
-        // return pathname || "";
-    };
-
     const navigate = useNavigate();
-
     useEffect(() => {
-        if (login.user) {
-            navigate('/');
+        if (login?.user) {
+            if (location.state && location.state?.from) {
+                navigate(location.state?.from);
+            } else {
+                if (location.pathname == '/login') {
+                    navigate('/');
+                }
+            }
         }
     });
 
@@ -108,9 +99,8 @@ function LogIn(props) {
                                     const payload = {
                                         "email": form.email.value,
                                         "password": form.password.value
-                                    }
-                                    console.log("payload", payload)
-                                    { dispatch(loginUser(payload)) }
+                                    };
+                                    dispatch(loginUser(payload));
                                 }}
                                 sx={{ mb: 3 }}
                             >

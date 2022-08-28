@@ -1,7 +1,7 @@
 import './index.css'
 import * as React from 'react';
 import { useSelector } from 'react-redux'
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { NavBar, Footer, AplicationText } from './components/index';
@@ -19,32 +19,42 @@ import {
   LogOut,
 } from './modules/authentication/index';
 
+import {
+  User,
+} from './modules/user/index';
+
+import PrivateRoute from './services/PrivateRoute';
+
 function App() {
   const logIn = useSelector(state => state.login?.data);
   const menu = useSelector(state => state.login?.data);
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-          <Container disableGutters={true} maxWidth="lg">
-            <NavBar menu = { menu.menu }  user = {logIn.user} languages={AplicationText.lang}></NavBar>
-            <Container sx={{ pl: { xs: 1 }, pr: { xs: 1 }, minHeight: '70vh', mb: 8 }} disableGutters={true} fixed >
-              <Routes>
-                <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>
-                <Route path="/:id" element={<ProductsListContainer></ProductsListContainer>}></Route>
-                <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
-                <Route path="/productDetail/:id" element={<ProductsDetailContainer></ProductsDetailContainer>}></Route>
-                <Route path="/cart" element={<CartListContainer></CartListContainer>}></Route>
-                <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />
-                <Route path="/logout" element={<LogOut></LogOut>}></Route>
-              </Routes>
-            </Container>
-            <Footer
-              sections={AplicationText.footer}
-              social={AplicationText.social}
-              copyright={AplicationText.copyright}
-            ></Footer>
+        <Container disableGutters={true} maxWidth="lg">
+          <NavBar menu={menu.menu} user={logIn.user} languages={AplicationText.lang}></NavBar>
+          <Container sx={{ pl: { xs: 1 }, pr: { xs: 1 }, minHeight: '70vh', mb: 8 }} disableGutters={true} fixed >
+            <Routes>
+              <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>
+              <Route path="/:id" element={<ProductsListContainer></ProductsListContainer>}></Route>
+              <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
+              <Route path="/productDetail/:id" element={<ProductsDetailContainer></ProductsDetailContainer>}></Route>
+              <Route path="/cart" element={<CartListContainer></CartListContainer>}></Route>
+              <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />
+              <Route path="/logout" element={<LogOut></LogOut>}></Route>
+              <Route path="/user" element={ <PrivateRoute><User/></PrivateRoute>}></Route>
+              {/* 
+                <PrivateRoute key="130" path='/userPrivileges' component={UserPrivileges} />
+                <PrivateRoute key="140" path='/menu' component={Menu} />*/}
+            </Routes>
           </Container>
-          
+          <Footer
+            sections={AplicationText.footer}
+            social={AplicationText.social}
+            copyright={AplicationText.copyright}
+          ></Footer>
+        </Container>
+
       </ThemeProvider>
     </BrowserRouter>
   );
@@ -57,7 +67,7 @@ export default App;
 /*
 
 {logIn.user ?:
-        
+
         }
 <Routes>
             <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>

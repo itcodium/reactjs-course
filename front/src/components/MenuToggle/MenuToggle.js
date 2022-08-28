@@ -24,9 +24,9 @@ const styles = {
         textDecoration: 'none',
         fontSize: '12px',
         fontWeight: "bold",
-        color: '#2d496e'
+        color: '#2d496e',
     },
-    arrowIcon: { fontSize: 10, marginRight: 5 }
+    arrowIcon: { fontSize: 10, marginRight: 1 }
 };
 
 function MenuToggle({ menu }) {
