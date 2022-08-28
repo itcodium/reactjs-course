@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, /*useDispatch */ } from 'react-redux'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import ValidateForm  from '../services/ValidateForm';
+import ValidateForm  from '../../../services/ValidateForm';
 import CssBaseline from '@mui/material/CssBaseline';
 import { NavLink } from "react-router-dom";
 // import Link from '@material-ui/core/Link';
@@ -26,7 +26,7 @@ function SignUp(props) {
         "email": '',
     }
     const status = useSelector(state => {}); // state.user.status
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const [form, setForm] = useState({
         nombre: {},
         apellido: {},

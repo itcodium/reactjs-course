@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import ValidateForm from '../services/ValidateForm'
+import ValidateForm from '../../../services/ValidateForm'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
@@ -15,7 +15,7 @@ import Avatar from '@mui/material/Avatar';
 import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { loginUser, init } from '../reducers/login'
+import { loginUser } from '../reducers/login'
 import STATUS from '../../../store/status';
 
 function LogIn() {
@@ -37,7 +37,7 @@ function LogIn() {
             if (location.state && location.state?.from) {
                 navigate(location.state?.from);
             } else {
-                if (location.pathname == '/login') {
+                if (location.pathname === '/login') {
                     navigate('/');
                 }
             }

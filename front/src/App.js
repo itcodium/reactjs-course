@@ -21,7 +21,7 @@ import {
 
 import {
   User,
-} from './modules/user/index';
+} from './modules/admin/index';
 
 import PrivateRoute from './services/PrivateRoute';
 

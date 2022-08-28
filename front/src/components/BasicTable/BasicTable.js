@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import LinearProgress from '@mui/material/LinearProgress';
-
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,36 +15,35 @@ import CardHeader from '@mui/material/CardHeader';
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 
-import styles from './basicTable.style';
-import Edition from './edition';
-import BasicModal from '../BasicModal/basicModal';
+import styles from './BasicTable.style';
+import Edition from './Edition';
+import BasicModal from '../BasicModal/BasicModal';
 
-
-function BasicTable(
+function BasicTable({
     columns,
     data, 
     action, 
     status, 
     helper, 
     title 
-) {
+}) {
     const [open, setOpen] = React.useState(false);
     const [modalContent, setModalContent] = React.useState(false);
     const [modalTitle, setModalTitle] = React.useState(null);
-
+    console.log("HELPER: ", helper)
     const handleClickOpen = (method, data) => {
-        dispatch(action.init());
+        // dispatch(action.init());
         helper.setModel(data);
 
-        if (method == 'POST') {
+        if (method === 'POST') {
             setModalContent(helper.create(handleClose));
             setModalTitle(helper.title())
         }
-        if (method == 'DELETE') {
+        if (method === 'DELETE') {
             setModalContent(helper.delete(handleClose));
             setModalTitle(helper.deleteTitle())
         }
-        if (method == 'PUT') {
+        if (method === 'PUT') {
             setModalContent(helper.update(handleClose));
             setModalTitle(helper.title())
         }
@@ -53,30 +51,29 @@ function BasicTable(
     };
 
     const handleClose = () => {
-        dispatch(action.init());
+        // dispatch(action.init());
         setOpen(false);
     };
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     useEffect(() => {
-        if (action) {
+        /*if (action) {
             dispatch(action.get())
-        }
+        }*/
     }, [])
-
-    columns = columns.filter(col => {
+    
+    columns = columns?.length && columns.filter(col => {
         return col.visible;
     });
-
+/*
     if (!data || !data.length) {
         return null;
-    }
-    return (
-        <div>
+    }*/
+    return <>
             <Card sx={styles.title}>
                 <CardHeader
-                    action={helper.create() ?
+                    action={helper && helper.create() ?
                         <IconButton onClick={() => {
                             handleClickOpen('POST');
                         }} aria-label="Add">
@@ -92,15 +89,15 @@ function BasicTable(
                     <Table sx={styles.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                {columns.map((row) => {
-                                    return <TableCell sx={row.type == "edit" ? styles.edition : styles.tableCellHeader} align={row.align ? row.align : "left"} component="th" scope="row">
+                                {columns?.map((row, i) => {
+                                    return <TableCell key={i} sx={row.type === "edit" ? styles.edition : styles.tableCellHeader} align={row.align ? row.align : "left"} component="th" scope="row">
                                         {row.title}
                                     </TableCell>
                                 })}
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map((data) => {
+                            { data?.length >=0  && data.map((data) => {
                                 return <TableRow key={data.name}>
                                     {columns.map((row) => {
                                         return <Edition handleOpen={handleClickOpen}
@@ -126,8 +123,7 @@ function BasicTable(
                 </BasicModal>
                 : null
             }
-        </div >
-    );
+        </>
 }
 
 export default BasicTable;

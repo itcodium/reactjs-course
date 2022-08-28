@@ -20,5 +20,5 @@ export { default as CartListContainer } from './views/CartListContainer';
 */
 
 /* components */
-export { default as User } from './components/User';
+export { default as User } from './user/components/User';
 

@@ -11,7 +11,7 @@ function Edition(
     edit,
     itemDelete
 ) {
-    if (row.type == "edit") {
+    if (row.type === "edit") {
         return <TableCell align={row.align ? row.align : "left"} component="th" scope="row">
             {row.buttons.delete && itemDelete ?
                 <IconButton onClick={() => {
