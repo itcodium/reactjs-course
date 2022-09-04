@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import STATUS from '../../../store/status';
 import ProductList from '../components/List'
 import Categories from '../components/Categories'

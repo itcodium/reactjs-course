@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import STATUS from '../../../store/status';
+import STATUS from '../../../../store/status';
 
-const login = createSlice({
-    name: 'login',
+const menu = createSlice({
+    name: 'menu',
     initialState: {
         data: {},
         status: STATUS.IDLE,
@@ -16,28 +16,18 @@ const login = createSlice({
                 status: STATUS.IDLE
             });
         },
-        logout(state) {
-            console.log("LOG OUT");
-            localStorage.clear();
-            return Object.assign({}, state, {
-                data: {},
-                error: null,
-                status: STATUS.IDLE
-            });
-        },
         loading(state) {
             return Object.assign({}, state, {
                 status: STATUS.LOADING
             });
         },
-        loginUser(state) {
+        getAll(state) {
             return Object.assign({}, state, {
                 status: STATUS.LOADING
             });
         },
         success(state, action) {
-            localStorage.setItem('id_usuario', action.payload?.user?.id_usuario);
-            localStorage.setItem('token', action.payload?.token);
+            console.log("menu state", action.payload)
             return Object.assign({}, state, {
                 data: action.payload,
                 error: null,
@@ -53,7 +43,6 @@ const login = createSlice({
     }
 })
 
-export const { init, loading, success, loginUser, logout, error } = login.actions;
-
-export const loginState = (state) => state.login
-export default login.reducer
+export const { init, loading, success, getAll, error } = menu.actions;
+export const menuState = (state) => state.menu
+export default menu.reducer

@@ -4,15 +4,15 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function Edition(
+function Edition({
     row,
     data,
     handleOpen,
     edit,
     itemDelete
-) {
+}) {
     if (row.type === "edit") {
-        return <TableCell align={row.align ? row.align : "left"} component="th" scope="row">
+        return <TableCell align={row.align ? row.align : "left"} scope="row">
             {row.buttons.delete && itemDelete ?
                 <IconButton onClick={() => {
                     handleOpen('DELETE', data)
@@ -29,7 +29,7 @@ function Edition(
             }
         </TableCell>
     } else {
-        return <TableCell align={row.align ? row.align : "left"} component="th" scope="row">
+        return <TableCell align={row.align ? row.align : "left"} scope="row">
             {data[row.field]}
         </TableCell>
 

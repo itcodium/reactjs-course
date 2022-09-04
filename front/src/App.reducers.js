@@ -4,20 +4,28 @@ import {
     productsDetailReducer, 
     cartReducer,
     ordersReducer,
-    userReducer
+    // userReducer
 } from './modules/e-commerce/index';
 
 import { 
     loginReducer, 
 } from './modules/authentication/index';
 
+import { 
+    userReducer, 
+    menuReducer, 
+} from './modules/admin/index';
+
 const appReducer = combineReducers({
     products: productsReducer,
     productsDetail: productsDetailReducer,
     cart: cartReducer,
     orders: ordersReducer,
-    user: userReducer,
-    login: loginReducer
+    admin: combineReducers({
+        user: userReducer,
+        menu: menuReducer,
+    }),
+    login: loginReducer,
 });
 
 const reducerRoot = (state, action) => {

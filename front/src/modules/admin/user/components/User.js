@@ -1,8 +1,7 @@
-import { getAccordionDetailsUtilityClass } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux'
 import { BasicTable } from '../../../../components/index';
-// import USER from '../../../redux/actions/user';
+import {getAll } from '../reducers/user';
 
 import UserHelper from './helper';
 function User() {
@@ -17,21 +16,18 @@ function User() {
         { field: 'creado_por', title: 'Created By', align: "center", visible: false },
         { title: 'Edit', visible: true, type: 'edit', buttons: { delete: true, edit: true } },
     ];
-    const status = useSelector(state => state.user.status)
-    const data = useSelector(state => state.user.list)
-    // const error = useSelector(state => state.user.error);
-    const fakeUSER = {};
+    const user = useSelector(state => state.admin.user)
+    console.log("USER: ", user)
     const helper = new UserHelper();
-     console.log("Post new UserHelper()", helper.title());
     
     function getData(){
         
         return <BasicTable
             helper={helper}
-            action={fakeUSER} //USER
-            title="User"
-            status={status}
-            data={data || [] }
+            action={{ get: getAll }}
+            title="User List"
+            status={user.status}
+            data={user.data}
             columns={columns}></BasicTable>
     }
 

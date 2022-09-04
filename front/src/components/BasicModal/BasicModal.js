@@ -10,12 +10,16 @@ function BasicModal({
     content, 
     handleClose 
 }) {
-    return (
-        <div>
-            <Dialog
+    console.log({ 
+        open, 
+        status, 
+        title, 
+        content, 
+        handleClose,
+    })
+    return (<Dialog
                 open={open}
                 onClose={handleClose}
-                fullWidth={"md"}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -26,8 +30,9 @@ function BasicModal({
                 </DialogContent>
 
             </Dialog>
-        </div>
     );
 }
+
+//
 
 export default BasicModal;

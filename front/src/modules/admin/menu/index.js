@@ -1,13 +1,11 @@
 /* reducers */
-export { default as userReducer } from './user/reducers/user'; 
 export { default as menuReducer } from './menu/reducers/menu'; 
 
 /* sagas saga */
-export { user } from './user/sagas/user';
 export { menu } from './menu/sagas/menu';
 
 /* components */
-export { default as User } from './user/components/User';
+// export { default as User } from './user/components/User';
 
 /* views 
 export { default as ProductsListContainer } from './views/ListContainer';

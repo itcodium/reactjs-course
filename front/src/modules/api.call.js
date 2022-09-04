@@ -1,27 +1,10 @@
-export default function apiCall(url, params = {}, body) {
-    const localUser = localStorage.getItem('user') || null;
-    console.log("localUser", localUser)
-    let jsonUser = null;
-    let token = null;
-    let userId = null;
-
-    try {
-        if (localUser) {
-            jsonUser = JSON.parse(localUser);
-            if (jsonUser && jsonUser.payload) {
-                token = jsonUser.payload.token
-                if (jsonUser.payload.user) {
-                    userId = jsonUser.payload.user.id_usuario;
-                }
-            }
-        }
-    } catch (e) {
-        console.log("+ apicall +", e)
-    }
+export default function ApiCall(url, params = {}, body) {
+    const token = localStorage.getItem('token');
+    const id_usuario = localStorage.getItem('id_usuario');
 
     params.headers = params.headers ? params.headers : {};
     params.headers['Authorization'] = "Bearer " + token;
-    params.headers['user_id'] = userId;
+    params.headers['user_id'] = id_usuario;
 
     const fetchParams = {
         method: params.method || 'GET',

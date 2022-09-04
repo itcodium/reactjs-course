@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useSelector,// useDispatch 
-} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -13,13 +12,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import classes from './user.style.js';
 import ValidateForm from '../../../../services/ValidateForm'
 //import USER from '../../../redux/actions/user'
+import { saveFromModal, updateItem } from '../reducers/user';
 
 function UserCreate({handleClose, model}) {
     
 
     const user = useSelector(state => state.user);
-    const status = useSelector(state => state.user.status);
-    // const dispatch = useDispatch();
+    const status = ""; //useSelector(state => state.user.status);
+    const dispatch = useDispatch();
     const [form, setForm] = useState({
         nombre: { value: model ? model.nombre : "", valid: !!model && model.nombre },
         apellido: { value: model ? model.apellido : "", valid: !!model && model.apellido },
@@ -30,7 +30,8 @@ function UserCreate({handleClose, model}) {
     })
 
     ValidateForm.setForm = setForm;
-    /*const getForm = () => {
+    const getForm = () => {
+        console.log("getForm", )
         return {
             "id_usuario": model && model.id_usuario ? model.id_usuario : null,
             "nombre": form.nombre.value,
@@ -40,7 +41,7 @@ function UserCreate({handleClose, model}) {
             "passwordConfirm": form.passwordConfirm.value,
             "email": form.email.value,
         }
-    }*/
+    }
 
 
     const passwordsMatch = () => {
@@ -172,11 +173,13 @@ function UserCreate({handleClose, model}) {
                     <Button
                         disabled={status === "crud" || ValidateForm.hasError(form) || !passwordsMatch()}
                         onClick={() => {
-                         /*   if (model) {
-                                dispatch(USER.update(getForm()))
+                            console.log("model", model)
+                            if (model) {
+                                dispatch(updateItem(getForm()))
                             } else {
-                                dispatch(USER.saveModal(getForm()))
-                            }*/
+                                dispatch(saveFromModal(getForm()))
+                            }
+                                
                         }} color="primary" >
                         Aceptar</Button>
 
