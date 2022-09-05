@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useSelector, // useDispatch 
-} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -10,12 +9,12 @@ import DialogActions from '@mui/material/DialogActions';
 import CircularProgress from '@mui/material/CircularProgress';
 import styles from './user.style.js';
 import ValidateForm from '../../../../services/ValidateForm'
-// import USER from '../../../redux/actions/user'
+import { updateItem } from '../reducers/user';
+import STATUS from '../../../../store/status';
 
-function UserUpdate({ classes, handleClose, model } ) {
-    const user = useSelector(state => state.user);
-    const status = useSelector(state => state.user.status);
-    // const dispatch = useDispatch();
+function UserUpdate({ handleClose, model } ) {
+    const status = useSelector(state => state.admin.user?.status)
+    const dispatch = useDispatch();
     const [form, setForm] = useState({
         nombre: { value: model.nombre, valid: true },
         apellido: { value: model.apellido, valid: true },
@@ -26,7 +25,7 @@ function UserUpdate({ classes, handleClose, model } ) {
     })
 
     ValidateForm.setForm = setForm;
-   /* const getForm = () => {
+    const getForm = () => {
         return {
             "id_usuario": model.id_usuario,
             "nombre": form.nombre.value,
@@ -36,7 +35,7 @@ function UserUpdate({ classes, handleClose, model } ) {
             "vigencia_hasta": form.vigencia_hasta.value,
             "email": form.email.value,
         }
-    }*/
+    }
     return (
         <Container component="main" maxWidth="xs">
             <form sx={styles.form} noValidate>
@@ -80,6 +79,7 @@ function UserUpdate({ classes, handleClose, model } ) {
                             id="email"
                             label="Email Address"
                             name="email"
+                            disabled
                             value={form.email.value}
                             error={form.email.invalid}
                             helperText={form.email.message}
@@ -122,17 +122,17 @@ function UserUpdate({ classes, handleClose, model } ) {
                 </Grid>
                 <div sx={styles.wrapper}>
                     {
-                        status === "failed" ? <Typography sx={styles.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
+                        status === STATUS.ERROR ? <Typography sx={styles.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
                     }
-                    {status === "crud" ? <CircularProgress /> : null}
+                    {   status === STATUS.CRUD ? <CircularProgress /> : null}
                 </div>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancelar</Button>
                     <Button
-                        disabled={status === "crud" || ValidateForm.hasError(form)}
+                        disabled={status === STATUS.CRUD || ValidateForm.hasError(form)}
                         onClick={() => {
-                            /* dispatch(USER.update(getForm())) */
+                            dispatch(updateItem(getForm()))
                         }} color="primary" >
                         Aceptar</Button>
                 </DialogActions>

@@ -4,15 +4,20 @@ import STATUS from '../../../../store/status';
 const user = createSlice({
     name: 'user',
     initialState: {
-        data: {},
+        data: null,
         status: STATUS.IDLE,
         error: null
     },
     reducers: {
-        init(state, action) {
+        init(state) {
             return Object.assign({}, state, {
-                data: action.payload || {},
+                data:  null,
                 error: null,
+                status: STATUS.IDLE
+            });
+        },
+        resetStatus(state) {
+            return Object.assign({}, state, {
                 status: STATUS.IDLE
             });
         },
@@ -34,7 +39,7 @@ const user = createSlice({
                 status: STATUS.CRUD
             });
         },
-        deleteItem(state){
+        removeItem(state){
             return Object.assign({}, state, {
                 error: null,
                 status: STATUS.CRUD
@@ -61,7 +66,7 @@ const user = createSlice({
     }
 })
 
-export const { init, loading, success, getAll, saveFromModal, updateItem, deleteItem, error } = user.actions;
+export const { init, resetStatus, loading, success, getAll, saveFromModal, updateItem, removeItem, error } = user.actions;
 export const userState = (state) => state.user
 export default user.reducer
 

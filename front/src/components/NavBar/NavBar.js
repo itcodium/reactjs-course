@@ -43,8 +43,11 @@ const NavBar = ({ user, menu }) => {
                     <Divider />
                     <Box sx={{ pt: 1 }}>
                         {
-                            !user && <Link className='link' to="login" >
+                            !user  && <Link className='link' to="login" >
                                 <Typography sx={{ pl: 2 }} variant="button"> Login</Typography>
+                            </Link>}
+                        { user && !menu.length && <Link to={"/logout"} >
+                                <Typography sx={{ pl: 2 }} variant="button">Logout</Typography>
                             </Link>
                         }
                     </Box>
@@ -63,7 +66,10 @@ const NavBar = ({ user, menu }) => {
                 <Hidden mdDown >
                     {!user && <Link className='link' to="login" >
                         <Typography sx={{ pr: 2 }} variant="button"> Login</Typography>
-                    </Link>
+                    </Link>}
+                     {user && !menu.length && <Link className='link' to={"/logout"} >
+                                <Typography sx={{ pr: 2 }} variant="button">Logout</Typography>
+                            </Link>
                     }
                 </Hidden>
                 <CartWidget />

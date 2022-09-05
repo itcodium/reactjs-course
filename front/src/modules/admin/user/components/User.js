@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import { BasicTable } from '../../../../components/index';
-import {getAll } from '../reducers/user';
+import {getAll, init, resetStatus } from '../reducers/user';
 
 import UserHelper from './helper';
+
 function User() {
     const columns = [
         { field: 'id_usuario', title: 'Id', align: "left", visible: true },
@@ -17,17 +18,14 @@ function User() {
         { title: 'Edit', visible: true, type: 'edit', buttons: { delete: true, edit: true } },
     ];
     const user = useSelector(state => state.admin.user)
-    console.log("USER: ", user)
     const helper = new UserHelper();
     
     function getData(){
-        
         return <BasicTable
             helper={helper}
-            action={{ get: getAll }}
+            action={{ get: getAll, resetStatus, init }}
             title="User List"
-            status={user.status}
-            data={user.data}
+            payload={user}
             columns={columns}></BasicTable>
     }
 

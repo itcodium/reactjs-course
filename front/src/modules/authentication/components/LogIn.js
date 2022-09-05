@@ -27,7 +27,6 @@ function LogIn() {
     let location = useLocation();
 
     ValidateForm.setForm = setForm;
-    // dispatch(init());
     const status = useSelector(state => state.login?.status)
     const error = useSelector(state => state.login?.error);
     const login = useSelector(state => state.login?.data);

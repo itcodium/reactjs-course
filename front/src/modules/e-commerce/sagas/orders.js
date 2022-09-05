@@ -11,7 +11,6 @@ async function ordersCallPost(data) {
     const batch = writeBatch(db);
     for (let productItem of data.items) {
         const productRef = await doc(db, "products", productItem.id);
-        debugger
         const productDb = await getDoc(productRef);
         if (productDb.data().stock >= productItem.units) {
             await batch.update(productRef, { stock: productDb.data().stock - productItem.units })

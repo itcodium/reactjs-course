@@ -8,11 +8,12 @@ function* SagaCall(saga, URL, method = 'GET', params, AFTER_TYPE, onSuccess) {
         yield put({ type: saga.saga + '/loading' });
         const response = yield call(ApiCall, URL, { method: method ? method : 'GET' }, params ? params : null);
         yield put({ type: onSuccess ? onSuccess : saga.success, payload: response.data });
-        /* if (response.status === "ok") {
+        console.log("AFTER_TYPE", AFTER_TYPE)
+        if (response.status === "ok") {
              if (AFTER_TYPE) {
-                 yield put({ type: AFTER_TYPE, payload: params });
+                 yield put({ type: AFTER_TYPE.type }); // , payload: params
              }
-         }*/
+         }
     } catch (e) {
         if(e.code ==='10001'){
             yield put({ type: logout.type });

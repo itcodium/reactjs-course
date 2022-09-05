@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 const CartListContainer = () => {
     const cart = useSelector(state => state.cart.data);
     const order = useSelector(state => state.orders.data.order) || {};
-    const user = useSelector(state => state.user.data);
+    const user = useSelector(state => state.login.data);
     const dispatch = useDispatch();
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});

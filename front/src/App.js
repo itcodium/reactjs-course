@@ -43,9 +43,6 @@ function App() {
               <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />
               <Route path="/logout" element={<LogOut></LogOut>}></Route>
               <Route path="/user" element={ <PrivateRoute><User/></PrivateRoute>}></Route>
-              {/* 
-                <PrivateRoute key="130" path='/userPrivileges' component={UserPrivileges} />
-                <PrivateRoute key="140" path='/menu' component={Menu} />*/}
             </Routes>
           </Container>
           <Footer

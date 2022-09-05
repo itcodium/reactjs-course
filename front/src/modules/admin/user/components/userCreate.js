@@ -11,14 +11,15 @@ import DialogActions from '@mui/material/DialogActions';
 import CircularProgress from '@mui/material/CircularProgress';
 import classes from './user.style.js';
 import ValidateForm from '../../../../services/ValidateForm'
-//import USER from '../../../redux/actions/user'
+
+import STATUS from '../../../../store/status';
 import { saveFromModal, updateItem } from '../reducers/user';
 
 function UserCreate({handleClose, model}) {
-    
 
-    const user = useSelector(state => state.user);
-    const status = ""; //useSelector(state => state.user.status);
+    const user = useSelector(state => state.admin.user)
+    const status = useSelector(state => state.admin?.user?.status)
+
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         nombre: { value: model ? model.nombre : "", valid: !!model && model.nombre },
@@ -42,7 +43,6 @@ function UserCreate({handleClose, model}) {
             "email": form.email.value,
         }
     }
-
 
     const passwordsMatch = () => {
         if (form.password.value === form.passwordConfirm.value) {
@@ -163,17 +163,16 @@ function UserCreate({handleClose, model}) {
                 </Grid>
                 <div sx={classes.wrapper}>
                     {
-                        status === "failed" ? <Typography sx={classes.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
+                        status === STATUS.ERROR ? <Typography sx={classes.error} variant="overline" display="block" gutterBottom>{user.error.message}</Typography> : null
                     }
-                    {status === "crud" ? <CircularProgress /> : null}
+                    {status === STATUS.CRUD ? <CircularProgress /> : null}
                 </div>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={()=>{ handleClose(status)}} color="primary">
                         Cancelar</Button>
                     <Button
-                        disabled={status === "crud" || ValidateForm.hasError(form) || !passwordsMatch()}
+                        disabled={status === STATUS.CRUD || ValidateForm.hasError(form) || !passwordsMatch()}
                         onClick={() => {
-                            console.log("model", model)
                             if (model) {
                                 dispatch(updateItem(getForm()))
                             } else {
@@ -182,7 +181,6 @@ function UserCreate({handleClose, model}) {
                                 
                         }} color="primary" >
                         Aceptar</Button>
-
                 </DialogActions>
             </form>
         </Container>
