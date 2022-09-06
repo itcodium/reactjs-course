@@ -3,7 +3,7 @@ import BasicTable from '../../../app/BasicTable/basicTable';
 import USER from '../../../redux/actions/user';
 
 import UserPrivilegesHelper from './helperUserPriviliges';
-function User(props) {
+function User() {
     const columns = [
         { field: 'id_usuario', title: 'Id', align: "left", visible: true },
         { field: 'usuario', title: 'User', align: "left", visible: true },

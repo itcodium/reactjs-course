@@ -1,18 +1,17 @@
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import { useSelector, useDispatch } from 'react-redux'
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import styles from './menu.style.js';
-import STATUS from '../../../redux/constants/status'
-import MENU from '../../../redux/actions/menu'
-function MenuDelete(props) {
-    const { model, handleClose, classes } = props;
-    const menu = useSelector(state => state.menu);
-    const status = useSelector(state => state.menu.status);
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import classes from './menu.style.js';
+import STATUS from '../../../../store/status';
+import {remove } from '../reducers/menu';
+
+function MenuDelete({ model, handleClose }) {
+    const menu = useSelector(state => state.admin.menu);
+    const status = useSelector(state => state.admin.menu.status);
     const dispatch = useDispatch();
     return (
         <Container component="main" maxWidth="xs">
@@ -21,7 +20,7 @@ function MenuDelete(props) {
             </Typography>
             <Grid>
                 <div className={classes.root}>
-                    {status === STATUS.PENDING ? <CircularProgress /> : null}
+                    {status === STATUS.LOADING ? <CircularProgress /> : null}
                 </div>
                 {
                     status === STATUS.ERROR ? <Typography color="error" variant="overline" display="block" gutterBottom>{menu.error.message}</Typography> : null
@@ -32,7 +31,7 @@ function MenuDelete(props) {
                     Cancelar</Button>
                 <Button
                     onClick={() => {
-                        dispatch(MENU.remove(model))
+                        dispatch(remove(model))
                     }} color="primary" >
                     Aceptar</Button>
 
@@ -41,4 +40,4 @@ function MenuDelete(props) {
     );
 }
 
-export default withStyles(styles)(MenuDelete);
+export default MenuDelete;

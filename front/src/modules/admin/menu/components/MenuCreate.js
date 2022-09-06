@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import DialogActions from '@material-ui/core/DialogActions';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import styles from './menu.style.js';
-import ValidateForm from '../../../services/validateForm'
-import MENU from '../../../redux/actions/menu'
-import STATUS from '../../../redux/constants/status'
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import DialogActions from '@mui/material/DialogActions';
+import CircularProgress from '@mui/material/CircularProgress';
+import classes from './menu.style.js';
+import ValidateForm from '../../../../services/ValidateForm';
+// import MENU from '../../../redux/actions/menu';
+import {addChild, addSameLevel, update } from '../reducers/menu';
+import STATUS from '../../../../store/status';
 
-function MenuCreate(props) {
-    const { classes, handleClose, model, id, type } = props;
+function MenuCreate({ handleClose, model, id, type } ) {
+    
 
-    const menu = useSelector(state => state.menu);
-    const status = useSelector(state => state.menu.status);
+    const menu = useSelector(state => state.admin.menu);
+    const status = useSelector(state => state.admin.menu.status);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         title: { value: model ? model.title : "", valid: !!(model && model.title) },
@@ -34,7 +34,7 @@ function MenuCreate(props) {
             "icon": form.icon.value,
             "action": form.action.value,
         }
-        if (id && type == "CHILD") {
+        if (id && type === "CHILD") {
             node.id_menu = id;
         } else {
             node.id_menu = model && model.id_menu ? model.id_menu : null;
@@ -45,7 +45,7 @@ function MenuCreate(props) {
     return (
         <Container component="main" maxWidth="xs">
             <form className={classes.form} noValidate>
-                <Grid className={classes.root} container spacing={2}>
+                <Grid sx={classes.root} container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
                             variant="outlined"
@@ -117,17 +117,17 @@ function MenuCreate(props) {
                     <Button
                         disabled={status === STATUS.CRUD || ValidateForm.hasError(form)}
                         onClick={() => {
-                            if (type == "CHILD") {
-                                dispatch(MENU.addChild(getForm()))
+                            if (type === "CHILD") {
+                                dispatch(addChild(getForm()))
                             }
-                            if (type == "SAME_LEVEL") {
-                                dispatch(MENU.addSameLevel(getForm()))
+                            if (type === "SAME_LEVEL") {
+                                dispatch(addSameLevel(getForm()))
                             }
-                            if (type == "PUT") {
-                                dispatch(MENU.update(getForm()))
+                            if (type === "PUT") {
+                                dispatch(update(getForm()))
                             }
                         }} color="primary" >
-                        Aceptar</Button>
+                        Aceptar</Button> 
 
                 </DialogActions>
             </form>
@@ -135,4 +135,4 @@ function MenuCreate(props) {
     );
 }
 
-export default withStyles(styles)(MenuCreate);
+export default MenuCreate;

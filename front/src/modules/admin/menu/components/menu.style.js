@@ -1,44 +1,42 @@
-const styles = theme => ({
+const styles = {
     icon: {
-        paddinRight: `5px`,
+        paddinRight: 1,
     },
     root: {
-        marginBottom: theme.spacing(1),
+        marginBottom: 1,
     },
     nested: {
-        paddingLeft: theme.spacing(4),
+        paddingLeft: 4,
         margin: 0
     },
     item: {
+        display: 'block',
         listStyle: "none",
+        marginLeft: 0,
         '& a': {
             '&:hover': {
                 '& span': {
                     opacity: 1,
-                    '& button': {
-                        marginLeft: theme.spacing(2)
-                    }
                 },
             },
         },
     },
     edition: {
         opacity: 0,
+        opacity: 1,
     },
     text: {
-        marginRight: theme.spacing(1),
+        marginRight: 1,
     },
     wrapper: {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: theme.spacing(10),
+        padding: 10,
     },
     spinnerContainer: {
         alignItems: 'center',
     },
-
-
-});
+};
 
 export default styles;

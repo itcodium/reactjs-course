@@ -1,56 +1,57 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import MENU from '../../../redux/actions/menu';
-import STATUS from '../../../redux/constants/status';
-import styles from './menu.style';
-import BasicModal from '../../../app/BasicModal/basicModal';
-import MenuCreate from './menuCreate';
-import MenuDelete from './menuDelete';
+import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import STATUS from '../../../../store/status';
+import classes from './menu.style';
+import { BasicModal } from '../../../../components/index';
+import {fetchByUser,fetchMenu, init, resetStatus, changeUserPrivilege  } from '../reducers/menu';
+import MenuCreate from './MenuCreate';
+import MenuDelete from './MenuDelete';
 
-function Menu(props) {
-    const { classes, hideEdition, hideTitle, privileges, user } = props;
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+
+function Menu({ hideEdition, hideTitle, privileges, user}) {
     const dispatch = useDispatch();
+    const status = useSelector(state => state.admin.menu.status)
+    const menu = useSelector(state => privileges ? state.admin.menu.menuUserPrivileges : state.admin.menu.data)
 
-    const status = useSelector(state => state.menu.status)
-    const menu = useSelector(state => privileges ? state.menu.menuUserPrivileges : state.menu.menu)
-
-    // const [state, setState] = React.useState(menu);
+    const [state, setState] = React.useState(menu);
 
     const [open, setOpen] = React.useState(false);
     const [content, setContent] = React.useState(null);
 
     useEffect(() => {
         if (privileges) {
-            dispatch(MENU.getByUser(user))
+            dispatch(fetchByUser(user))
         } else {
-            dispatch(MENU.getFull())
+            dispatch(fetchMenu())
         }
     }, [])
 
     const handleClickOpen = (method, data) => {
-        dispatch(MENU.init());
-        if (method == 'ADD_SAME_LEVEL' && !hideEdition) {
+        dispatch(resetStatus());
+        if (method === 'ADD_SAME_LEVEL' && !hideEdition) {
             setContent(<MenuCreate type={"SAME_LEVEL"} handleClose={handleClose}></MenuCreate>)
         }
-        if (method == 'ADD_CHILD' && !hideEdition) {
+        if (method === 'ADD_CHILD' && !hideEdition) {
             setContent(<MenuCreate type={"CHILD"} id={data.id_menu} handleClose={handleClose}></MenuCreate>)
         }
-        if (method == 'PUT' && !hideEdition) {
+        if (method === 'PUT' && !hideEdition) {
             setContent(<MenuCreate type={"PUT"} model={data} handleClose={handleClose}></MenuCreate>)
         }
-        if (method == 'DELETE' && !hideEdition) {
+        if (method === 'DELETE' && !hideEdition) {
             setContent(<MenuDelete model={data} handleClose={handleClose}></MenuDelete>)
         }
         setOpen(true);
@@ -61,29 +62,30 @@ function Menu(props) {
     };
 
     const getSubList = (menu) => {
-        return <ul className={classes.nested}>{
-            menu.items.map((sub, indexSub) => (
-                getLink(sub)
-            ))}
-        </ul>
+        return <List sx={classes.nested} dense={true}>
+        {
+            menu.items.map((sub, indexSub) => {
+                return getLink(sub, indexSub)
+            })}
+        </List>
     }
     const getEdition = (menu) => {
 
         if (hideEdition) {
             return <div className={classes.edition}></div>;
         }
-        return <span className={classes.edition}>
-            <IconButton edge="end" aria-label="delete" onClick={() => {
+        return <span>
+            <IconButton sx={{ml:1}} edge="end" aria-label="delete" onClick={() => {
                 handleClickOpen("DELETE", menu);
             }}>
                 <DeleteIcon />
             </IconButton>
-            <IconButton edge="end" aria-label="edit" onClick={() => {
+            <IconButton sx={{ml:1}} edge="end" aria-label="edit" onClick={() => {
                 handleClickOpen("PUT", menu);
             }}>
                 <EditIcon />
             </IconButton>
-            <IconButton edge="end" aria-label="Add" onClick={() => {
+            <IconButton sx={{ml:1}} edge="end" aria-label="Add" onClick={() => {
                 handleClickOpen("ADD_CHILD", menu);
             }}>
                 <AddIcon />
@@ -91,7 +93,7 @@ function Menu(props) {
         </span>
     }
     const handleChange = (event) => {
-        dispatch(MENU.changeUserPrivileges({
+        dispatch(changeUserPrivilege({
             id_usuario: user.id_usuario,
             id_menu: event.target.value,
             checked: event.target.checked
@@ -124,23 +126,16 @@ function Menu(props) {
     }
 
     const getLink = (menu, index) => {
-        if (menu.url) {
-            return <li className={classes.item} key={index}>
-                {getCheckPrivileges(menu)}
-                {menu.items.length ? getSubList(menu) : null}
-            </li>
-        } else {
-            return <li className={classes.item} key={index}>
-                {getCheckPrivileges(menu)}
-                {menu.items.length ? getSubList(menu) : null}
-            </li>
-        }
+        return  <ListItem sx={classes.item} key={index}>
+                    { getCheckPrivileges(menu) }
+                    { menu.items.length ? getSubList(menu) : null }
+                </ListItem>
     }
 
     return (
         <div>
             {!hideTitle ?
-                <Card className={classes.root}>
+                <Card sx={classes.root}>
                     <CardHeader
                         action={
                             <IconButton
@@ -156,17 +151,16 @@ function Menu(props) {
             }
             {
                 (status === STATUS.SUCCESS && Array.isArray(menu)) || Array.isArray(menu) ?
-
-                    <ul >{menu.map((sub, index) =>
-                        <li className={classes.item} key={index}>
-                            {getLink(sub, index)}</li>
-                    )}</ul>
-
+                    <List sx={classes.item} dense={true}>
+                        { menu.map((sub, index) =>
+                         getLink(sub, index)
+                        )}
+                    </List>
                     : null
             }
             {
-                status === STATUS.PENDING ?
-                    <div className={classes.wrapper}><CircularProgress className={classes.spinnerContainer} /> </div>
+                status === STATUS.LOADING ?
+                    <Box sx={classes.wrapper}><CircularProgress sx={classes.spinnerContainer} /> </Box>
                     : null
             }
             {open ?
@@ -177,7 +171,6 @@ function Menu(props) {
                     content={content}
                     handleClose={handleClose}>
                 </BasicModal>
-
                 : null
             }
         </div>
@@ -185,4 +178,4 @@ function Menu(props) {
 }
 
 
-export default withStyles(styles)(Menu);
+export default Menu;
