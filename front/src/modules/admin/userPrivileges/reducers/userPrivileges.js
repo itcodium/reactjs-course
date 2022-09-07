@@ -16,8 +16,8 @@ const crud = (state) => {
     });
 }
 
-const menu = createSlice({
-    name: 'menu',
+const userPrivileges = createSlice({
+    name: 'userPrivileges',
     initialState: {
         data: {},
         status: STATUS.IDLE,
@@ -32,65 +32,59 @@ const menu = createSlice({
             });
         },
         resetStatus(state) {
+            console.log("userPrivileges -> resetStatus", state);
             return Object.assign({}, state, {
                 status: STATUS.IDLE
             });
         },
-        fetchMenu(state) {
-            return loading(state);
-        },
-        /*fetchByUser(state){
+       /* fetchMenu(state) {
             return loading(state);
         },*/
-        addSameLevel (state) {
+        fetchByUser(state){
+            console.log("userPrivileges -> fetchByUser", state);
+            return loading(state);
+        },
+       /* addSameLevel (state) {
             return crud(state);
         },
         addChild (state){
             return crud(state);
-        },
-        /*changeUserPrivilege(state){
-            return crud(state);
         },*/
-        remove(state){
+        changeUserPrivilege(state){
             return crud(state);
-        }, 
+        },
+        /*remove(state){
+            return crud(state);
+        }, */
         update(state){
             return crud(state);
         },
-        addCrudSuccess(state, action){
+        /*addCrudSuccess(state, action){
             return Object.assign({}, state, {
                 response: action.payload.data,
                 error: null,
                 status: STATUS.SUCCESS
             })
-        },
-       /* fetchByUserSuccess(state, action){
-            return Object.assign({}, state, {
-                menuUserPrivileges: action.payload.data,
-                error: null,
-                status: STATUS.SUCCESS
-            });
-        }, */
-        
-        /*
-        + ADD_SAME_LEVEL
-        + ADD_CHILD
-        + ADD_CRUD_SUCCESS
-        + FETCH_BY_USER_SUCCESS
-        + SUCCESS
-        + ERROR
-        + CHANGE_USER_PRIVILEGE
-        UI_REFRESH*/
-
-        /*uiRefresh(state, action){
-            console.log("state.menuUserPrivileges, action.payload", state.menuUserPrivileges, action.payload)
-            const menu = menuFind(state.menuUserPrivileges, action.payload);
-            return Object.assign({}, state, {
-                menuUserPrivileges: menu,
-                error: null,
-                status: STATUS.SUCCESS
-            });
         },*/
+
+        // menuUserPrivileges
+        fetchByUserSuccess(state, action){
+            console.log("userPrivileges -> fetchByUserSuccess", action.payload)
+            return Object.assign({}, state, {
+                data: action.payload,
+                error: null,
+                status: STATUS.SUCCESS
+            });
+        }, 
+        // menuUserPrivileges
+        uiRefresh(state, action){
+            console.log("userPrivileges -> uiRefresh , action.payload", state, action.payload)
+            return Object.assign({}, state, {
+                data: menuFind(state, action.payload),
+                error: null,
+                status: STATUS.SUCCESS
+            });
+        },
         success(state, action) {
             return Object.assign({}, state, {
                 data: action.payload,
@@ -109,16 +103,16 @@ const menu = createSlice({
 }) 
 
 export const { 
-    init, resetStatus, error, remove, update,
-    fetchMenu, fetchByUser, fetchByUserSuccess, 
-    addCrudSuccess, addChild, addSameLevel, 
-    success
-    // , changeUserPrivilege,  uiRefresh 
-} = menu.actions;
+    init, resetStatus, error, update,
+    // fetchMenu, remove, 
+    fetchByUser, fetchByUserSuccess, 
+    // addCrudSuccess, addChild, addSameLevel, 
+    changeUserPrivilege, success,  uiRefresh 
+} = userPrivileges.actions;
 
-export const menuState = (state) => state.menu;
-export default menu.reducer;
- /*
+export const userPrivilegesState = (state) => state.userPrivileges;
+export default userPrivileges.reducer;
+ 
 const menuFind = (menu, target) => {
 
     return menu.map(item => {
@@ -132,4 +126,4 @@ const menuFind = (menu, target) => {
         return item;
     })
 }
- */
+ 

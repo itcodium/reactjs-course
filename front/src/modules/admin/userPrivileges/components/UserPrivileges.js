@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux'
-import BasicTable from '../../../app/BasicTable/basicTable';
-import USER from '../../../redux/actions/user';
-
+import { BasicTable } from '../../../../components/index';
 import UserPrivilegesHelper from './helperUserPriviliges';
-function User(props) {
+// import {fetchByUser, init, resetStatus } from '../reducers/userPrivileges';
+import {getAll, init, resetStatus } from '../../user/reducers/user';
+
+function UserPrivileges() {
     const columns = [
         { field: 'id_usuario', title: 'Id', align: "left", visible: true },
         { field: 'usuario', title: 'User', align: "left", visible: true },
@@ -15,22 +16,23 @@ function User(props) {
         { field: 'creado_por', title: 'Created By', align: "center", visible: false },
         { title: 'Edit', visible: true, type: 'edit', buttons: { delete: true, edit: true } },
     ];
-    const status = useSelector(state => state.user.status)
-    const data = useSelector(state => state.user.list)
-    const error = useSelector(state => state.user.error);
-
+    
+    const error = useSelector(state => state.admin.userPrivileges.error);
+    const status = useSelector(state => state.admin.userPrivileges.status)
+    const user = useSelector(state => state.admin.user);
     const helper = new UserPrivilegesHelper();
+    
+    console.log("+ UserPrivileges +", user, status);
     return (
-
         <BasicTable
             helper={helper}
-            action={USER}
+            action={{ get: getAll, resetStatus, init }}
             title="User Privileges"
             status={status}
-            data={data}
+            payload={user}
             columns={columns}></BasicTable>);
 }
 
-export default User;
+export default UserPrivileges;
 
 

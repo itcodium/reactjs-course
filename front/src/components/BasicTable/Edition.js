@@ -22,6 +22,7 @@ function Edition({
             }
             {row.buttons.edit && edit ?
                 <IconButton onClick={() => {
+                    console.log("EDIT CLICK: ", data);
                     handleOpen('PUT', data)
                 }} size="small" aria-label="edit">
                     <EditIcon fontSize="small" />

@@ -2,24 +2,25 @@
 // import MENU from '../../../redux/types/menu';
 import { takeLatest } from 'redux-saga/effects';
 import { 
-    fetchMenu,
-    //fetchByUser, 
-    //fetchByUserSuccess, 
+    
+    fetchByUser, 
+    fetchByUserSuccess, 
+    /*fetchMenu,
     addCrudSuccess, 
     addChild, 
     addSameLevel, 
     remove, 
-    update,
-    //changeUserPrivilege, 
-    // uiRefresh,
+    update,*/
+    changeUserPrivilege, 
+    uiRefresh,
     success,
     error, 
-} from '../reducers/menu';
+} from '../reducers/userPrivileges';
 import SagaCall from '../../../saga.call';
  
 const API_URL = `/api/menu`;
-const saga = "menu";
-
+const saga = "userPrivileges";
+/*
 function* addSameLevelSaga(params) {
     yield SagaCall(
         { saga, success: success.type, error },
@@ -67,8 +68,9 @@ function* fetchMenuFullSaga() {
         API_URL + "/full", 
         "GET");
 }
-/*
+*/
 function* fetchByUserSaga(params) {
+    console.log("fetchByUser -> Saga",success, params)
     yield SagaCall(
         { saga, success: success.type, error },
         API_URL + "/" + params.payload.id_usuario,
@@ -88,35 +90,18 @@ function* changeUserPrivilegeSaga(params) {
         uiRefresh
     );
 }
-*/
-export function* menu() {
-    yield takeLatest(fetchMenu, fetchMenuFullSaga);
-    // yield takeLatest(fetchByUser, fetchByUserSaga);
-    yield takeLatest(addSameLevel, addSameLevelSaga);
-    yield takeLatest(addChild, addChildSaga);
-    // yield takeLatest(changeUserPrivilege, changeUserPrivilegeSaga);
-    yield takeLatest(remove, removeSaga);
-    yield takeLatest(update, updateSaga);
+
+export function* userPrivileges() {
+    yield takeLatest(fetchByUser, fetchByUserSaga);
+    yield takeLatest(changeUserPrivilege, changeUserPrivilegeSaga);
+
+    //yield takeLatest(fetchMenu, fetchMenuFullSaga);
+    //yield takeLatest(addSameLevel, addSameLevelSaga);
+    //yield takeLatest(addChild, addChildSaga);
+    //yield takeLatest(remove, removeSaga);
+    //yield takeLatest(update, updateSaga);
 
 }
 
 
-
-
-
-/*import { takeLatest } from 'redux-saga/effects'
-import { getAll, success, error } from '../reducers/menu'
-import SagaCall from '../../../saga.call';
  
-const API_URL = `/api/menu`;
-const saga = 'menu';
-
-function* getAllMenu(params) {
-    console.log("get menu ", params)
-    yield SagaCall({ saga, success: success.type, error }, API_URL, null, null) ;
-}
-
-export function* menu() {
-    console.log("fetch.type, fetch", getAll.type);
-     yield takeLatest(getAll.type, getAllMenu);
-}*/

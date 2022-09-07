@@ -14,6 +14,7 @@ import {
 import { 
     userReducer, 
     menuReducer, 
+    userPrivilegesReducer,
 } from './modules/admin/index';
 
 const appReducer = combineReducers({
@@ -24,6 +25,7 @@ const appReducer = combineReducers({
     admin: combineReducers({
         user: userReducer,
         menu: menuReducer,
+        userPrivileges: userPrivilegesReducer
     }),
     login: loginReducer,
 });

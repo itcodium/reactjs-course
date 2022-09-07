@@ -50,6 +50,7 @@ function BasicTable({
         }
 
         if (method === 'PUT') {
+            console.log("params", params, helper.update(handleClose))
             helper.setModel(params);
             setModalContent(helper.update(handleClose));
             setModalTitle(helper.title())
@@ -104,8 +105,8 @@ function BasicTable({
                                         return <Edition key={"ir"+dri+ir} 
                                             handleOpen={handleClickOpen}
                                             row={col}
-                                            edit={helper.update()}
-                                            itemDelete={helper.delete()}
+                                            edit={helper.update}
+                                            itemDelete={() => {helper.delete()}}
                                             data={drow}></Edition>
                                     })}
                                 </TableRow>

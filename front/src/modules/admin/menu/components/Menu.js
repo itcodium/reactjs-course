@@ -11,11 +11,10 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import STATUS from '../../../../store/status';
 import classes from './menu.style';
 import { BasicModal } from '../../../../components/index';
-import {fetchByUser,fetchMenu, init, resetStatus, changeUserPrivilege  } from '../reducers/menu';
+import {fetchMenu, resetStatus  } from '../reducers/menu';
 import MenuCreate from './MenuCreate';
 import MenuDelete from './MenuDelete';
 
@@ -23,21 +22,25 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
 function Menu({ hideEdition, hideTitle, privileges, user}) {
+    console.log("------------ user -------------", user);
     const dispatch = useDispatch();
     const status = useSelector(state => state.admin.menu.status)
-    const menu = useSelector(state => privileges ? state.admin.menu.menuUserPrivileges : state.admin.menu.data)
+    const menu = useSelector(state => privileges ? state.admin.userPrivileges.data : state.admin.menu.data)
 
-    const [state, setState] = React.useState(menu);
+    // const [state, setState] = React.useState(menu);
 
     const [open, setOpen] = React.useState(false);
     const [content, setContent] = React.useState(null);
 
     useEffect(() => {
         if (privileges) {
-            dispatch(fetchByUser(user))
+            console.log({privileges});
+            // dispatch(fetchByUser(user))
         } else {
             dispatch(fetchMenu())
-        }
+        } 
+            
+        
     }, [])
 
     const handleClickOpen = (method, data) => {
@@ -107,7 +110,9 @@ function Menu({ hideEdition, hideTitle, privileges, user}) {
                     <Checkbox
                         key={menu.id_menu}
                         checked={menu.enabled}
-                        onChange={handleChange}
+                        onChange={(e)=>{
+                            handleChange(e);
+                        }}
                         color="primary"
                         value={menu.id_menu}
                     />

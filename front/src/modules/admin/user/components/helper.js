@@ -16,6 +16,7 @@ export default function UserHelper() {
         return <UserDelete model={model} handleClose={close}></UserDelete>
     }
     this.update = (close) => {
+        console.log("+ USER +");
         return <UserUpdate model={model} handleClose={close}></UserUpdate>
     }
     this.create = (close) => {

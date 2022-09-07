@@ -22,6 +22,7 @@ import {
 import {
   User,
   Menu,
+  UserPrivileges
 } from './modules/admin/index';
 
 import PrivateRoute from './services/PrivateRoute';
@@ -45,6 +46,7 @@ function App() {
               <Route path="/logout" element={<LogOut></LogOut>}></Route>
               <Route path="/user" element={ <PrivateRoute><User/></PrivateRoute>}></Route>
               <Route path="/menu" element={ <PrivateRoute><Menu/></PrivateRoute>}></Route>
+              <Route path="/userPrivileges" element={ <PrivateRoute><UserPrivileges/></PrivateRoute>}></Route>
             </Routes>
           </Container>
           <Footer

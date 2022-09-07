@@ -16,6 +16,12 @@ function BasicModal({
     content, 
     handleClose 
 }) {
+    console.log({open, 
+        status,
+        error, 
+        title, 
+        content, 
+        handleClose })
     return (<Dialog
                 open={open}
                 onClose={()=>{
@@ -24,6 +30,7 @@ function BasicModal({
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
+                <p>status: {status} - {open ? '1': '0'}</p>
                 <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
                 <DialogContent sx={{p:2}}>
                     {status === STATUS.SUCCESS ? 
