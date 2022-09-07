@@ -5,7 +5,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
 import STATUS from '../../store/status';
 
 function BasicModal({ 
@@ -16,12 +15,6 @@ function BasicModal({
     content, 
     handleClose 
 }) {
-    console.log({open, 
-        status,
-        error, 
-        title, 
-        content, 
-        handleClose })
     return (<Dialog
                 open={open}
                 onClose={()=>{
@@ -30,7 +23,6 @@ function BasicModal({
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <p>status: {status} - {open ? '1': '0'}</p>
                 <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
                 <DialogContent sx={{p:2}}>
                     {status === STATUS.SUCCESS ? 

@@ -56,7 +56,7 @@ const NavBar = ({ user, menu }) => {
         </Hidden>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', textAlign: 'right' }}>
             {getLogo()}
-            <Box>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', textAlign: 'right' }}>
                 <Hidden mdDown>
                     {menu && menu.map((item, i) => (
                         <MenuToggle key={i} menu={item}></MenuToggle>
@@ -72,7 +72,7 @@ const NavBar = ({ user, menu }) => {
                             </Link>
                     }
                 </Hidden>
-                <CartWidget />
+                <CartWidget  />
                 <Hidden mdUp>
                     <IconButton onClick={toggleDrawer(true)} sx={{ pl: 2 }} color="inherit" aria-label="SideBarMenu">
                         <MenuIcon />

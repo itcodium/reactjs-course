@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import Typography from '@mui/material/Typography';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+//import Checkbox from '@mui/material/Checkbox';
+//import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,6 +15,7 @@ import STATUS from '../../../../store/status';
 import classes from './menu.style';
 import { BasicModal } from '../../../../components/index';
 import {fetchMenu, resetStatus  } from '../reducers/menu';
+import { CheckPrivileges  } from '../../index';
 import MenuCreate from './MenuCreate';
 import MenuDelete from './MenuDelete';
 
@@ -22,25 +23,17 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
 function Menu({ hideEdition, hideTitle, privileges, user}) {
-    console.log("------------ user -------------", user);
     const dispatch = useDispatch();
     const status = useSelector(state => state.admin.menu.status)
     const menu = useSelector(state => privileges ? state.admin.userPrivileges.data : state.admin.menu.data)
-
-    // const [state, setState] = React.useState(menu);
 
     const [open, setOpen] = React.useState(false);
     const [content, setContent] = React.useState(null);
 
     useEffect(() => {
-        if (privileges) {
-            console.log({privileges});
-            // dispatch(fetchByUser(user))
-        } else {
+        if (!privileges) {
             dispatch(fetchMenu())
         } 
-            
-        
     }, [])
 
     const handleClickOpen = (method, data) => {
@@ -95,30 +88,10 @@ function Menu({ hideEdition, hideTitle, privileges, user}) {
             </IconButton>
         </span>
     }
-    const handleChange = (event) => {
-        dispatch(changeUserPrivilege({
-            id_usuario: user.id_usuario,
-            id_menu: event.target.value,
-            checked: event.target.checked
-        }));
-    }
 
     const getCheckPrivileges = (menu) => {
         if (privileges) {
-            return <FormControlLabel
-                control={
-                    <Checkbox
-                        key={menu.id_menu}
-                        checked={menu.enabled}
-                        onChange={(e)=>{
-                            handleChange(e);
-                        }}
-                        color="primary"
-                        value={menu.id_menu}
-                    />
-                }
-                label={menu.title}
-            />
+            return <CheckPrivileges user={user} menu={menu}></CheckPrivileges>
         }
         else {
             return <Typography component="a"
@@ -133,7 +106,7 @@ function Menu({ hideEdition, hideTitle, privileges, user}) {
     const getLink = (menu, index) => {
         return  <ListItem sx={classes.item} key={index}>
                     { getCheckPrivileges(menu) }
-                    { menu.items.length ? getSubList(menu) : null }
+                    { menu.items?.length ? getSubList(menu) : null }
                 </ListItem>
     }
 

@@ -28,7 +28,9 @@ const CartWidget = () => {
             </IconButton>
         </Link> :
         <StyledBadge badgeContent={total}>
-            <ShoppingCartIcon color="disabled" />
+            <IconButton aria-label="cart">
+                <ShoppingCartIcon color="disabled" />
+            </IconButton>
         </StyledBadge>
             
     )

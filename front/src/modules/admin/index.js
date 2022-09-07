@@ -11,6 +11,7 @@ export { menu } from './menu/sagas/menu';
 /* components */
 export { default as User } from './user/components/User';
 export { default as Menu } from './menu/components/Menu';
+export { default as CheckPrivileges } from './userPrivileges/components/CheckPrivileges';
 export { default as UserPrivileges } from './userPrivileges/components/UserPrivileges';
 
 /* views */

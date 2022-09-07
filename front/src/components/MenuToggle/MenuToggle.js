@@ -8,6 +8,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
 import Grow from '@mui/material/Grow';
+import Box from '@mui/material/Box';
+
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 
@@ -102,8 +104,7 @@ function MenuToggle({ menu }) {
     }
 
     return <>
-        {getMenu()
-        }
+        {getMenu()}
         <Popper id={'transition-popper'} open={open} anchorEl={anchorEl} transition>
             {({ TransitionProps, placement }) => (
                 <Grow

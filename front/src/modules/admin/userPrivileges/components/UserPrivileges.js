@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux'
 import { BasicTable } from '../../../../components/index';
 import UserPrivilegesHelper from './helperUserPriviliges';
-// import {fetchByUser, init, resetStatus } from '../reducers/userPrivileges';
 import {getAll, init, resetStatus } from '../../user/reducers/user';
 
 function UserPrivileges() {
@@ -17,12 +16,10 @@ function UserPrivileges() {
         { title: 'Edit', visible: true, type: 'edit', buttons: { delete: true, edit: true } },
     ];
     
-    const error = useSelector(state => state.admin.userPrivileges.error);
     const status = useSelector(state => state.admin.userPrivileges.status)
     const user = useSelector(state => state.admin.user);
     const helper = new UserPrivilegesHelper();
     
-    console.log("+ UserPrivileges +", user, status);
     return (
         <BasicTable
             helper={helper}

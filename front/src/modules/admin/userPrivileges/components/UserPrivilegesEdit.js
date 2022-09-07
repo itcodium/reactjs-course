@@ -1,32 +1,27 @@
 
 import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import { useSelector, useDispatch  } from 'react-redux'
+import { useSelector, useDispatch  } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import {fetchByUser, changeUserPrivilege  } from '../reducers/userPrivileges';
+import {fetchByUser } from '../reducers/userPrivileges';
 import Menu from '../../menu/components/Menu'
-/*
-import CircularProgress from '@mui/material/CircularProgress';
-import classes from './user.style.js';
-import { removeItem } from '../reducers/user';
-import STATUS from '../../../../store/status';*/
 
 function UserPrivilegesEdit({model, handleClose}) {
     const userPrivileges = useSelector(state => state.admin.userPrivileges);
-    const status = useSelector(state => state.admin.user?.status)
-    console.log("userPrivileges", userPrivileges);
+    const error = useSelector(state => state.admin.userPrivileges.error);
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(fetchByUser(model))
-    }, [])
+    }, []);
+    
     return (
         <Container component="main" maxWidth="xs">
-            <Typography component="p" variant="subtitle1">
-                Desea Eliminar el usuario  {model?.id_usuario}
-            </Typography>
+            { error ? <Typography  color="red" variant="overline" display="block" gutterBottom>{error.message}</Typography> : null }
+
             <Grid>
                <Menu 
                 user={model} 

@@ -1,8 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 import STATUS from '../../../../store/status';
-
-// import MENU from '../types/menu'
-// import STATUS from '../constants/status'
 
 const loading = (state) => {
     return Object.assign({}, state, {
@@ -32,55 +29,31 @@ const userPrivileges = createSlice({
             });
         },
         resetStatus(state) {
-            console.log("userPrivileges -> resetStatus", state);
             return Object.assign({}, state, {
-                status: STATUS.IDLE
+                status: STATUS.IDLE,
+                error: null,
             });
         },
-       /* fetchMenu(state) {
-            return loading(state);
-        },*/
         fetchByUser(state){
-            console.log("userPrivileges -> fetchByUser", state);
             return loading(state);
         },
-       /* addSameLevel (state) {
-            return crud(state);
-        },
-        addChild (state){
-            return crud(state);
-        },*/
         changeUserPrivilege(state){
             return crud(state);
         },
-        /*remove(state){
-            return crud(state);
-        }, */
         update(state){
             return crud(state);
         },
-        /*addCrudSuccess(state, action){
-            return Object.assign({}, state, {
-                response: action.payload.data,
-                error: null,
-                status: STATUS.SUCCESS
-            })
-        },*/
-
-        // menuUserPrivileges
         fetchByUserSuccess(state, action){
-            console.log("userPrivileges -> fetchByUserSuccess", action.payload)
             return Object.assign({}, state, {
                 data: action.payload,
                 error: null,
                 status: STATUS.SUCCESS
             });
         }, 
-        // menuUserPrivileges
         uiRefresh(state, action){
-            console.log("userPrivileges -> uiRefresh , action.payload", state, action.payload)
+            let menu = menuFind(current(state).data, action.payload);
             return Object.assign({}, state, {
-                data: menuFind(state, action.payload),
+                data: menu,
                 error: null,
                 status: STATUS.SUCCESS
             });
@@ -104,9 +77,7 @@ const userPrivileges = createSlice({
 
 export const { 
     init, resetStatus, error, update,
-    // fetchMenu, remove, 
     fetchByUser, fetchByUserSuccess, 
-    // addCrudSuccess, addChild, addSameLevel, 
     changeUserPrivilege, success,  uiRefresh 
 } = userPrivileges.actions;
 
@@ -114,16 +85,16 @@ export const userPrivilegesState = (state) => state.userPrivileges;
 export default userPrivileges.reducer;
  
 const menuFind = (menu, target) => {
-
     return menu.map(item => {
         if (item.id_menu == target.id_menu) {
-            item.enabled = target.checked;
-            console.log('target: ', target);
+            item = { ...item, enabled: target.checked }
         }
+        
         if (item.items.length) {
-            item.items = menuFind(item.items, target);
+            return  { ...item, items: menuFind(item.items, target)}
+        }else{
+            return item;
         }
-        return item;
     })
 }
  
