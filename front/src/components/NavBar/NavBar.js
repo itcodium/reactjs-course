@@ -26,6 +26,20 @@ const NavBar = ({ user, menu }) => {
         </Link>
     }
 
+    const getLink = (to, label) => {
+        return <Box sx={{ p: 1 }}>
+            <Link  className='link' to={to} >
+                <Typography variant="button">{label}</Typography>
+            </Link>
+        </Box>
+    }
+    const getLinkUser = (user) => {
+        if(!user){
+            return getLink('/login', 'Login');
+        }
+        return user.length && getLink('/logout', 'Logout');
+    }
+
     return <AppBar position="static" sx={{ mb: 2 }} color="transparent">
         <Hidden mdUp>
             <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -41,16 +55,7 @@ const NavBar = ({ user, menu }) => {
                     <Divider />
                     <SideBarMenu menu={menu}></SideBarMenu>
                     <Divider />
-                    <Box sx={{ pt: 1 }}>
-                        {
-                            !user  && <Link className='link' to="login" >
-                                <Typography sx={{ pl: 2 }} variant="button"> Login</Typography>
-                            </Link>}
-                        { user && !menu.length && <Link to={"/logout"} >
-                                <Typography sx={{ pl: 2 }} variant="button">Logout</Typography>
-                            </Link>
-                        }
-                    </Box>
+                    { getLinkUser(user)}
                 </Box>
             </Drawer>
         </Hidden>
@@ -63,14 +68,8 @@ const NavBar = ({ user, menu }) => {
                     ))
                     }
                 </Hidden>
-                <Hidden mdDown >
-                    {!user && <Link className='link' to="login" >
-                        <Typography sx={{ pr: 2 }} variant="button"> Login</Typography>
-                    </Link>}
-                     {user && !menu.length && <Link className='link' to={"/logout"} >
-                                <Typography sx={{ pr: 2 }} variant="button">Logout</Typography>
-                            </Link>
-                    }
+                <Hidden mdDown>
+                    { getLinkUser(user)}
                 </Hidden>
                 <CartWidget  />
                 <Hidden mdUp>
