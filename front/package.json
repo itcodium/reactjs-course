@@ -28,7 +28,6 @@
     "build": "BUILD_PATH='./firebase-hosting/public' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mocks": "mocks-server",
     "publish": "cd firebase-hosting && firebase deploy --only hosting:rmix"
   },
   "eslintConfig": {
@@ -50,7 +49,6 @@
     ]
   },
   "devDependencies": {
-    "@mocks-server/main": "^3.1.0",
     "validator": "^13.7.0"
   }
 }
