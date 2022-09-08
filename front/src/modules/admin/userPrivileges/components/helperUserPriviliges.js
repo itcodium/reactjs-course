@@ -1,6 +1,4 @@
 import UserPrivilegesEdit from './UserPrivilegesEdit'
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
 export default function UserPrivilegesHelper() {
     let model = null;
     this.setModel = (data) => {

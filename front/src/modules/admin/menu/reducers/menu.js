@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import STATUS from '../../../../store/status';
 
-const loading = (state) => {
-    return Object.assign({}, state, {
-        status: STATUS.LOADING
-    });
-}
 const crud = (state) => {
     return Object.assign({}, state, {
         error: null,
@@ -34,23 +29,16 @@ const menu = createSlice({
             });
         },
         fetchMenu(state) {
-            return loading(state);
-        },
-        addSameLevel (state) {
-            return crud(state);
-        },
-        addChild (state){
-            return crud(state);
-        },
-        remove(state){
-            return crud(state);
-        }, 
-        update(state){
-            return crud(state);
-        },
-        addCrudSuccess(state, action){
             return Object.assign({}, state, {
-                response: action.payload.data,
+                status: STATUS.LOADING
+            });
+        },
+        addSameLevel: crud,
+        addChild: crud,
+        remove: crud, 
+        update: crud,
+        addCrudSuccess(state){
+            return Object.assign({}, state, {
                 error: null,
                 status: STATUS.SUCCESS
             })
@@ -61,7 +49,6 @@ const menu = createSlice({
                 error: null,
                 status: STATUS.SUCCESS
             });
-            
         },
         error: (state, action) => {
             return Object.assign({}, state, {

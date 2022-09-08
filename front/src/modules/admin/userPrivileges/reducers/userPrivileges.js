@@ -24,8 +24,8 @@ const userPrivileges = createSlice({
         init(state, action) {
             return Object.assign({}, state, {
                 data: action.payload || {},
+                status: STATUS.IDLE,
                 error: null,
-                status: STATUS.IDLE
             });
         },
         resetStatus(state) {
@@ -34,22 +34,8 @@ const userPrivileges = createSlice({
                 error: null,
             });
         },
-        fetchByUser(state){
-            return loading(state);
-        },
-        changeUserPrivilege(state){
-            return crud(state);
-        },
-        update(state){
-            return crud(state);
-        },
-        fetchByUserSuccess(state, action){
-            return Object.assign({}, state, {
-                data: action.payload,
-                error: null,
-                status: STATUS.SUCCESS
-            });
-        }, 
+        fetchByUser: loading,
+        changeUserPrivilege: crud,
         uiRefresh(state, action){
             let menu = menuFind(current(state).data, action.payload);
             return Object.assign({}, state, {

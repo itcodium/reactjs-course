@@ -1,7 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import { 
     fetchByUser, 
-    fetchByUserSuccess, 
     resetStatus,
     changeUserPrivilege, 
     uiRefresh,
@@ -20,7 +19,7 @@ function* fetchByUserSaga(params) {
         null,
         null,
         null,
-        fetchByUserSuccess.type
+        null
     );
 }
 
