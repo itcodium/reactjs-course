@@ -7,7 +7,7 @@ const styles = {
     },
     form: {
         width: '100%', // Fix IE 11 issue.
-        marginTop: 3,
+        marginTop: 0,
         justifyContent: "center",
     },
     actions: {

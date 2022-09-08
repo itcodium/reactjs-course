@@ -4,16 +4,16 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import DialogActions from '@mui/material/DialogActions';
 import CircularProgress from '@mui/material/CircularProgress';
 import styles from './user.style.js';
 import ValidateForm from '../../../../services/ValidateForm'
 import { updateItem } from '../reducers/user';
-import STATUS from '../../../../store/status';
+import { STATUS } from '../../../../App.exports';
 
 function UserUpdate({ handleClose, model } ) {
     const status = useSelector(state => state.admin.user?.status)
+    const user = useSelector(state => state.admin.user);
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         nombre: { value: model.nombre, valid: true },
@@ -37,7 +37,6 @@ function UserUpdate({ handleClose, model } ) {
         }
     }
     return (
-        <Container component="main" maxWidth="xs">
             <form sx={styles.form} noValidate>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
@@ -137,7 +136,6 @@ function UserUpdate({ handleClose, model } ) {
                         Aceptar</Button>
                 </DialogActions>
             </form>
-        </Container>
     );
 }
 

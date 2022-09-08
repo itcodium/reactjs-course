@@ -62,15 +62,7 @@ function App() {
 }
 
 export default App;
- // https://docs.google.com/document/d/1pj-gatjxqk7pv8uRv4gN3HBFVuQj3FhGQxwNy1gA2Uk/edit
+
+// https://docs.google.com/document/d/1pj-gatjxqk7pv8uRv4gN3HBFVuQj3FhGQxwNy1gA2Uk/edit
 // sx={{ mt: 4, mb: 4, pl: { xs:1}, mr: {xs:1 } }}
 
-/*
-
-{logIn.user ?:
-
-        }
-<Routes>
-            <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
-          </Routes>
-*/

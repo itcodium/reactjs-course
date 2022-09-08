@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import STATUS from '../../../../store/status';
+import { STATUS } from '../../../../App.exports';
 
 const crud = (state) => {
     return Object.assign({}, state, {

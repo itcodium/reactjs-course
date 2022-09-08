@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import STATUS from '../../../../store/status';
+import { STATUS } from '../../../../App.exports';
 
 const loading = (state) => {
     return Object.assign({}, state, {
@@ -72,7 +72,7 @@ export default userPrivileges.reducer;
  
 const menuFind = (menu, target) => {
     return menu.map(item => {
-        if (item.id_menu == target.id_menu) {
+        if (item.id_menu === target.id_menu) {
             item = { ...item, enabled: target.checked }
         }
         

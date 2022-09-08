@@ -11,7 +11,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import STATUS from '../../../../store/status';
+import {STATUS} from '../../../../App.exports';
 import classes from './menu.style';
 import { BasicModal } from '../../../../components/index';
 import {fetchMenu, resetStatus  } from '../reducers/menu';

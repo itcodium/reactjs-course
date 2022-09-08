@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import CartItem from './CartItem';
 import { getTotal } from '../reducers/cart';
 import { fetch, post } from '../reducers/orders';
-import STATUS from '../../../store/status';
+import { STATUS } from '../../../App.exports';
 import categories from "../data/categories.json";
 
 const Cart = ({ items, user }) => {

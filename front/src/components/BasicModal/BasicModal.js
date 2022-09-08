@@ -5,7 +5,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import STATUS from '../../store/status';
+import Divider from '@mui/material/Divider';
+import { STATUS } from '../../App.exports';
 
 function BasicModal({
     open,
@@ -24,7 +25,8 @@ function BasicModal({
         aria-describedby="alert-dialog-description"
     >
         <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-        <DialogContent sx={{ p: 2 }}>
+        <Divider />
+        <DialogContent>
             {status === STATUS.SUCCESS ?
                 <Box sx={{ textAlign: 'center' }} >
                     <Typography color="green" variant="overline" display="block" gutterBottom>
@@ -32,7 +34,8 @@ function BasicModal({
                     </Typography>
                     <Button onClick={() => { handleClose(status) }} color="primary">Aceptar</Button>
                 </Box>
-                : content}
+                : content 
+            }
             {
                 status === STATUS.ERROR ? <Typography color="red" variant="overline" display="block" gutterBottom>{error.message}</Typography> : null
             }

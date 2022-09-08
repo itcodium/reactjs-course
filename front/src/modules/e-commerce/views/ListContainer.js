@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector, useDispatch } from 'react-redux';
-import STATUS from '../../../store/status';
+import { STATUS } from '../../../App.exports';
 import ProductList from '../components/List'
 import Categories from '../components/Categories'
 import { fetch } from '../reducers/products'

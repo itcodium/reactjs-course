@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import classes from './user.style.js';
 import { removeItem } from '../reducers/user';
-import STATUS from '../../../../store/status';
+import { STATUS } from '../../../../App.exports';
 
 function UserDelete({model, handleClose}) {
     const user = useSelector(state => state.admin.user);

@@ -19,7 +19,7 @@ import styles from './BasicTable.style';
 import Edition from './Edition';
 import BasicModal from '../BasicModal/BasicModal';
 
-import STATUS from '../../store/status';
+import {STATUS} from '../../App.exports';
 
 function BasicTable({
     columns,

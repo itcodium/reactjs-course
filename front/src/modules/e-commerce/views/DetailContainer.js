@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 import ProductDetail from '../components/Detail'
-import STATUS from '../../../store/status';
+import { STATUS } from '../../../App.exports';
 import Categories from '../components/Categories';
 import { fetch } from '../reducers/detail';
 

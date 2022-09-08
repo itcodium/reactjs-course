@@ -6,7 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import classes from './menu.style.js';
-import STATUS from '../../../../store/status';
+import { STATUS } from '../../../../App.exports';
+
 import {remove } from '../reducers/menu';
 
 function MenuDelete({ model, handleClose }) {

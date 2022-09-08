@@ -12,7 +12,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import classes from './user.style.js';
 import ValidateForm from '../../../../services/ValidateForm'
 
-import STATUS from '../../../../store/status';
+import { STATUS } from '../../../../App.exports';
 import { saveFromModal, updateItem } from '../reducers/user';
 
 function UserCreate({handleClose, model}) {

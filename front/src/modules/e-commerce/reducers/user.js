@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import STATUS from '../../../store/status';
+import { STATUS } from '../../../App.exports';
 
 const user = createSlice({
     name: 'user',

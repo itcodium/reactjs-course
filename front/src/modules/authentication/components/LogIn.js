@@ -16,7 +16,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { loginUser } from '../reducers/login'
-import STATUS from '../../../store/status';
+import { STATUS } from '../../../App.exports';
 
 function LogIn() {
     const dispatch = useDispatch();
