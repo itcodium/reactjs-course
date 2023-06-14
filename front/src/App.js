@@ -25,6 +25,8 @@ import {
   UserPrivileges
 } from './modules/admin/index';
 
+import { FlickrContainer } from './modules/flickr/index';
+
 import PrivateRoute from './services/PrivateRoute';
 
 function App() {
@@ -40,6 +42,7 @@ function App() {
               <Route path="" element={<ProductsListContainer></ProductsListContainer>}></Route>
               <Route path="/:id" element={<ProductsListContainer></ProductsListContainer>}></Route>
               <Route path="/login" element={<LogInContainer></LogInContainer>}></Route>
+              <Route path="/flickr" element={<FlickrContainer></FlickrContainer>}></Route>
               <Route path="/productDetail/:id" element={<ProductsDetailContainer></ProductsDetailContainer>}></Route>
               <Route path="/cart" element={<CartListContainer></CartListContainer>}></Route>
               <Route path="/signup" element={<SignUpContainer></SignUpContainer>} />

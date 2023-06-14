@@ -17,8 +17,12 @@ const ProductsListContainer = () => {
     let { id } = useParams();
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        dispatch(fetch({ categoryId: id }));
-    }, [id])
+        console.log("STATUS.IDLE","*", STATUS.IDLE, id)
+        if(STATUS.IDLE){
+            console.log("STATUS.IDLE", STATUS.IDLE, id)
+            dispatch(fetch({ categoryId: id }));
+        }
+    }, [id, STATUS])
     return (
         <>
             <Categories></Categories>

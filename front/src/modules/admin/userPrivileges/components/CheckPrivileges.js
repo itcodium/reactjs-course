@@ -7,6 +7,11 @@ function CheckPrivileges({ user, menu }) {
     const dispatch = useDispatch();
     
     const handleChange = (event) => {
+        console.log({
+            id_usuario: user.id_usuario,
+            id_menu: event.target.value,
+            checked: event.target.checked
+        })
         dispatch(changeUserPrivilege({
             id_usuario: user.id_usuario,
             id_menu: event.target.value,

@@ -16,7 +16,7 @@ services:
     image: store_front
     working_dir: /usr/src/store/front
     ports:
-      - "3000:2999"
+      - "3000:3000"
     volumes:
       - ./front:/usr/src/store/front
       - /usr/src/store/front/node_modules

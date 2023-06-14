@@ -38,13 +38,16 @@ const userPrivileges = createSlice({
         changeUserPrivilege: crud,
         uiRefresh(state, action){
             let menu = menuFind(current(state).data, action.payload);
-            return Object.assign({}, state, {
+            const test = Object.assign({}, state, {
                 data: menu,
                 error: null,
                 status: STATUS.SUCCESS
             });
+            console.log({test});
+            return test;
         },
         success(state, action) {
+            console.log("state", action.payload);
             return Object.assign({}, state, {
                 data: action.payload,
                 error: null,
@@ -71,9 +74,13 @@ export const userPrivilegesState = (state) => state.userPrivileges;
 export default userPrivileges.reducer;
  
 const menuFind = (menu, target) => {
+    console.log({menu, target})
     return menu.map(item => {
-        if (item.id_menu === target.id_menu) {
-            item = { ...item, enabled: target.checked }
+        if (parseInt(item.id_menu) === parseInt(target.id_menu)) {
+            console.log("pre",{...item})
+            item = { ...item, enabled: target.checked ? 1 : 0  };
+            console.log("post",{...item})
+
         }
         
         if (item.items.length) {

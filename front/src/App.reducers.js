@@ -31,7 +31,7 @@ const appReducer = combineReducers({
 });
 
 const reducerRoot = (state, action) => {
-    console.log("+ reducerRoot (state, action) +", state, action)
+    // console.log("+ reducerRoot (state, action) +", state, action)
     let new_state = (action.type === 'LOGIN_SUCCESS') ? undefined : state;
     return appReducer(new_state, action)
 }
