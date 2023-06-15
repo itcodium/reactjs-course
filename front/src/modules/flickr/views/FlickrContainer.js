@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 
 const FlickrContainer = () => {
     useEffect(() => {
-        console.log("init -15")
+        console.log("init -16")
     }, [])
     return (
-        <>hello</>
+        <>hello environment: <b>- WATCHPACK_POLLING=true</b></>
     )
 }
 
