@@ -1,0 +1,161 @@
+var FlickrCaller = function (token, tokenSecret) {
+
+    var FLICKER = {
+        api_key: "4f7edeceada41893126c11c5a616f969",
+        secret: "23ce8628416f7165",
+        aplication: "Viupho flickr",
+        photoUrl: "http://www.flickr.com/photos"
+    };
+    let message = {};
+    let accessor = { consumerSecret: FLICKER.secret, tokenSecret: '518b249cee38effb' };
+
+    const OAUTH_VERSION = "1.0";
+    const OAUTH_SIGNATURE_METHOD = "HMAC-SHA1";
+
+    this.addParameter = function (name, value) {
+        message.parameters.push([name, value]);
+    }
+    this.getSignature = () => {
+        const res =  OAuth.percentEncode(
+            OAuth.getParameter(message.parameters, "oauth_signature")
+        );
+        return res;
+    }
+    this.getBase  = () => {
+        return OAuth.SignatureMethod.normalizeParameters(message.parameters);
+    }
+    this.getSignedUrl = () => {
+        OAuth.SignatureMethod.sign(message, accessor);
+        return message.action + "?" + this.getBase() + "&oauth_signature=" + this.getSignature();
+    }
+    this.getSignedUrlPost = () => {
+        return message.action + "?" + this.getBase();
+    }
+
+    this.getSignaturePost = () => {
+        var API_KEY = "4f7edeceada41893126c11c5a616f969";
+        var API_SECRET = "23ce8628416f7165";
+        var accessOauthToken = "72157720879119870-8bb736cabd4ee5e1";
+        var accessTokenSecret = '518b249cee38effb';
+        var upload_endpoint = "https://up.flickr.com/services/upload/";
+
+        accessor = { consumerSecret: API_SECRET, tokenSecret: accessTokenSecret };
+        message = { parameters: OAuth.decodeForm(""), method: 'POST', action: upload_endpoint  };
+        
+        this.addParameter("oauth_consumer_key", API_KEY);
+        this.addParameter("oauth_nonce", OAuth.nonce(32));
+        this.addParameter("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
+        this.addParameter("oauth_timestamp", OAuth.timestamp());
+        this.addParameter("oauth_token", accessOauthToken);
+        
+        OAuth.SignatureMethod.sign(message, accessor);
+        var base = OAuth.SignatureMethod.normalizeParameters(message.parameters);
+        const local_oauth_signature = OAuth.percentEncode(
+            OAuth.getParameter(message.parameters, "oauth_signature")
+        );
+        const url =message.action + "?" + base + "&oauth_signature=" + local_oauth_signature;
+        return  url;
+    }
+    /* original
+    this.getSignedUrl = () => {
+        OAuth.SignatureMethod.sign(message, accessor);
+        var base = OAuth.SignatureMethod.normalizeParameters(message.parameters);
+        this.oauth_signature = OAuth.percentEncode(
+            OAuth.getParameter(message.parameters, "oauth_signature")
+        );
+        return message.action + "?" + base + "&oauth_signature=" + this.oauth_signature;
+    }*/
+   
+
+    this.setAction = function (action, method = 'GET') {
+        message = { parameters: OAuth.decodeForm(""), method, action };
+        this.addParameter("oauth_nonce", OAuth.nonce(32));
+        this.addParameter("oauth_timestamp", OAuth.timestamp());
+        if ( method!= 'POST') {
+            this.addParameter("oauth_consumer_key", FLICKER.api_key);
+        }
+        this.addParameter("oauth_version", OAUTH_VERSION);
+        this.addParameter("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
+    }
+    this.baseCall = (url, method) => {
+        this.setAction(url || "https://www.flickr.com/services/rest" , method) ;
+        if ( method!= 'POST') {
+            this.addParameter("nojsoncallback", '1');
+            this.addParameter("format", 'json');
+        }
+        this.addParameter("oauth_token", token);
+    }
+    this.getUploadUrl = function () {
+        this.baseCall('https://up.flickr.com/services/upload/' , 'POST') ;
+        return this.getSignedUrlPost();
+    }
+
+    this.call = function (callback, params) {
+        this.baseCall();
+        params.forEach(item => {
+            this.addParameter(item.name, item.value);
+        });
+        const url = this.getSignedUrl();
+        fetch(url)
+            .then((response) => response.json())
+            .then(callback);
+    }
+
+    this.testLogin = function (callback) {
+        const params = [{ name: "method", value: 'flickr.test.login' }];
+        this.call(callback, params);
+    }
+    this.checkToken = function (callback) {
+        const params = [{ name: "method", value: 'flickr.auth.oauth.checkToken' }];
+        this.call(callback, params);
+    }
+    
+    this.getPhotoSetsList = function (callback) {
+        const params = [{ name: "method", value: 'flickr.photosets.getPhotos' }];
+        this.call(callback, params);
+    }
+    this.getPhotoSet = function (callback, idPhotoset) {
+        const params = [
+            { name: "method", value: 'flickr.photosets.getPhotos' },
+            { name: "photoset_id", value: idPhotoset }];
+        this.call(callback, params);
+    }
+    this.getPhotoSetPager = function (callback, idPhotoset, perPage, page) {
+        const params = [
+            { name: "method", value: 'flickr.photosets.getPhotos' },
+            { name: "photoset_id", value: idPhotoset },
+            { name: "per_page", value: perPage },
+            { name: "page", value: page }
+        ];
+        this.call(callback, params);
+    }
+    this.getPhotoInfo = function (callback, idPhoto) {
+        const params = [
+            { name: "method", value: 'flickr.photos.getInfo' },
+            { name: "photo_id", value: idPhoto }];
+        this.call(callback, params);
+    }
+    this.photosetsCreate = function (callback, title, description, primary_photo_id) {
+        const params = [{ name: "method", value: 'flickr.photosets.create' },
+        { name: "title", value: title },
+        { name: "description", value: description },
+        { name: "primary_photo_id", value: primary_photo_id }];
+        this.call(callback, params);
+    }
+    this.photosetsEditMeta = function (callback, photoset_id, title, description) {
+        const params = [{ name: "method", value: 'flickr.photosets.editMeta' },
+        { name: "photoset_id", value: photoset_id },
+        { name: "title", value: title },
+        { name: "description", value: description },
+        ];
+        this.call(callback, params);
+    }
+    this.photoSearch = function (callback, user_id) {
+        const params = [{ name: "method", value: 'flickr.photos.search' },
+        { name: "user_id", value: user_id },
+        { name: "extras", value: 'original_format' }];
+        this.call(callback, params);
+    }
+};
+
+ 

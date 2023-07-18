@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { queryStringToJSON } from '../../../libs/flickr/index';
 
 const FlickrContainer = () => {
     useEffect(() => {
-        console.log("init -16")
+        console.log("init -16", )
+        console.log("queryStringToJSON: ", queryStringToJSON("?test=hello&param=world"));
     }, [])
     return (
-        <>hello environment: <b>- WATCHPACK_POLLING=true</b></>
+        <>hello environment: <b>test</b></>
     )
 }
 

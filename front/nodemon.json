@@ -1,0 +1,8 @@
+{
+    "watch": ["./src/libs/**/*.ts"],
+    "ext": ".ts",
+    "ignore": ["public/*.*",".js"],
+    "exec22": "tsc --esModuleInterop",
+    "exec": "mocha -w -r ts-node/register src/libs/**/*.spec.ts",
+    "exect": "npx ts-node ./src/test.ts && node dist/app.js"
+}

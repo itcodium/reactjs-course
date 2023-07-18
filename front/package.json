@@ -27,6 +27,7 @@
     "start": "react-scripts start",
     "build": "BUILD_PATH='./firebase-hosting/public' react-scripts build",
     "test": "react-scripts test",
+    "test-mocha": "nodemon --legacy-watch",
     "eject": "react-scripts eject",
     "publish": "cd firebase-hosting && firebase deploy --only hosting:rmix"
   },
@@ -49,6 +50,19 @@
     ]
   },
   "devDependencies": {
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "typescript": "5.0.4",
+    "@typescript-eslint/parser": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "mocha": "10.2.0",
+    "@types/mocha": "latest",
+    "chai": "latest",
+    "@types/chai": "latest",
+    "sinon": "latest",
+    "@types/sinon": "latest",
+    "ts-node": "latest",
+    "nodemon": "2.0.22",
+    "@types/crypto-js": "4.1.1",
+    "crypto-js": "4.1.1"
   }
 }

@@ -26,9 +26,7 @@ import {
 } from './modules/admin/index';
 
 import { FlickrContainer } from './modules/flickr/index';
-
 import PrivateRoute from './services/PrivateRoute';
-
 function App() {
   const logIn = useSelector(state => state.login?.data);
   const menu = useSelector(state => state.login?.data);
