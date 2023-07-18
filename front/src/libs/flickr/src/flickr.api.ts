@@ -1,7 +1,7 @@
 
 import { IApiKey, IUserAuthorization, IParameter, IService } from './interfaces/oauth';
-import { Parameters } from './authentication';
-import { queryStringToJSON } from './utils';
+import { Parameters } from './authentication.ts';
+import { queryStringToJSON } from './utils.ts';
 import CryptoJS from "crypto-js";
 
 const FLICKR_URLS = {
@@ -37,23 +37,25 @@ export const FlickerApi = (function () {
         return FLICKR_URLS.user_authorize.url + "?oauth_token=" + userAuthorization.oauth_token;
     }
     const getAccessToken = (input: string) => {
-        const oauth_verifier = queryStringToJSON(input.split("?")[1]).oauth_verifier;
+        const new_oauth_token = queryStringToJSON(input.split("?")[1]);
+        const old_oauth_token = userAuthorization.oauth_token;
+
         const p = new Parameters();
         p.add("oauth_consumer_key", apiKey.key);
-        p.add("oauth_verifier", oauth_verifier);
-        p.add("oauth_token", userAuthorization.oauth_token);
+        p.add("oauth_verifier", new_oauth_token.oauth_verifier);
+        p.add("oauth_token", old_oauth_token);
 
         const baseUrlResult = p.getBaseUrl(FLICKR_URLS.access_token);
         p.add("oauth_signature", getSignature(baseUrlResult));
         return FLICKR_URLS.access_token.url + "?" + p.getUrlParameters();
     }
 
-    const exchangeRequestForAccessToken = (params: string) => {
-        let accessToken = queryStringToJSON(params) as IUserAuthorization;
-        userAuthorization.oauth_token_secret = accessToken.oauth_token_secret;
-        userAuthorization.oauth_token = accessToken.oauth_token;
+    const setToken = (params: string) => {
+        userAuthorization = queryStringToJSON(params) as IUserAuthorization;
     }
-
+    const getToken = () => {
+        return userAuthorization; 
+    }
     const checkToken = () => {
         const params: IParameter[] = [{
             name: "method",
@@ -69,7 +71,7 @@ export const FlickerApi = (function () {
         return call(params);
     }
 
-    const getPhotoSetById = (callback: any, photosetId: string) => {
+    const getPhotoSetById = ( photosetId: string) => {
         const params = [{ name: "method", value: 'flickr.photosets.getPhotos' },
         { name: "photoset_id", value: photosetId }];
         return call(params);
@@ -81,7 +83,7 @@ export const FlickerApi = (function () {
         return call(params);
     }
 
-    const getPhotoSetPager = (callback: any, idPhotoset: string, perPage: string, page: string) => {
+    const getPhotoSetPager = ( idPhotoset: string, perPage: string, page: string) => {
         const params = [
             { name: "method", value: 'flickr.photosets.getPhotos' },
             { name: "photoset_id", value: idPhotoset },
@@ -91,21 +93,27 @@ export const FlickerApi = (function () {
         return call(params);
     }
 
-    const getPhotoInfo = (callback: any, idPhoto: string) => {
+    const getPhotoInfo = ( idPhoto: string) => {
         const params = [
             { name: "method", value: 'flickr.photos.getInfo' },
             { name: "photo_id", value: idPhoto }];
         return call(params);
     }
 
-    const photoSearch = (callback: any, user_id: string) => {
+    const photoSearch = ( user_id: string) => {
         const params = [{ name: "method", value: 'flickr.photos.search' },
         { name: "user_id", value: user_id },
         { name: "extras", value: 'original_format' }];
         return call(params);
     }
+    const getPhotos = (user_id: string) => {
+        const params = [{ name: "method", value: 'flickr.people.getPhotos' },
+        { name: "user_id", value: user_id }];
+        return call(params);
+    }
 
-    const photosetsCreate = (callback: any, title: string, description: string, primary_photo_id: string) => {
+
+    const photosetsCreate = ( title: string, description: string, primary_photo_id: string) => {
         // POST
         const params = [{ name: "method", value: 'flickr.photosets.create' },
         { name: "title", value: title },
@@ -114,7 +122,7 @@ export const FlickerApi = (function () {
         return call(params);
     }
 
-    const photosetsEditMeta = (callback: any, title: string, description: string, photoset_id: string) => {
+    const photosetsEditMeta = ( title: string, description: string, photoset_id: string) => {
         // POST
         const params = [{ name: "method", value: 'flickr.photosets.editMeta' },
         { name: "photoset_id", value: photoset_id },
@@ -128,7 +136,7 @@ export const FlickerApi = (function () {
         return call([], FLICKR_URLS.upload);
         // return this.getSignedUrlPost();
     }
-    const call = (params: IParameter[], service: IService = FLICKR_URLS.rest_api ) => {
+    const call = (params: IParameter[], service: IService = FLICKR_URLS.rest_api) => {
         const p = new Parameters();
         p.add("nojsoncallback", "1");
         p.add("format", "json");
@@ -162,17 +170,19 @@ export const FlickerApi = (function () {
         getRequestToken: (url: string) => getRequestToken(url),
         getAuthorizationUrl: (param: string) => getAuthorizationUrl(param),
         getAccessToken: (url: string) => getAccessToken(url),
-        exchangeRequestForAccessToken: (param: string) => exchangeRequestForAccessToken(param),
+        setToken: (param: string) => setToken(param),
         checkToken: () => checkToken(),
         testLogin: () => testLogin(),
-        photoSearch: (callback: any, user_id: string) => photoSearch(callback, user_id),
-        getPhotoSetById: (callback: any, photosetId: string) => getPhotoSetById(callback, photosetId),
+        photoSearch: ( user_id: string) => photoSearch( user_id),
+        getPhotoSetById: ( photosetId: string) => getPhotoSetById( photosetId),
         getPhotoSetsList: (callback: any) => getPhotoSetsList(callback),
-        getPhotoSetPager: (callback: any, idPhotoset: string, perPage: string, page: string) => getPhotoSetPager(callback, idPhotoset, perPage, page),
-        getPhotoInfo: (callback: any, idPhoto: string) => getPhotoInfo(callback, idPhoto),
-        photosetsCreate: (callback: any, title: string, description: string, primary_photo_id: string) => photosetsCreate(callback, title, description, primary_photo_id),
-        photosetsEditMeta: (callback: any, title: string, description: string, primary_photo_id: string) => photosetsEditMeta(callback, title, description, primary_photo_id),
-        upload: () => upload()
+        getPhotoSetPager: ( idPhotoset: string, perPage: string, page: string) => getPhotoSetPager( idPhotoset, perPage, page),
+        getPhotoInfo: ( idPhoto: string) => getPhotoInfo( idPhoto),
+        photosetsCreate: ( title: string, description: string, primary_photo_id: string) => photosetsCreate( title, description, primary_photo_id),
+        photosetsEditMeta: ( title: string, description: string, primary_photo_id: string) => photosetsEditMeta( title, description, primary_photo_id),
+        upload: () => upload(),
+        getPhotos: (user_id: string) => getPhotos(user_id),
+        getToken: () => getToken(),
     };
 })();
 

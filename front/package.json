@@ -52,8 +52,6 @@
   "devDependencies": {
     "validator": "^13.7.0",
     "typescript": "5.0.4",
-    "@typescript-eslint/parser": "latest",
-    "@typescript-eslint/eslint-plugin": "latest",
     "mocha": "10.2.0",
     "@types/mocha": "latest",
     "chai": "latest",

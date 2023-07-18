@@ -7,10 +7,12 @@ export interface IOauth {
     oauth_version?: string;
 }
 export interface IUserAuthorization {
-    oauth_callback_confirmed?: string;
     oauth_token: string;
     oauth_token_secret: string;
+    oauth_verifier?: string;
+    oauth_callback_confirmed?: string;
 }
+
 export interface IParameter {
     [key: string]: string;
 }

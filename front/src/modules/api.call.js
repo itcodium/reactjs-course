@@ -1,4 +1,6 @@
 export default function ApiCall(url, params = {}, body) {
+    console.log("ApiCall: ", url)
+    const isFlickrUrl = !!(url.indexOf('www.flickr.com/services'))
     const token = localStorage.getItem('token');
     const id_usuario = localStorage.getItem('id_usuario');
 
@@ -6,11 +8,11 @@ export default function ApiCall(url, params = {}, body) {
     params.headers['Authorization'] = "Bearer " + token;
     params.headers['user_id'] = id_usuario;
 
-    const fetchParams = {
+    const fetchParams = !isFlickrUrl ? {
         method: params.method || 'GET',
         body: body ? JSON.stringify(body) : null,
         headers: params.headers
-    };
+    } : null;
     return fetch(url, fetchParams)
         .then(response => {
             return response.json();
@@ -18,6 +20,6 @@ export default function ApiCall(url, params = {}, body) {
             if (response.status === "error") {
                 throw response;
             }
-            return response;
+            return !isFlickrUrl ? response : { data: response };
         })
-}
+} 

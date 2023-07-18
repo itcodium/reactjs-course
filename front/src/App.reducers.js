@@ -17,6 +17,10 @@ import {
     userPrivilegesReducer,
 } from './modules/admin/index';
 
+import { 
+    flickrReducer, 
+} from './modules/flickr/index';
+
 const appReducer = combineReducers({
     products: productsReducer,
     productsDetail: productsDetailReducer,
@@ -28,6 +32,7 @@ const appReducer = combineReducers({
         userPrivileges: userPrivilegesReducer
     }),
     login: loginReducer,
+    flickr: flickrReducer,
 });
 
 const reducerRoot = (state, action) => {

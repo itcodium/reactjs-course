@@ -1,8 +1,8 @@
 /* reducers */
-// export { default as productsReducer } from './reducers/products'; 
+export { default as flickrReducer } from './reducers/index'; 
 
 /* sagas */
-// export { products } from './sagas/products';
+export { flickr } from './sagas/index';
 
 /* views */
 export { default as FlickrContainer} from './views/FlickrContainer';

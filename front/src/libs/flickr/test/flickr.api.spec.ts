@@ -28,7 +28,7 @@ describe("Flicker Api", () => {
    });
    it("Should get Access Token", () => {
       const access_token = "fullname=&oauth_token=72157720879119870-8bb736cabd4ee5e1&oauth_token_secret=518b249cee38effb&user_nsid=7549336%40N05&username=jmil77";
-      FlickerApi.exchangeRequestForAccessToken(access_token);
+      FlickerApi.setToken(access_token);
       expect(access_token).to.be.a('string');
    });
 

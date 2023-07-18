@@ -39,7 +39,6 @@ function* getAllUsers() {
 }
 
 export function* user() {
-    console.log("fetch.type, fetch", getAll.type);
      yield takeLatest(getAll.type, getAllUsers);
      yield takeLatest(saveFromModal.type, saveFromModalSaga);
      yield takeLatest(updateItem.type, updateSaga);
